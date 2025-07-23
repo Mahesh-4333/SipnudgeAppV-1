@@ -6,10 +6,14 @@ class BadgeWithConcentricBackground extends StatefulWidget {
   const BadgeWithConcentricBackground({super.key});
 
   @override
-  State<BadgeWithConcentricBackground> createState() => _BadgeWithConcentricBackgroundState();
+  State<BadgeWithConcentricBackground> createState() =>
+      _BadgeWithConcentricBackgroundState();
 }
 
-class _BadgeWithConcentricBackgroundState extends State<BadgeWithConcentricBackground> {
+class _BadgeWithConcentricBackgroundState
+    extends State<BadgeWithConcentricBackground> {
+  int currentLevel = 1; // Change this dynamically based on your logic
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +59,53 @@ class _BadgeWithConcentricBackgroundState extends State<BadgeWithConcentricBackg
                           child: Padding(
                             padding: EdgeInsets.only(left: 20.h),
                             child: Center(
-                              child: Image.asset(
-                                'assets/achievment.png',
-                                width: 330.w,
-                                height: 320.h,
-                                fit: BoxFit.contain,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Image.asset(
+                                    'assets/achievmentimage.png',
+                                    width: 330.w,
+                                    height: 320.h,
+                                    fit: BoxFit.contain,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 36.w),
+                                    child: ShaderMask(
+                                      shaderCallback:
+                                          (bounds) => const LinearGradient(
+                                            colors: [
+                                              Color(0xFF8C41FD),
+                                              Color(0xFF7800BD),
+                                              Color(0xFFAE58E0),
+                                              Color(0xFFA66CFD),
+                                            ],
+                                          ).createShader(
+                                            Rect.fromLTWH(
+                                              0,
+                                              0,
+                                              bounds.width,
+                                              bounds.height,
+                                            ),
+                                          ),
+                                      blendMode: BlendMode.srcIn,
+                                      child: Transform.translate(
+                                        offset: Offset(
+                                          0,
+                                          -5.h,
+                                        ), // moves text 10 logical pixels up (adjust as needed)
+                                        child: Text(
+                                          '$currentLevel', // dynamically shows the current level
+                                          style: TextStyle(
+                                            fontSize: 74.sp,
+                                            fontWeight: FontWeight.w900,
+                                            fontFamily: 'poppins-Bold',
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -69,89 +115,217 @@ class _BadgeWithConcentricBackgroundState extends State<BadgeWithConcentricBackg
                     // Congratulatory text
                     Padding(
                       padding: EdgeInsets.only(left: 20.w, top: 338.h),
-                          child: Center(
-                            child: Column(
-                            children: [
-                              Text(
-                                "You've Reached Level 7!",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              "You've Reached Level 7!",
+                              style: TextStyle(
+                                color: Color(0xFFFFFFFF),
+                                fontFamily: 'urbanist-bold',
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1.sp,
+                                shadows: [
+                                  Shadow(
+                                    color: Color(0x20000000),
+                                    offset: Offset(0, 2.r),
+                                    blurRadius: 4.r,
+                                  ),
+                                ],
                               ),
-                              SizedBox(height: 10.h),
-                              Padding(
-                                //padding: EdgeInsets.symmetric(horizontal: 40.w),
-                                padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                                child: Text(
+                            ),
+                            SizedBox(height: 10.h),
+                            Padding(
+                              //padding: EdgeInsets.symmetric(horizontal: 40.w),
+                              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                              child: Text(
                                 "Congratulations! You've reached goal of 350 water intake. Keep up the incredible effort!",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.white.withOpacity(0.8),
+                                  fontFamily: 'urbanist-SemiBold',
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFFFFFFFF).withOpacity(0.50),
                                   fontSize: 14.sp,
+                                  letterSpacing: 1.sp,
+                                  shadows: [
+                                    Shadow(
+                                      color: Color(0x20000000),
+                                      offset: Offset(0, 2.r),
+                                      blurRadius: 4.r,
+                                    ),
+                                  ],
                                 ),
                               ),
-                            )
-                          ]
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              
+
               SizedBox(height: 10.h),
-              
+
               // Achievement levels grid
               Expanded(
                 flex: 4,
                 child: Container(
                   //margin: EdgeInsets.symmetric(horizontal: 20.w),
-                  padding: EdgeInsets.only(left:25.w, right: 20.w),
+                  padding: EdgeInsets.only(left: 25.w, right: 20.w),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Color(0xFFFFFFFF).withOpacity(0.10),
                     borderRadius: BorderRadius.circular(40.r),
                   ),
                   child: GridView.builder(
-                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    padding: EdgeInsets.symmetric(vertical: 1.h),
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 5.w,
-                      mainAxisSpacing: 5.h,
-                      childAspectRatio: 0.8,
+                      mainAxisSpacing: 13.h,
+                      childAspectRatio: 0.66.r,
                     ),
                     itemCount: 10,
+                    /*itemBuilder: (context, index) {
+                      final level = index + 1;
+                      final isUnlocked = level <= 7;*/
                     itemBuilder: (context, index) {
                       final level = index + 1;
-                      final isUnlocked = level <= 7;
-                      
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: 122.w,
-                            height: 137.h,
-                            child: Center(
-                              child: isUnlocked
-                                  ? Image.asset(
-                                      'assets/l$level.png',
+                      final isUnlocked = level <= currentLevel;
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            currentLevel = level; // ✅ update level on tap
+                          });
+                        },
+
+                        //child: Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 0.h),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 122.w,
+                                height: 137.h,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20.w),
+                                  child: Center(
+                                    child: Image.asset(
+                                      isUnlocked
+                                          ? 'assets/img$level.png'
+                                          : 'assets/lockimg.png',
                                       width: 122.w,
                                       height: 137.h,
                                       fit: BoxFit.contain,
-                                    )
-                                  : Image.asset(
-                                      'assets/LL$level.png',
+                                      color:
+                                          isUnlocked ? null : Color(0xff888593),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Transform.translate(
+                                offset: Offset(0, -26.h),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Level $level',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'urbanist-bold',
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14.sp,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 4.h),
+                                    Text(
+                                      level == currentLevel
+                                          ? 'Current level'
+                                          : 'Weekly Intake: 15.4L',
+                                      style: TextStyle(
+                                        color: Colors.white70,
+                                        fontFamily: 'urbanist-regular',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12.sp,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        //),
+
+                        /*child: Flexible(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 122.w,
+                                height: 137.h,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 10.w),
+                                  child: Center(
+                                    child: Image.asset(
+                                      isUnlocked
+                                          ? 'assets/img$level.png'
+                                          : 'assets/lockimg.png',
                                       width: 122.w,
-                                      height: 137.w,
+                                      height: 137.h,
                                       fit: BoxFit.contain,
                                     ),
-                            ),
+                                  ),
+                                ),
+                              ),
+                              Transform.translate(
+                                offset: Offset(0, -32.h),
+                                child: Center(
+                                  child: Text(
+                                    'Level $level',
+                                    style: TextStyle(
+                                      color: Color(0xFFFFFFFF),
+                                      fontFamily: 'urbanist-bold',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          //SizedBox(height: 3.h),
-                          /*Padding(
+                        ),*/
+
+                        /*child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              width: 122.w,
+                              height: 137.h,
+                              child: Center(
+                                child:
+                                    isUnlocked
+                                        ? Image.asset(
+                                          'assets/l$level.png',
+                                          width: 122.w,
+                                          height: 137.h,
+                                          fit: BoxFit.contain,
+                                        )
+                                        : Image.asset(
+                                          'assets/LL$level.png',
+                                          width: 122.w,
+                                          height: 137.w,
+                                          fit: BoxFit.contain,
+                                        ),
+                              ),
+                            ),
+                            //SizedBox(height: 3.h),
+                            /*Padding(
                             padding: EdgeInsets.only(left: 20.w, right: 20.w),
                             child: Text(
                               'Level $level',
@@ -163,8 +337,8 @@ class _BadgeWithConcentricBackgroundState extends State<BadgeWithConcentricBackg
                               ),
                             ),
                           ),*/
-                          //SizedBox(height: 2.h),
-                          /*Text(
+                            //SizedBox(height: 2.h),
+                            /*Text(
                             isUnlocked ? 'Weekly Water: 3L' : 'Weekly Water: --',
                             style: TextStyle(
                               color: Colors.white.withOpacity(0.6),
@@ -173,7 +347,8 @@ class _BadgeWithConcentricBackgroundState extends State<BadgeWithConcentricBackg
                               fontSize: 9.sp,
                             ),
                           ),*/
-                        ],
+                          ],
+                        ),*/
                       );
                     },
                   ),
@@ -193,7 +368,8 @@ class ConcentricCirclesAnimation extends StatefulWidget {
   const ConcentricCirclesAnimation({super.key, required this.child});
 
   @override
-  State<ConcentricCirclesAnimation> createState() => _ConcentricCirclesAnimationState();
+  State<ConcentricCirclesAnimation> createState() =>
+      _ConcentricCirclesAnimationState();
 }
 
 class _ConcentricCirclesAnimationState extends State<ConcentricCirclesAnimation>
@@ -230,13 +406,15 @@ class _ConcentricCirclesAnimationState extends State<ConcentricCirclesAnimation>
 class ConcentricCirclePainter extends CustomPainter {
   final Animation<double> animation;
 
-  ConcentricCirclePainter({required this.animation}) : super(repaint: animation);
+  ConcentricCirclePainter({required this.animation})
+    : super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
+    final Paint paint =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2;
 
     final Offset center = Offset(size.width / 2.15, size.height / 2);
     final double maxRadius = min(size.width, size.height) / 1.8;
@@ -245,7 +423,12 @@ class ConcentricCirclePainter extends CustomPainter {
     for (int i = 0; i < circleCount; i++) {
       final double offset = (i + animation.value) % circleCount;
       final radius = (offset / circleCount) * maxRadius;
-      final color = Color.lerp(Color(0xFFF4D44E), Color(0xFF746080), offset / circleCount)!;
+      final color =
+          Color.lerp(
+            Color(0xFFF4D44E),
+            Color(0xFF746080),
+            offset / circleCount,
+          )!;
       paint.color = color.withOpacity(1 - (offset / circleCount));
       canvas.drawCircle(center, radius, paint);
     }

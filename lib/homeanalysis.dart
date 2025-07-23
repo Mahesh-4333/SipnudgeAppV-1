@@ -12,6 +12,8 @@ class HomeAnalysisPage extends StatefulWidget {
 }
 
 class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
+  bool isChartActive = true;
+
   String title = 'Analysis';
   String selectedPeriod = 'Weekly';
   // Current date for the date range
@@ -124,7 +126,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                               IconButton(
                                 icon: Icon(
                                   Icons.chevron_left,
-                                  size: 24.sp,
+                                  size: 30.sp,
                                   color: Color(0xFF212121),
                                 ),
                                 onPressed: () => _updateDateRange(false),
@@ -142,7 +144,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                               IconButton(
                                 icon: Icon(
                                   Icons.chevron_right,
-                                  size: 24.sp,
+                                  size: 30.sp,
                                   color: Color(0xFF9E9E9E),
                                 ),
                                 onPressed: () => _updateDateRange(true),
@@ -199,21 +201,33 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildNavItem(Icons.home, 'Home', title == 'Home'),
+                            _buildNavItem(
+                              Icons.home,
+                              'Home',
+                              title == 'Home',
+                              screenWidth,
+                              screenHeight,
+                            ),
                             _buildNavItem(
                               Icons.analytics_outlined,
                               'Analysis',
                               title == 'Analysis',
+                              screenWidth,
+                              screenHeight,
                             ),
                             _buildNavItem(
                               Icons.lightbulb_outline,
                               'Goals',
                               title == 'Goals',
+                              screenWidth,
+                              screenHeight,
                             ),
                             _buildNavItem(
                               Icons.settings,
                               'Settings',
                               title == 'Settings',
+                              screenWidth,
+                              screenHeight,
                             ),
                           ],
                         ),
@@ -256,12 +270,13 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
       barRods: [
         BarChartRodData(
           toY: y,
-          width: screenWidth * 0.06,
+          width: screenWidth * 0.08,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25.r)),
-          color: tappedIndex == x ? Color(0xFF8e00ff) : Color(0xFF6c00c3),
+          color: tappedIndex == x ? Color(0xFF6C00C3) : Color(0xFF834fad),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            color: Colors.white.withOpacity(0.1),
+            color: Color(0x10FFFFFF),
+            //color: Colors.white.withOpacity(0.1),
           ),
         ),
       ],
@@ -269,6 +284,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
     );
   }
 
+  // for water and food prcentage in hydration source
   Widget _buildLegendItem(String label, Color color, double screenWidth) {
     return Row(
       children: [
@@ -294,7 +310,116 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isActive) {
+  Widget _buildNavItem(
+    IconData icon,
+    String label,
+    bool isActive,
+    double screenWidth,
+    double screenHeight,
+  ) {
+    final assetPath = 'assets/${label.toLowerCase()}.png';
+    double scale = 1.0;
+
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return GestureDetector(
+          onTapDown: (_) => setState(() => scale = 0.9),
+          onTapUp: (_) => setState(() => scale = 1.0),
+          onTapCancel: () => setState(() => scale = 1.0),
+          onTap: () {
+            debugPrint('Tapped on: $label');
+            _handleBottomNavigation(label);
+          },
+          child: AnimatedScale(
+            scale: scale,
+            duration: const Duration(milliseconds: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: screenWidth * 0.2,
+                  height: screenHeight * 0.06,
+                  decoration: BoxDecoration(
+                    gradient:
+                        isActive
+                            ? const LinearGradient(
+                              colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            )
+                            : null,
+                    color: isActive ? null : Colors.transparent,
+                    borderRadius: BorderRadius.circular(48.r),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: const Offset(4, 4),
+                        color:
+                            isActive
+                                ? const Color(0x40000000)
+                                : Colors.transparent,
+                        blurRadius: 4,
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      width: screenWidth * 0.19,
+                      height: screenHeight * 0.055,
+                      decoration: BoxDecoration(
+                        gradient:
+                            isActive
+                                ? const LinearGradient(
+                                  colors: [
+                                    Color(0xFFB182BA),
+                                    Color(0xFF2D1B31),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                )
+                                : null,
+                        color: isActive ? null : Colors.transparent,
+                        borderRadius: BorderRadius.circular(46),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            assetPath,
+                            width: screenWidth * 0.06,
+                            height: screenWidth * 0.06,
+                            color: Colors.white,
+                            errorBuilder: (context, error, stackTrace) {
+                              debugPrint(
+                                'Error loading image: $assetPath - $error',
+                              );
+                              return Icon(
+                                icon,
+                                size: screenWidth * 0.055,
+                                color: Colors.white,
+                              );
+                            },
+                          ),
+                          Text(
+                            label,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.03,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+  /*Widget _buildNavItem(IconData icon, String label, bool isActive) {
     final assetPath = 'assets/${label.toLowerCase()}.png';
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -378,7 +503,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
         ],
       ),
     );
-  }
+  }*/
 
   void _handleBottomNavigation(String label) {
     setState(() {
@@ -469,13 +594,32 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                   fontFamily: 'Urbanist-Bold',
                 ),
               ),
-              Row(
-                children: [
-                  _chartIcon(screenWidth, Icons.bar_chart, true),
-                  SizedBox(width: screenWidth * 0.02),
-                  _chartIcon(screenWidth, Icons.pie_chart, false),
-                  //Icon(, size: 50.sp, color: Colors.white),
-                ],
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.010),
+                ),
+                child: Row(
+                  children: [
+                    _chartIcon(
+                      screenWidth: screenWidth,
+                      icon: Icons.bar_chart_rounded,
+                      isActive: isChartActive,
+                      onTap: () {
+                        setState(() => isChartActive = true);
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    _chartIcon(
+                      screenWidth: screenWidth,
+                      icon: Icons.insert_chart_outlined_rounded,
+                      isActive: !isChartActive,
+                      onTap: () {
+                        setState(() => isChartActive = false);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -544,29 +688,37 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                               '21',
                               '22',
                             ];
-                            return (value >= 0 && value < days.length)
-                                ? Text(
-                                  days[value.toInt()],
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: screenWidth * 0.03,
-                                  ),
-                                )
-                                : const Text('');
+                            return Padding(
+                              padding: EdgeInsets.only(top: 12.h),
+                              child:
+                                  (value >= 0 && value < days.length)
+                                      ? Text(
+                                        days[value.toInt()],
+                                        style: TextStyle(
+                                          color: Color(0xFFFFF8F8),
+                                          fontFamily: 'Urbanist-Medium',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: screenWidth * 0.030,
+                                        ),
+                                      )
+                                      : const Text(''),
+                            );
                           },
                         ),
                       ),
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 30,
+                          reservedSize: 32,
                           getTitlesWidget: (value, meta) {
                             return (value % 20 == 0)
                                 ? Text(
                                   '${value.toInt()}%',
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: screenWidth * 0.025,
+                                    color: Color(0xFFFFF8F8),
+                                    fontFamily: 'Urbanist-Medium',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: screenWidth * 0.030,
                                   ),
                                 )
                                 : const Text('');
@@ -597,10 +749,10 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                 /// Custom Tooltip Overlay
                 if (tappedIndex != null)
                   Positioned(
-                    top: 2,
+                    top: screenHeight * 0.01, // Slightly above the bars
                     left:
-                        screenWidth *
-                        (0.09 + tappedIndex! * 0.10), // Adjust for position
+                        screenWidth * (0.12 + tappedIndex! * 0.13) -
+                        (screenWidth * 0.065), // Center tooltip above bar
                     child: CustomTooltip(
                       percentage: _getValueByIndex(tappedIndex!),
                     ),
@@ -615,15 +767,88 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
     );
   }
 
-  Widget _chartIcon(double screenWidth, IconData icon, bool isActive) {
-    return Container(
-      padding: EdgeInsets.all(8.r),
-      decoration: BoxDecoration(
-        color:
-            isActive ? const Color(0xFFB586BE) : Colors.white.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(5.r),
+  /* Widget _chartIcon(
+    double screenWidth,
+    IconData icon,
+    bool isActive,
+    VoidCallback onTap,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: screenWidth * 0.13,
+        height: screenWidth * 0.13 * 0.6,
+        decoration: BoxDecoration(
+          color: isActive ? const Color(0xFF8E00FF) : Colors.transparent,
+          borderRadius: BorderRadius.circular(screenWidth * 0.010),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Icon(
+            icon,
+            size: screenWidth * 0.06,
+            color: isActive ? Colors.white : const Color(0xFFBDBDBD),
+          ),
+        ),
       ),
-      child: Icon(icon, color: Colors.white, size: 20.r),
+    );
+  }*/
+
+  Widget _chartIcon({
+    required double screenWidth,
+    required IconData icon,
+    required bool isActive,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: screenWidth * 0.11,
+        height: screenWidth * 0.13 * 0.6,
+        decoration: BoxDecoration(
+          color: isActive ? const Color(0xFF7C00FF) : const Color(0xFFF2F2F2),
+          borderRadius: BorderRadius.circular(screenWidth * 0.010),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 4,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Stack(
+            children: [
+              Center(
+                child: Icon(
+                  icon,
+                  color: isActive ? Colors.white : const Color(0xFF9D9D9D),
+                  size: screenWidth * 0.06,
+                ),
+              ),
+              if (!isActive)
+                Positioned(
+                  right: screenWidth * 0.025,
+                  top: screenWidth * 0.012,
+                  child: Container(
+                    width: screenWidth * 0.018,
+                    height: screenWidth * 0.018,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      //color: Color(0xFF7C00FF),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -714,39 +939,64 @@ class CustomTooltip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final outerCircleSize = screenWidth * 0.12;
-    final innerCircleSize = outerCircleSize * 0.75;
-    final fontSize = screenWidth * 0.025;
+    final outerSize = screenWidth * 0.13; // Size of purple image
+    final innerSize = outerSize * 0.75; // White circle should be ~75%
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          'assets/purple_circle.png', // or use a Container with purple background
-          width: outerCircleSize,
-          height: outerCircleSize * 1.15,
-        ),
-        Container(
-          width: innerCircleSize,
-          height: innerCircleSize,
-          margin: EdgeInsets.all(outerCircleSize * 0.13),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
+    return SizedBox(
+      width: outerSize,
+      height: outerSize * 1.15, // vertical extension to fit tail
+      child: Stack(
+        //alignment: Alignment.center,
+        children: [
+          /*Image.asset(
+            'assets/purple_circle.png',
+            width: outerSize,
+            height: outerSize * 1.15,
+            fit: BoxFit.contain,
           ),
-          child: Center(
+          Container(
+            width: innerSize,
+            height: innerSize,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                '$percentage%',
+                style: TextStyle(
+                  fontSize: screenWidth * 0.03,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontFamily: 'urbanist-Bold',
+                ),
+              ),
+            ),
+          ),*/
+          Image.asset(
+            'assets/Union1.png',
+            width: outerSize,
+            height: outerSize * 1.15,
+            fit: BoxFit.contain,
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 26.h, left: 2.w),
+            alignment: Alignment.bottomCenter,
             child: Text(
               '$percentage%',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.black,
-                fontSize: fontSize,
+                fontSize: 14.sp,
+                //fontSize: screenWidth * 0.03,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF424242),
                 fontFamily: 'urbanist-Bold',
-                fontWeight: FontWeight.bold,
               ),
             ),
           ),
-        ),
-      ],
+          //),
+        ],
+      ),
     );
   }
 }
