@@ -202,8 +202,8 @@ class _HomePageScreenState extends State<HomePageScreen>
         print("Found service: ${service.uuid}");
 
         // Check if this is our target service
-        if (service.uuid.toString().toUpperCase() ==
-            serviceUuid.toUpperCase()) {
+        if (service.uuid.toString().toLowerCase() ==
+            serviceUuid.toLowerCase()) {
           foundService = true;
           print("Found target service!");
 
@@ -212,14 +212,14 @@ class _HomePageScreenState extends State<HomePageScreen>
             print("Found characteristic: ${c.uuid}");
 
             // This is our RX characteristic (for writing)
-            if (c.uuid.toString().toUpperCase() == txCharUuid.toUpperCase()) {
+            if (c.uuid.toString().toLowerCase() == txCharUuid.toLowerCase()) {
               setState(() => status = "Setting up characteristic...");
               writeCharacteristic = c;
               print("Found write characteristic!");
             }
 
             // This is our TX characteristic (for notifications)
-            if (c.uuid.toString().toUpperCase() == rxCharUuid.toLowerCase()) {
+            if (c.uuid.toString().toLowerCase() == rxCharUuid.toLowerCase()) {
               print("Found notification characteristic!");
 
               // Set up notifications immediately
@@ -229,12 +229,10 @@ class _HomePageScreenState extends State<HomePageScreen>
                 if (data.isNotEmpty) {
                   final msg = String.fromCharCodes(data).split(";");
                   // print("Received data: $msg");
-
                   // Use RegExp to find key = value pairs
 
                   setState(() {
                     // _battery = msg[0].split("=")[1];
-
                     // final volumeStr = msg[1]
                     //     .split("=")[1]
                     //     .replaceAll(RegExp(r'[^\d.]'), '');
@@ -1344,10 +1342,10 @@ class _HomePageScreenState extends State<HomePageScreen>
         Navigator.pushNamed(context, '/analysis');
         break;
       case 'Goals':
-        Navigator.pushNamed(context, '/achievement');
+        Navigator.pushNamed(context, '/dailygoalpage');
         break;
       case 'Settings':
-        Navigator.pushNamed(context, '/profilescreen');
+        Navigator.pushNamed(context, '/preferences');
         break;
       default:
         debugPrint('No route defined for $label');

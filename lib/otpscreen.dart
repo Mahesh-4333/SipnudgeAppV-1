@@ -11,8 +11,10 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreen extends State<OtpScreen> {
-  final List<TextEditingController> _controllers =
-      List.generate(4, (_) => TextEditingController());
+  final List<TextEditingController> _controllers = List.generate(
+    4,
+    (_) => TextEditingController(),
+  );
 
   final List<FocusNode> _focusNodes = List.generate(4, (_) => FocusNode());
 
@@ -93,35 +95,38 @@ class _OtpScreen extends State<OtpScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Icons.arrow_back, size: 30, color: Colors.black),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    size: 30,
+                    color: Colors.black,
+                  ),
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.09,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.09),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                          children:  [
-                            Text(
-                              'Enter OTP Code',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontFamily: 'MuseoModerno-Bold',
-                                color: Color(0xFFFFFFFF),
-                              ),
+                        children: [
+                          Text(
+                            'Enter OTP Code',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontFamily: 'MuseoModerno-Bold',
+                              color: Color(0xFFFFFFFF),
                             ),
-                            SizedBox(width: 7),
-                            Image.asset('assets/otp_lock1.png',
+                          ),
+                          SizedBox(width: 7),
+                          Image.asset(
+                            'assets/otp_lock1.png',
                             width: 24,
                             height: 24,
                             //color: Colors.transparent,
-                            )
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
                       /*const Text(
                         'Enter OTP Code 🔐',
                         style: TextStyle(
@@ -145,7 +150,9 @@ class _OtpScreen extends State<OtpScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: List.generate(4, (index) {
                           return Padding(
-                            padding: EdgeInsets.only(right: index < 3 ? 12.0 : 0.0), // 10px gap except after last field
+                            padding: EdgeInsets.only(
+                              right: index < 3 ? 12.0 : 0.0,
+                            ), // 10px gap except after last field
                             //padding: const EdgeInsets.only(right: 6.0),
                             child: _buildOTPField(index),
                           );
@@ -164,7 +171,9 @@ class _OtpScreen extends State<OtpScreen> {
                             children: [
                               TextSpan(
                                 text: '$_start',
-                                style: const TextStyle(color: Color(0xFF53C1BC)),
+                                style: const TextStyle(
+                                  color: Color(0xFF53C1BC),
+                                ),
                               ),
                               const TextSpan(
                                 text: ' seconds',
@@ -173,7 +182,7 @@ class _OtpScreen extends State<OtpScreen> {
                                   fontFamily: 'Urbanist-Regular',
                                   color: Color(0xFFFFFFFF),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -181,18 +190,20 @@ class _OtpScreen extends State<OtpScreen> {
                       const SizedBox(height: 12),
                       Center(
                         child: GestureDetector(
-                          onTap: _isResendEnabled
-                              ? () {
-                                  startTimer();
-                                  // logic to resend OTP
-                                }
-                              : null,
+                          onTap:
+                              _isResendEnabled
+                                  ? () {
+                                    startTimer();
+                                    // logic to resend OTP
+                                  }
+                                  : null,
                           child: Text(
                             'Resend code',
                             style: TextStyle(
-                              color: _isResendEnabled
-                                  ? const Color(0xFF8BDEF3)
-                                  : Colors.grey,
+                              color:
+                                  _isResendEnabled
+                                      ? const Color(0xFF8BDEF3)
+                                      : Colors.grey,
                               fontFamily: 'Urbanist-SemiBold',
                               fontSize: 18,
                             ),
@@ -228,9 +239,10 @@ class _OtpScreen extends State<OtpScreen> {
                             child: const Text(
                               'Sign up',
                               style: TextStyle(
-                                fontSize: 16, 
+                                fontSize: 16,
                                 fontFamily: 'Urbanist-Bold',
-                                color: Color(0xFFFFFFFF)),
+                                color: Color(0xFFFFFFFF),
+                              ),
                             ),
                           ),
                         ),
@@ -248,12 +260,12 @@ class _OtpScreen extends State<OtpScreen> {
 
   Widget _buildOTPField(int index) {
     final screenWidth = MediaQuery.of(context).size.width;
-  final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
 
-      return Container(
-        width: screenWidth * 0.18, // ~18% of screen width
-        height: screenHeight * 0.07, // ~9% of screen height
-        decoration: BoxDecoration(
+    return Container(
+      width: screenWidth * 0.18, // ~18% of screen width
+      height: screenHeight * 0.07, // ~9% of screen height
+      decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
             color: Color(0x40000000),
@@ -275,9 +287,7 @@ class _OtpScreen extends State<OtpScreen> {
           filled: true,
           fillColor:
               _focusNodes[index].hasFocus ? Colors.transparent : Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
-          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r)),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.r),
             borderSide: const BorderSide(color: Color(0xFF53C1BC), width: 3),

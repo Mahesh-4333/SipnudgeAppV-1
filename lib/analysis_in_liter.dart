@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-class HomeAnalysisPage extends StatefulWidget {
-  const HomeAnalysisPage({super.key});
+class HomeAnalysisPageLinechart extends StatefulWidget {
+  const HomeAnalysisPageLinechart({super.key});
 
   @override
-  State<HomeAnalysisPage> createState() => _HomeAnalysisPageState();
+  State<HomeAnalysisPageLinechart> createState() =>
+      _HomeAnalysisPageLinechart();
 }
 
-class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
+class _HomeAnalysisPageLinechart extends State<HomeAnalysisPageLinechart> {
   bool isChartActive = true;
-
   String title = 'Analysis';
   String selectedPeriod = 'Weekly';
   // Current date for the date range
@@ -126,7 +126,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                               IconButton(
                                 icon: Icon(
                                   Icons.chevron_left,
-                                  size: 30.sp,
+                                  size: 24.sp,
                                   color: Color(0xFF212121),
                                 ),
                                 onPressed: () => _updateDateRange(false),
@@ -144,7 +144,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                               IconButton(
                                 icon: Icon(
                                   Icons.chevron_right,
-                                  size: 30.sp,
+                                  size: 24.sp,
                                   color: Color(0xFF9E9E9E),
                                 ),
                                 onPressed: () => _updateDateRange(true),
@@ -270,13 +270,12 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
       barRods: [
         BarChartRodData(
           toY: y,
-          width: screenWidth * 0.08,
+          width: screenWidth * 0.06,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25.r)),
-          color: tappedIndex == x ? Color(0xFF6C00C3) : Color(0xFF834fad),
+          color: tappedIndex == x ? Color(0xFF8e00ff) : Color(0xFF6c00c3),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            color: Color(0x10FFFFFF),
-            //color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withOpacity(0.1),
           ),
         ),
       ],
@@ -284,7 +283,6 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
     );
   }
 
-  // for water and food prcentage in hydration source
   Widget _buildLegendItem(String label, Color color, double screenWidth) {
     return Row(
       children: [
@@ -419,89 +417,114 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
       },
     );
   }
-  /*Widget _buildNavItem(IconData icon, String label, bool isActive) {
-    final assetPath = 'assets/${label.toLowerCase()}.png';
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
-    return InkWell(
-      onTap: () {
-        debugPrint('Tapped on: $label');
-        _handleBottomNavigation(label);
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: screenWidth * 0.2,
-            height: screenHeight * 0.06,
-            decoration: BoxDecoration(
-              gradient:
-                  isActive
-                      ? const LinearGradient(
-                        colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      )
-                      : null,
-              color: isActive ? null : Colors.transparent,
-              borderRadius: BorderRadius.circular(48.r),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(4, 4),
-                  color:
-                      isActive ? const Color(0x40000000) : Colors.transparent,
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(1.w),
-              child: Container(
-                width: screenWidth * 0.19,
-                height: screenHeight * 0.055,
+  /* Widget _buildNavItem(
+    IconData icon,
+    String label,
+    bool isActive,
+    double screenWidth,
+    double screenHeight,
+  ) {
+    final assetPath = 'assets/${label.toLowerCase()}.png';
+    double scale = 1.0;
+
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return GestureDetector(
+          onTapDown: (_) => setState(() => scale = 0.70),
+          onTapUp: (_) => setState(() => scale = 0.90),
+          onTapCancel: () => setState(() => scale = 0.90),
+          onTap: () {
+            debugPrint('Tapped on: $label');
+            _handleBottomNavigation(label);
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: screenWidth * 0.2,
+                height: screenHeight * 0.06,
                 decoration: BoxDecoration(
                   gradient:
                       isActive
                           ? const LinearGradient(
-                            colors: [Color(0xFFB182BA), Color(0xFF2D1B31)],
+                            colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           )
                           : null,
                   color: isActive ? null : Colors.transparent,
-                  borderRadius: BorderRadius.circular(46.r),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      assetPath,
-                      width: 24,
-                      height: 24,
-                      color: Colors.white,
-                      errorBuilder: (context, error, stackTrace) {
-                        debugPrint('Error loading image: $assetPath - $error');
-                        return Icon(icon, size: 22, color: Colors.white);
-                      },
-                    ),
-                    Text(
-                      label,
-                      style: TextStyle(
-                        color: const Color(0xFFFFFFFF),
-                        fontSize: 12.sp,
-                        fontFamily: 'Lexend-Regular',
-                        fontWeight:
-                            isActive ? FontWeight.w300 : FontWeight.normal,
-                      ),
+                  borderRadius: BorderRadius.circular(48.r),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(4, 4),
+                      color:
+                          isActive
+                              ? const Color(0x40000000)
+                              : Colors.transparent,
+                      blurRadius: 4,
                     ),
                   ],
                 ),
+                child: AnimatedScale(
+                  scale: scale,
+                  duration: const Duration(milliseconds: 100),
+                  child: Padding(
+                    padding: EdgeInsets.all(1.r),
+                    child: Container(
+                      width: screenWidth * 0.19,
+                      height: screenHeight * 0.055,
+                      decoration: BoxDecoration(
+                        gradient:
+                            isActive
+                                ? const LinearGradient(
+                                  colors: [
+                                    Color(0xFFB182BA),
+                                    Color(0xFF2D1B31),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                )
+                                : null,
+                        color: isActive ? null : Colors.transparent,
+                        borderRadius: BorderRadius.circular(46.r),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            assetPath,
+                            width: screenWidth * 0.06,
+                            height: screenWidth * 0.06,
+                            color: Colors.white,
+                            errorBuilder: (context, error, stackTrace) {
+                              debugPrint(
+                                'Error loading image: $assetPath - $error',
+                              );
+                              return Icon(
+                                icon,
+                                size: screenWidth * 0.055,
+                                color: Colors.white,
+                              );
+                            },
+                          ),
+                          Text(
+                            label,
+                            style: TextStyle(
+                              color: const Color(0xFFFFFFFF),
+                              fontSize: screenWidth * 0.03,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }*/
 
@@ -518,11 +541,10 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
         Navigator.pushNamed(context, '/analysis');
         break;
       case 'Goals':
-        Navigator.pushNamed(context, '/achievement');
+        Navigator.pushNamed(context, '/dailygoalpage');
         break;
       case 'Settings':
-        //Navigator.pushNamed(context, '/preferences');
-        Navigator.pushNamed(context, '/profilescreen');
+        Navigator.pushNamed(context, '/preferences');
         break;
       default:
         debugPrint('No route defined for $label');
@@ -578,7 +600,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
       padding: EdgeInsets.all(screenWidth * 0.04),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
       ),
       child: Column(
         children: [
@@ -587,7 +609,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Drink Completion',
+                'Drink Completion(L)',
                 style: TextStyle(
                   color: Color(0xFFFFFFFF),
                   fontSize: screenWidth * 0.045,
@@ -638,166 +660,173 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
               alignment: Alignment.topCenter,
               children: [
                 /// Chart UI
-                BarChart(
-                  BarChartData(
-                    alignment: BarChartAlignment.spaceAround,
-                    maxY: 100,
-                    barTouchData: BarTouchData(
-                      enabled: true,
-                      touchTooltipData: BarTouchTooltipData(
-                        tooltipBgColor: Colors.transparent,
-                        tooltipPadding: EdgeInsets.zero,
-                        tooltipMargin: 8,
-                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                          // Return transparent item to suppress default tooltip
-                          return BarTooltipItem(
-                            '',
-                            TextStyle(color: Colors.transparent),
-                          );
+                Padding(
+                  padding: EdgeInsets.only(left: 10.w, top: 12.h),
+                  child: LineChart(
+                    LineChartData(
+                      minX: 0,
+                      maxX: 6,
+                      minY: 0,
+                      maxY: 100,
+                      gridData: FlGridData(show: false),
+                      titlesData: FlTitlesData(
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            interval: 1,
+                            reservedSize: 32,
+                            getTitlesWidget: (value, meta) {
+                              const days = [
+                                '16',
+                                '17',
+                                '18',
+                                '19',
+                                '20',
+                                '21',
+                                '22',
+                              ];
+                              if (value.toInt() >= 0 &&
+                                  value.toInt() < days.length) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.w,
+                                    top: 10.h,
+                                  ),
+                                  child: Text(
+                                    days[value.toInt()],
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: Colors.white,
+                                      fontFamily: 'Urbanist-Regular',
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            interval: 20,
+                            reservedSize: 50,
+                            getTitlesWidget:
+                                (value, meta) => Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 10.h,
+                                    right: 6.w,
+                                  ),
+                                  child: Text(
+                                    '${value.toInt()}%',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Urbanist-Medium',
+                                    ),
+                                  ),
+                                ),
+                          ),
+                        ),
+                      ),
+                      borderData: FlBorderData(show: false),
+                      lineBarsData: [
+                        LineChartBarData(
+                          isCurved: false,
+                          color: Color(0xFF733D9E),
+                          barWidth: 3,
+                          belowBarData: BarAreaData(
+                            show: true,
+                            gradient: LinearGradient(
+                              colors: [
+                                const Color(0xFF0085FF).withOpacity(0.5),
+                                const Color(0xFF2D6497).withOpacity(0.2),
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          ),
+                          dotData: FlDotData(
+                            show: true,
+                            getDotPainter: (spot, percent, barData, index) {
+                              return FlDotCirclePainter(
+                                radius: 6,
+                                color: Colors.white,
+                                strokeColor: Colors.deepPurple,
+                                strokeWidth: 3,
+                              );
+                            },
+                          ),
+                          spots: const [
+                            FlSpot(0, 90),
+                            FlSpot(1, 70),
+                            FlSpot(2, 95),
+                            FlSpot(3, 65),
+                            FlSpot(4, 80),
+                            FlSpot(5, 95),
+                            FlSpot(6, 60),
+                          ],
+                        ),
+                      ],
+                      lineTouchData: LineTouchData(
+                        touchTooltipData: LineTouchTooltipData(
+                          tooltipRoundedRadius: 10,
+                          tooltipBgColor: Colors.white,
+                          getTooltipItems: (touchedSpots) {
+                            return touchedSpots.map((spot) {
+                              final value = spot.y;
+                              return LineTooltipItem(
+                                '${(value * 0.03).toStringAsFixed(1)}L', // approximate L value
+                                const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
+                              );
+                            }).toList();
+                          },
+                        ),
+                        handleBuiltInTouches: true,
+                        getTouchedSpotIndicator: (barData, spotIndexes) {
+                          return spotIndexes.map((i) {
+                            return TouchedSpotIndicatorData(
+                              FlLine(color: Colors.transparent),
+                              FlDotData(show: true),
+                            );
+                          }).toList();
                         },
                       ),
-                      touchCallback: (
-                        FlTouchEvent event,
-                        BarTouchResponse? response,
-                      ) {
-                        if (event.isInterestedForInteractions &&
-                            response != null &&
-                            response.spot != null) {
-                          setState(() {
-                            tappedIndex = response.spot!.touchedBarGroupIndex;
-                          });
-                        } else {
-                          setState(() {
-                            tappedIndex = null;
-                          });
-                        }
-                      },
                     ),
-                    titlesData: FlTitlesData(
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 30,
-                          getTitlesWidget: (value, meta) {
-                            const days = [
-                              '16',
-                              '17',
-                              '18',
-                              '19',
-                              '20',
-                              '21',
-                              '22',
-                            ];
-                            return Padding(
-                              padding: EdgeInsets.only(top: 12.h),
-                              child:
-                                  (value >= 0 && value < days.length)
-                                      ? Text(
-                                        days[value.toInt()],
-                                        style: TextStyle(
-                                          color: Color(0xFFFFF8F8),
-                                          fontFamily: 'Urbanist-Medium',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: screenWidth * 0.030,
-                                        ),
-                                      )
-                                      : const Text(''),
-                            );
-                          },
-                        ),
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 32,
-                          getTitlesWidget: (value, meta) {
-                            return (value % 20 == 0)
-                                ? Text(
-                                  '${value.toInt()}%',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFF8F8),
-                                    fontFamily: 'Urbanist-Medium',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: screenWidth * 0.030,
-                                  ),
-                                )
-                                : const Text('');
-                          },
-                        ),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                    ),
-                    borderData: FlBorderData(show: false),
-                    gridData: FlGridData(show: false),
-                    barGroups: [
-                      _buildBarGroup(0, 100, screenWidth),
-                      _buildBarGroup(1, 70, screenWidth),
-                      _buildBarGroup(2, 90, screenWidth),
-                      _buildBarGroup(3, 100, screenWidth),
-                      _buildBarGroup(4, 85, screenWidth),
-                      _buildBarGroup(5, 95, screenWidth),
-                      _buildBarGroup(6, 75, screenWidth),
-                    ],
                   ),
                 ),
 
                 /// Custom Tooltip Overlay
-                if (tappedIndex != null)
-                  Positioned(
-                    top: screenHeight * 0.01, // Slightly above the bars
-                    left:
-                        screenWidth * (0.12 + tappedIndex! * 0.13) -
-                        (screenWidth * 0.065), // Center tooltip above bar
-                    child: CustomTooltip(
-                      percentage: _getValueByIndex(tappedIndex!),
-                    ),
-                  ),
+                // if (tappedIndex != null)
+                //   Positioned(
+                //     top: 2,
+                //     left:
+                //         screenWidth *
+                //         (0.09 + tappedIndex! * 0.10), // Adjust for position
+                //     child: CustomTooltip(
+                //       percentage: _getValueByIndex(tappedIndex!),
+                //     ),
+                //   ),
               ],
             ),
           ),
+
           SizedBox(height: screenHeight * 0.01),
         ],
       ),
     );
   }
-
-  /* Widget _chartIcon(
-    double screenWidth,
-    IconData icon,
-    bool isActive,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: screenWidth * 0.13,
-        height: screenWidth * 0.13 * 0.6,
-        decoration: BoxDecoration(
-          color: isActive ? const Color(0xFF8E00FF) : Colors.transparent,
-          borderRadius: BorderRadius.circular(screenWidth * 0.010),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Icon(
-            icon,
-            size: screenWidth * 0.06,
-            color: isActive ? Colors.white : const Color(0xFFBDBDBD),
-          ),
-        ),
-      ),
-    );
-  }*/
 
   Widget _chartIcon({
     required double screenWidth,
@@ -932,70 +961,37 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
 }
 
 class CustomTooltip extends StatelessWidget {
-  final int percentage;
-  const CustomTooltip({required this.percentage, super.key});
+  final String valueText; // e.g., '2.1L'
+  const CustomTooltip({required this.valueText, super.key});
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final outerSize = screenWidth * 0.13; // Size of purple image
-    final innerSize = outerSize * 0.75; // White circle should be ~75%
+    final outerCircleSize = screenWidth * 0.12;
 
-    return SizedBox(
-      width: outerSize,
-      height: outerSize * 1.15, // vertical extension to fit tail
-      child: Stack(
-        //alignment: Alignment.center,
-        children: [
-          /*Image.asset(
-            'assets/purple_circle.png',
-            width: outerSize,
-            height: outerSize * 1.15,
-            fit: BoxFit.contain,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Image.asset('assets/purple_circle.png', width: outerCircleSize),
+        Container(
+          width: outerCircleSize * 0.7,
+          height: outerCircleSize * 0.7,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
           ),
-          Container(
-            width: innerSize,
-            height: innerSize,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Text(
-                '$percentage%',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.03,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontFamily: 'urbanist-Bold',
-                ),
-              ),
-            ),
-          ),*/
-          Image.asset(
-            'assets/Union1.png',
-            width: outerSize,
-            height: outerSize * 1.15,
-            fit: BoxFit.contain,
-          ),
-          Container(
-            padding: EdgeInsets.only(bottom: 26.h, left: 2.w),
-            alignment: Alignment.bottomCenter,
+          child: Center(
             child: Text(
-              '$percentage%',
-              textAlign: TextAlign.center,
+              valueText,
               style: TextStyle(
-                fontSize: 14.sp,
-                //fontSize: screenWidth * 0.03,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF424242),
-                fontFamily: 'urbanist-Bold',
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: screenWidth * 0.03,
               ),
             ),
           ),
-          //),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

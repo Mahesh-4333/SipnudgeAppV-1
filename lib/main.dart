@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart' show ScreenUtilInit;
-import 'package:flutterapp1/achievement.dart';
 import 'package:flutterapp1/homepage.dart';
 //import 'package:flutterapp1/homepage.dart';
 

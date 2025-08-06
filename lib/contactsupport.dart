@@ -9,15 +9,10 @@ class CustomerSupportPage extends StatefulWidget {
 }
 
 class _CustomerSupportPageState extends State<CustomerSupportPage> {
-  String title = 'Home'; // Add this line to track active tab
-  
+  String title = 'Home';
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final screenWidth = size.width;
-    final screenHeight = size.height;
-    final fontScale = screenWidth / 375;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -34,34 +29,31 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
             child: SafeArea(
               child: Column(
                 children: [
-                  // Top user info
+                  // Top bar
                   Padding(
                     padding: EdgeInsets.only(
-                      top: screenHeight * 0.05,
-                      left: screenWidth * 0.06,
-                      right: screenWidth * 0.05,
+                      top: 40.h,
+                      left: 20.w,
+                      right: 20.w,
                     ),
                     child: Row(
                       children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            //shape: BoxShape.circle,
-                            color: Colors.transparent,
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Color(0xFF212121),
+                            size: 30.sp,
                           ),
-                          child: IconButton(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            }, icon: Icon(Icons.arrow_back, color: Colors.black, size: 30,
-                            )),
                         ),
-                        SizedBox(width: screenWidth  * 0.14),
-                        const Text(
+                        SizedBox(width: 50.w),
+                        Text(
                           'Customer Support',
                           style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 24,
+                            color: Colors.white,
+                            fontSize: 24.sp,
                             fontFamily: 'urbanist-Bold',
                             fontWeight: FontWeight.w700,
                           ),
@@ -69,56 +61,48 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.06),
+                  SizedBox(height: 50.h),
+
+                  // Buttons
                   Padding(
-                    padding: EdgeInsets.only(left: screenWidth * 0.08, right: screenWidth * 0.08),
-                      child: Column(
-                        children: [
-                          buildSocialButton(
-                            iconPath: 'assets/cs.png', 
-                            label: 'Customer Support', 
-                            onPressed: (){
-                              //Navigator.pushNamed(context, '/contact_support');
-                            }, 
-                            fontScale: fontScale),
-                            SizedBox(height: screenHeight * 0.025),
-                            buildSocialButton(
-                            iconPath: 'assets/Website.png', 
-                            label: 'Website', 
-                            onPressed: (){
-                              //Navigator.pushNamed(context, '/website');
-                            }, 
-                            fontScale: fontScale),
-                            SizedBox(height: screenHeight * 0.025),
-                            buildSocialButton(
-                            iconPath: 'assets/Whatsapp.png', 
-                            label: 'WhatsApp', 
-                            onPressed: (){
-                              //Navigator.pushNamed(context, '/whatsapp');
-                            }, 
-                            fontScale: fontScale),
-                            SizedBox(height: screenHeight * 0.025),
-                            buildSocialButton(
-                            iconPath: 'assets/Instagram.png', 
-                            label: 'Instagram', 
-                            onPressed: (){
-                              //Navigator.pushNamed(context, '/instagram');
-                            }, 
-                            fontScale: fontScale),
-                        ],
-                      ),
+                    padding: EdgeInsets.symmetric(horizontal: 30.w),
+                    child: Column(
+                      children: [
+                        buildSocialButton(
+                          iconPath: 'assets/customersupporticon.png',
+                          label: 'Customer Support',
+                          onPressed: () {},
+                        ),
+                        SizedBox(height: 20.h),
+                        buildSocialButton(
+                          iconPath: 'assets/websiteicon.png',
+                          label: 'Website',
+                          onPressed: () {},
+                        ),
+                        SizedBox(height: 20.h),
+                        buildSocialButton(
+                          iconPath: 'assets/whatsappicon.png',
+                          label: 'WhatsApp',
+                          onPressed: () {},
+                        ),
+                        SizedBox(height: 20.h),
+                        buildSocialButton(
+                          iconPath: 'assets/instaicon.png',
+                          label: 'Instagram',
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                    const Spacer(),
-                    Container(
-                      height: screenHeight * 0.09,
-                      margin: EdgeInsets.only(
-                      left: screenWidth * 0.05,
-                      right: screenWidth * 0.05,
-                      bottom: screenHeight * 0.03,
-                      top: screenHeight * 0.05,
-                    ),
+                  ),
+
+                  const Spacer(),
+
+                  // Bottom Navigation
+                  Container(
+                    height: 70.h,
+                    margin: EdgeInsets.symmetric(horizontal: 20.w),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(90),
+                      borderRadius: BorderRadius.circular(90.r),
                       gradient: const LinearGradient(
                         colors: [Color(0xFF3F3F3F), Color(0xFFFFFFFF)],
                         begin: Alignment.bottomCenter,
@@ -126,19 +110,32 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(1),
+                      padding: EdgeInsets.all(1.w),
                       child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
                         decoration: BoxDecoration(
                           color: const Color(0xFF2B2536),
-                          borderRadius: BorderRadius.circular(90),
+                          borderRadius: BorderRadius.circular(90.r),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             _buildNavItem(Icons.home, 'Home', title == 'Home'),
-                            _buildNavItem(Icons.analytics_outlined, 'Analysis', title == 'Analysis'),
-                            _buildNavItem(Icons.lightbulb_outline, 'Goals', title == 'Goals'),
-                            _buildNavItem(Icons.settings, 'Settings', title == 'Settings'),
+                            _buildNavItem(
+                              Icons.analytics_outlined,
+                              'Analysis',
+                              title == 'Analysis',
+                            ),
+                            _buildNavItem(
+                              Icons.lightbulb_outline,
+                              'Goals',
+                              title == 'Goals',
+                            ),
+                            _buildNavItem(
+                              Icons.settings,
+                              'Settings',
+                              title == 'Settings',
+                            ),
                           ],
                         ),
                       ),
@@ -148,25 +145,25 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
               ),
             ),
           ),
-        ]
+        ],
       ),
     );
   }
+
   Widget buildSocialButton({
     required String iconPath,
     required String label,
     Color? iconColor,
     required VoidCallback onPressed,
-    required double fontScale,
   }) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(1000),
+        borderRadius: BorderRadius.circular(1000.r),
         boxShadow: [
           BoxShadow(
-            color: Color(0x40000000),
-            offset: const Offset(0, 4),
-            blurRadius: 2,
+            color: const Color(0x40000000),
+            offset: Offset(4.r, 4.r),
+            blurRadius: 4.r,
           ),
         ],
       ),
@@ -175,125 +172,134 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           backgroundColor: Colors.white,
-          padding: EdgeInsets.symmetric(
-              horizontal: 20 * fontScale, vertical: 16 * fontScale),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(1000),
+            borderRadius: BorderRadius.circular(1000.r),
           ),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(iconPath,
-                width: 24 * fontScale,
-                height: 24 * fontScale,
-                color: iconColor),
-            SizedBox(width: 46 * fontScale),
+            Image.asset(iconPath, width: 24.w, height: 24.w, color: iconColor),
+            SizedBox(width: 16.w),
             Text(
               label,
               style: TextStyle(
                 color: const Color(0xFF212121),
                 fontFamily: 'Urbanist-Bold',
-                fontSize: 16 * fontScale,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w700,
               ),
             ),
-            //SizedBox(width: 46 * fontScale),
             const Spacer(),
-            Icon(
-              Icons.chevron_right,
-              color: Color(0xFF000000),
-              size: 24.sp,
-            ),
+            Icon(Icons.chevron_right, color: Colors.black, size: 24.sp),
           ],
         ),
       ),
     );
   }
+
   Widget _buildNavItem(IconData icon, String label, bool isActive) {
     final assetPath = 'assets/${label.toLowerCase()}.png';
+    double scale = 1.0;
 
-    return InkWell(
-      onTap: () {
-        debugPrint('Tapped on: $label');
-        _handleNavigation(label);
-      },
-      child:  Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 82,
-            height: 60,
-            decoration: BoxDecoration(
-              gradient: isActive
-                  ? const LinearGradient(
-                      colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    )
-                  : null,
-              color: isActive ? null : Colors.transparent,
-              borderRadius: BorderRadius.circular(48),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(4, 4),
-                  color: isActive ? const Color(0x40000000) : Colors.transparent,
-                  blurRadius: 4,
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return GestureDetector(
+          onTapDown: (_) => setState(() => scale = 0.9),
+          onTapUp: (_) => setState(() => scale = 1.0),
+          onTapCancel: () => setState(() => scale = 1.0),
+          onTap: () => _handleBottomNavigation(label),
+          child: AnimatedScale(
+            scale: scale,
+            duration: const Duration(milliseconds: 100),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 60.w,
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    gradient:
+                        isActive
+                            ? const LinearGradient(
+                              colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            )
+                            : null,
+                    color: isActive ? null : Colors.transparent,
+                    borderRadius: BorderRadius.circular(48.r),
+                    boxShadow:
+                        isActive
+                            ? [
+                              BoxShadow(
+                                offset: const Offset(4, 4),
+                                color: const Color(0x40000000),
+                                blurRadius: 4.r,
+                              ),
+                            ]
+                            : [],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(1.w),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient:
+                            isActive
+                                ? const LinearGradient(
+                                  colors: [
+                                    Color(0xFFB182BA),
+                                    Color(0xFF2D1B31),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                )
+                                : null,
+                        color: isActive ? null : Colors.transparent,
+                        borderRadius: BorderRadius.circular(46.r),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            assetPath,
+                            width: 20.w,
+                            height: 20.w,
+                            color: Colors.white,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                icon,
+                                size: 20.sp,
+                                color: Colors.white,
+                              );
+                            },
+                          ),
+                          SizedBox(height: 4.h),
+                          Text(
+                            label,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(1),
-              child: Container(
-                width: 80,
-                height: 58,
-                decoration: BoxDecoration(
-                  gradient: isActive
-                      ? const LinearGradient(
-                          colors: [Color(0xFFB182BA), Color(0xFF2D1B31)],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        )
-                      : null,
-                  color: isActive ? null : Colors.transparent,
-                  borderRadius: BorderRadius.circular(46),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      assetPath,
-                      width: 24,
-                      height: 24,
-                      color: Colors.white,
-                      errorBuilder: (context, error, stackTrace) {
-                        debugPrint('Error loading image: $assetPath - $error');
-                        return Icon(icon, size: 22, color: Colors.white);
-                      },
-                    ),
-                    Text(
-                      label,
-                      style: TextStyle(
-                        color: const Color(0xFFFFFFFF),
-                        fontSize: 12.sp,
-                        fontFamily: 'Lexend-Regular',
-                        fontWeight:
-                            isActive ? FontWeight.w300 : FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      )
+          ),
+        );
+      },
     );
   }
-  void _handleNavigation(String label) {   
+
+  void _handleBottomNavigation(String label) {
     setState(() {
-      title = label; // Update active tab
+      title = label;
     });
-    
+
     switch (label) {
       case 'Home':
         Navigator.pushNamed(context, '/homepage');
@@ -308,11 +314,9 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
         Navigator.pushNamed(context, '/preferences');
         break;
       default:
-        debugPrint('No route defined for $label');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('$label screen coming soon!')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('$label screen coming soon!')));
     }
   }
-
 }

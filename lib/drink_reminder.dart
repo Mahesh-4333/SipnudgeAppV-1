@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PersonalInfoInProfile extends StatefulWidget {
-  const PersonalInfoInProfile({super.key});
+class DrinkReminder extends StatefulWidget {
+  const DrinkReminder({super.key});
 
   @override
-  State<PersonalInfoInProfile> createState() => _PersonalInfoInProfile();
+  State<DrinkReminder> createState() => _DrinkReminderState();
 }
 
-class _PersonalInfoInProfile extends State<PersonalInfoInProfile> {
-  String title = 'Home'; // Add this line to track active tab
+class _DrinkReminderState extends State<DrinkReminder>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  bool reminderEnabled = true;
+  bool stopWhenFull = true;
+
+  String reminderMode = 'Static';
+  String smartSkip = '10 mins';
+  String alarmRepeat = '3 Times';
+  String dayStart = '07:00 AM';
+  String title = 'Home';
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final screenWidth = size.width;
-    final screenHeight = size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Container(
@@ -29,41 +50,33 @@ class _PersonalInfoInProfile extends State<PersonalInfoInProfile> {
           ),
         ),
         child: SafeArea(
+          //child: SingleChildScrollView(
+          //padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 25.h),
           child: Column(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top user info
               Padding(
                 padding: EdgeInsets.only(
-                  top: screenHeight * 0.05,
+                  top: screenHeight * 0.06,
                   left: screenWidth * 0.06,
-                  right: screenWidth * 0.05,
+                  right: screenWidth * 0.06,
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                        //shape: BoxShape.circle,
-                        color: Colors.transparent,
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: Colors.black,
-                          size: 30.sp,
-                        ),
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Color(0xFF212121),
+                        size: 30.sp,
                       ),
                     ),
-                    SizedBox(width: screenWidth * 0.19),
-                    const Text(
-                      'Personal Info',
+                    SizedBox(width: screenWidth * 0.15),
+                    Text(
+                      'Drink Reminder',
                       style: TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontSize: 24,
+                        color: Colors.white,
+                        fontSize: 24.sp,
                         fontFamily: 'urbanist-Bold',
                         fontWeight: FontWeight.w700,
                       ),
@@ -71,36 +84,80 @@ class _PersonalInfoInProfile extends State<PersonalInfoInProfile> {
                   ],
                 ),
               ),
+              SizedBox(height: 24.h),
 
-              SizedBox(height: screenHeight * 0.05),
-
-              // First menu card
+              // Reminder Card
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0x1AFFFFFF),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    children: [
-                      _buildMenuItem('Gender', 'Male'),
-                      _buildMenuItem('Height', '185 cm'),
-                      _buildMenuItem('Weight', '78 kg'),
-                      _buildMenuItem('Age', '25 years'),
-                      _buildMenuItem('Wake-up Time', '06:00 Am'),
-                      _buildMenuItem('Bedtime', '23:30 Pm'),
-                      _buildMenuItem('Activity Level', 'Lightly Active'),
-                    ],
-                  ),
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: 16.w,
+                  //SSvertical: 6.h,
+                ),
+                child: Column(
+                  children: [
+                    _buildCard(
+                      children: [
+                        _buildToggleRow('Reminder', reminderEnabled, (val) {
+                          setState(() => reminderEnabled = val);
+                        }),
+                        _buildListItem('Reminder Mode', reminderMode, () {
+                          // Navigate to Reminder Mode Selection
+                        }),
+                      ],
+                    ),
+
+                    SizedBox(height: 16.h),
+
+                    // Smart Skip & Alarm Card
+                    _buildCard(
+                      children: [
+                        _buildListItem('Smart Skip', smartSkip, () {
+                          // Navigate to Smart Skip settings
+                        }),
+                        _buildListItem('Alarm Repeat', alarmRepeat, () {
+                          // Navigate to Alarm Repeat settings
+                        }),
+                        _buildToggleRow('Stop When 100%', stopWhenFull, (val) {
+                          setState(() => stopWhenFull = val);
+                        }),
+                      ],
+                    ),
+
+                    SizedBox(height: 16.h),
+
+                    // Reminder Settings
+                    _buildCard(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 8.h),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Reminder Settings',
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFFFFFFFF),
+                                fontFamily: 'Urbanist-Bold',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(color: Colors.white54, thickness: 1.sp),
+                        _buildListItem('Day Start', dayStart, () {
+                          // Time picker logic
+                        }),
+                        _buildListItem('Day End', '', () {
+                          // Set day end time
+                        }),
+                        _buildListItem('Water Intake Timeline', '', () {
+                          // Navigate to timeline screen
+                        }),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-
-              SizedBox(height: screenHeight * 0.042),
-
               const Spacer(),
-
-              // Bottom navigation
               Container(
                 height: screenHeight * 0.09,
                 margin: EdgeInsets.only(
@@ -165,124 +222,101 @@ class _PersonalInfoInProfile extends State<PersonalInfoInProfile> {
               ),
             ],
           ),
+          // ),
         ),
       ),
     );
   }
 
-  Widget _buildMenuItem(String title, String info, {bool isRed = false}) {
-    return InkWell(
-      onTap: () {
-        debugPrint('Tapped on: $title');
+  Widget _buildCard({required List<Widget> children}) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      decoration: BoxDecoration(
+        color: Color(0x20FFFFFF),
+        borderRadius: BorderRadius.circular(16.r),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Color(0x40000000),
+        //     offset: Offset(3, 3),
+        //     blurRadius: 6.r,
+        //   ),
+        // ],
+      ),
+      child: Column(children: children),
+    );
+  }
 
-        if (isRed) {
-          _showLogoutConfirmation();
-        } else {
-          _handleNavigation(title);
-        }
-      },
+  Widget _buildListItem(String title, String trailing, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
               style: TextStyle(
-                color: isRed ? Colors.redAccent : Colors.white,
-                fontFamily: 'urbanist-Bold',
-                fontSize: 18.sp,
+                color: Color(0xFFFFFFFF),
+                fontSize: 20.sp,
+                fontFamily: 'Urbanist-SemiBold',
+                fontWeight: FontWeight.w600,
               ),
             ),
-            const Spacer(),
-            Text(
-              info,
-              style: TextStyle(
-                color: isRed ? Colors.redAccent : Colors.white,
-                fontFamily: 'urbanist-SemiBold',
-                fontSize: 16.sp,
-              ),
+            Row(
+              children: [
+                if (trailing.isNotEmpty)
+                  Text(
+                    trailing,
+                    style: TextStyle(
+                      color: Color(0xFFFFFFFF),
+                      fontSize: 16.sp,
+                      fontFamily: 'Urbanist-SemiBold',
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.2.sp,
+                    ),
+                  ),
+                SizedBox(width: 8.w),
+                Icon(Icons.chevron_right, color: Colors.white, size: 20.sp),
+              ],
             ),
-            const SizedBox(width: 15),
-            Icon(Icons.chevron_right, color: Color(0xFFFFFFFF), size: 24.sp),
           ],
         ),
       ),
     );
   }
 
-  void _handleNavigation(String title) {
-    switch (title) {
-      case 'Gender':
-        Navigator.pushNamed(context, '/personalinfo');
-        break;
-      case 'Height':
-        Navigator.pushNamed(context, '/personalinfo');
-        break;
-      case 'Weight':
-        Navigator.pushNamed(context, '/personalinfo');
-        break;
-      case 'Age':
-        Navigator.pushNamed(context, '/personalinfo');
-        break;
-      case 'Wake-up Time':
-        Navigator.pushNamed(context, '/lifestyleinfo');
-        break;
-      case 'Bedtime':
-        Navigator.pushNamed(context, '/lifestyleinfo');
-        break;
-      case 'Activity Level':
-        Navigator.pushNamed(context, '/lifestyleinfo');
-        break;
-      default:
-        debugPrint('No route defined for $title');
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('$title screen coming soon!')));
-    }
-  }
-
-  void _showLogoutConfirmation() {
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            backgroundColor: const Color(0xFF2A2A2A),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+  Widget _buildToggleRow(
+    String title,
+    bool value,
+    ValueChanged<bool> onChanged,
+  ) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 20.sp,
+              fontFamily: 'Urbanist-SemiBold',
+              fontWeight: FontWeight.w600,
             ),
-            title: const Text(
-              'Logout',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            content: const Text(
-              'Are you sure you want to logout?',
-              style: TextStyle(color: Colors.white),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text(
-                  'Cancel',
-                  style: TextStyle(color: Colors.white70),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Logged out successfully')),
-                  );
-                },
-                child: const Text(
-                  'Logout',
-                  style: TextStyle(color: Colors.redAccent),
-                ),
-              ),
-            ],
           ),
+          Switch(
+            value: value,
+            onChanged: onChanged,
+            activeColor: Color(0xFFFFFFFF),
+            activeTrackColor: const Color(0xFF6C00C3),
+            //inactiveThumbColor: const Color(0x90FFFFFF),
+            inactiveTrackColor: Color(0xFFFFFFFF),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ],
+      ),
     );
   }
 
@@ -398,7 +432,7 @@ class _PersonalInfoInProfile extends State<PersonalInfoInProfile> {
 
   void _handleBottomNavigation(String label) {
     setState(() {
-      title = label;
+      title = label; // Update active tab
     });
 
     switch (label) {
