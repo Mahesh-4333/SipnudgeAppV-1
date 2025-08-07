@@ -156,206 +156,202 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    Expanded(
+                    SizedBox(
+                      height: 55.h, // Adjust as needed
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10.w,
-                          vertical: 14.h,
+                          horizontal: 20.w,
+                          vertical: 11.h,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0x20FFFFFF),
-                          borderRadius: BorderRadius.circular(20.r),
+                          color: const Color(0x10FFFFFF),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.r),
+                            topRight: Radius.circular(20.r),
+                          ),
                         ),
                         child: Column(
                           children: [
-                            // Header Row
                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.h),
+                              padding: EdgeInsets.symmetric(vertical: 6.h),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      "Time",
-                                      style: TextStyle(
-                                        color: Color(0xFFFFFFFF),
-                                        fontSize: 14.sp,
-                                        fontFamily: 'Urbanist-Medium',
-                                        fontWeight: FontWeight.w500,
-                                        letterSpacing: 0.4.sp,
-                                      ),
+                                  Text(
+                                    "Time",
+                                    style: TextStyle(
+                                      color: Color(0xFFFFFFFF),
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Urbanist-Medium',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.4.sp,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        "Water",
-                                        style: TextStyle(
-                                          color: Color(0xFFFFFFFF),
-                                          fontSize: 14.sp,
-                                          fontFamily: 'Urbanist-Medium',
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: 0.4.sp,
-                                        ),
-                                      ),
+                                  Text(
+                                    "Water",
+                                    style: TextStyle(
+                                      color: Color(0xFFFFFFFF),
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Urbanist-Medium',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.4.sp,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "Status",
-                                        style: TextStyle(
-                                          color: Color(0xFFFFFFFF),
-                                          fontSize: 14.sp,
-                                          fontFamily: 'Urbanist-Medium',
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: 0.4.sp,
-                                        ),
-                                      ),
+                                  Text(
+                                    "Status",
+                                    style: TextStyle(
+                                      color: Color(0xFFFFFFFF),
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Urbanist-Medium',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.4.sp,
                                     ),
                                   ),
                                 ],
-                              ),
-                            ),
-                            //Divider(color: Colors.white24),
-
-                            // Timeline Entries
-                            Expanded(
-                              child: ListView.separated(
-                                itemCount: state.entries.length,
-                                separatorBuilder:
-                                    (_, __) => Divider(color: Colors.white24),
-                                itemBuilder: (context, index) {
-                                  final item = state.entries[index];
-                                  return InkWell(
-                                    onTap:
-                                        () => context
-                                            .read<HydrationCubit>()
-                                            .toggleStatus(index),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 10.h,
-                                      ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Left: Time label + time range
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  item.label,
-                                                  style: TextStyle(
-                                                    color: Color(0xFFFFFFFF),
-                                                    fontSize: 14.sp,
-                                                    fontFamily:
-                                                        'Urbanist-Medium',
-                                                    fontWeight: FontWeight.w500,
-                                                    letterSpacing: 0.40.sp,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 4.h),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      item.timeRange,
-                                                      style: TextStyle(
-                                                        color: Color(
-                                                          0x60FFFFFF,
-                                                        ),
-                                                        fontSize: 12.sp,
-                                                        fontFamily:
-                                                            'Urbanist-Medium',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        letterSpacing: 0.4.sp,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 4.w),
-                                                    Icon(
-                                                      Icons.edit,
-                                                      size: 15.sp,
-                                                      color: Color(0xFFFFFFFF),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-
-                                          // Center: Water amount
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "${item.amount} ml",
-                                                style: TextStyle(
-                                                  color: Color(0xFFFFFFFF),
-                                                  fontSize: 14.sp,
-                                                  fontFamily: 'Urbanist-Medium',
-                                                  fontWeight: FontWeight.w500,
-                                                  letterSpacing: 0.4.sp,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-
-                                          // Right: Status
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Icon(
-                                                  item.status ==
-                                                          HydrationStatus
-                                                              .completed
-                                                      ? Icons.check
-                                                      : Icons
-                                                          .radio_button_unchecked,
-                                                  size: 16.sp,
-                                                  color:
-                                                      item.status ==
-                                                              HydrationStatus
-                                                                  .completed
-                                                          ? Color(0xFFB8FFB2)
-                                                          : Color(0xFFFFFAB2),
-                                                ),
-                                                SizedBox(width: 4.w),
-                                                Text(
-                                                  item.status ==
-                                                          HydrationStatus
-                                                              .completed
-                                                      ? "Completed"
-                                                      : "Pending",
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    color:
-                                                        item.status ==
-                                                                HydrationStatus
-                                                                    .completed
-                                                            ? Color(0xFFB8FFB2)
-                                                            : Color(0xFFFFFAB2),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
+
+                    //Divider(color: Colors.white24),
+
+                    // Timeline Entries
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 10.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0x20FFFFFF),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20.r),
+                            bottomRight: Radius.circular(20.r),
+                          ),
+                        ),
+                        child: ListView.separated(
+                          itemCount: state.entries.length,
+                          separatorBuilder:
+                              (_, __) => Divider(color: Colors.white24),
+                          itemBuilder: (context, index) {
+                            final item = state.entries[index];
+                            return InkWell(
+                              onTap:
+                                  () => context
+                                      .read<HydrationCubit>()
+                                      .toggleStatus(index),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10.h),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Left: Time label + time range
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.label,
+                                            style: TextStyle(
+                                              color: Color(0xFFFFFFFF),
+                                              fontSize: 14.sp,
+                                              fontFamily: 'Urbanist-Medium',
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 0.40.sp,
+                                            ),
+                                          ),
+                                          SizedBox(height: 4.h),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                item.timeRange,
+                                                style: TextStyle(
+                                                  color: Color(0x60FFFFFF),
+                                                  fontSize: 12.sp,
+                                                  fontFamily: 'Urbanist-Medium',
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.4.sp,
+                                                ),
+                                              ),
+                                              SizedBox(width: 4.w),
+                                              Icon(
+                                                Icons.edit,
+                                                size: 15.sp,
+                                                color: Color(0xFFFFFFFF),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    // Center: Water amount
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          "${item.amount} ml",
+                                          style: TextStyle(
+                                            color: Color(0xFFFFFFFF),
+                                            fontSize: 14.sp,
+                                            fontFamily: 'Urbanist-Medium',
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: 0.4.sp,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    // Right: Status
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Icon(
+                                            item.status ==
+                                                    HydrationStatus.completed
+                                                ? Icons.check
+                                                : Icons.radio_button_unchecked,
+                                            size: 16.sp,
+                                            color:
+                                                item.status ==
+                                                        HydrationStatus
+                                                            .completed
+                                                    ? Color(0xFFB8FFB2)
+                                                    : Color(0xFFFFFAB2),
+                                          ),
+                                          SizedBox(width: 4.w),
+                                          Text(
+                                            item.status ==
+                                                    HydrationStatus.completed
+                                                ? "Completed"
+                                                : "Pending",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color:
+                                                  item.status ==
+                                                          HydrationStatus
+                                                              .completed
+                                                      ? Color(0xFFB8FFB2)
+                                                      : Color(0xFFFFFAB2),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+
                     SizedBox(height: 30.h),
                     Container(
                       height: screenHeight * 0.09,
