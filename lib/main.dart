@@ -7,6 +7,7 @@ import 'package:flutterapp1/companymotto.dart';
 import 'package:flutterapp1/contactsupport.dart';
 import 'package:flutterapp1/cubit/water_intake_timeline_cubit.dart';
 import 'package:flutterapp1/dailygoalpage.dart';
+import 'package:flutterapp1/drink_reminder.dart';
 import 'package:flutterapp1/forgotpassword.dart';
 import 'package:flutterapp1/forgotpwdotppage.dart';
 import 'package:flutterapp1/help&support.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
             initialRoute: '/',
             routes: {
               //'/': (context) => const BadgeWithConcentricBackground(),
-              '/': (context) => WaterIntakeTimeline(),
+              '/': (context) => DrinkReminder(),
               '/companymotto': (context) => CompanyMottoPage(),
               '/signin_signupsage': (context) => SignIn_SignUpPage(),
               '/signupblankpage': (context) => SignUpBlankPage(),
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
               '/account_security': (context) => AccountAndSecurityPage(),
               '/analysis': (context) => HomeAnalysisPage(),
               '/achievement': (context) => BadgeWithConcentricBackground(),
+              '/waterintaketimeline': (context) => WaterIntakeTimeline(),
             },
           ),
         );

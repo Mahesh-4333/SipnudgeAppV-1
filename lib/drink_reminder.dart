@@ -1,3 +1,5 @@
+// Updated DrinkReminder.dart with capsule-style Smart Skip and Alarm Repeat list items
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,6 +13,11 @@ class DrinkReminder extends StatefulWidget {
 class _DrinkReminderState extends State<DrinkReminder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  final List<String> smartSkipOptions = ['3 mins', '5 mins', '10 mins'];
+  final List<String> alarmRepeatOptions = ['3 Times', '5 Times', '10 Times'];
+
+  int smartSkipIndex = 2; // default '10 mins'
+  int alarmRepeatIndex = 2; // default '3 Times'
 
   bool reminderEnabled = true;
   bool stopWhenFull = true;
@@ -50,10 +57,7 @@ class _DrinkReminderState extends State<DrinkReminder>
           ),
         ),
         child: SafeArea(
-          //child: SingleChildScrollView(
-          //padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 25.h),
           child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: EdgeInsets.only(
@@ -85,13 +89,8 @@ class _DrinkReminderState extends State<DrinkReminder>
                 ),
               ),
               SizedBox(height: 24.h),
-
-              // Reminder Card
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: 16.w,
-                  //SSvertical: 6.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
                   children: [
                     _buildCard(
@@ -99,32 +98,43 @@ class _DrinkReminderState extends State<DrinkReminder>
                         _buildToggleRow('Reminder', reminderEnabled, (val) {
                           setState(() => reminderEnabled = val);
                         }),
-                        _buildListItem('Reminder Mode', reminderMode, () {
-                          // Navigate to Reminder Mode Selection
-                        }),
+                        _buildListItem('Reminder Mode', reminderMode, () {}),
                       ],
                     ),
-
                     SizedBox(height: 16.h),
-
-                    // Smart Skip & Alarm Card
                     _buildCard(
                       children: [
-                        _buildListItem('Smart Skip', smartSkip, () {
-                          // Navigate to Smart Skip settings
-                        }),
-                        _buildListItem('Alarm Repeat', alarmRepeat, () {
-                          // Navigate to Alarm Repeat settings
-                        }),
+                        _buildCycleItem(
+                          'Smart Skip',
+                          smartSkipOptions[smartSkipIndex],
+                          () {
+                            setState(() {
+                              smartSkipIndex =
+                                  (smartSkipIndex + 1) %
+                                  smartSkipOptions.length;
+                              smartSkip = smartSkipOptions[smartSkipIndex];
+                            });
+                          },
+                        ),
+                        _buildCycleItem(
+                          'Alarm Repeat',
+                          alarmRepeatOptions[alarmRepeatIndex],
+                          () {
+                            setState(() {
+                              alarmRepeatIndex =
+                                  (alarmRepeatIndex + 1) %
+                                  alarmRepeatOptions.length;
+                              alarmRepeat =
+                                  alarmRepeatOptions[alarmRepeatIndex];
+                            });
+                          },
+                        ),
                         _buildToggleRow('Stop When 100%', stopWhenFull, (val) {
                           setState(() => stopWhenFull = val);
                         }),
                       ],
                     ),
-
                     SizedBox(height: 16.h),
-
-                    // Reminder Settings
                     _buildCard(
                       children: [
                         Padding(
@@ -143,14 +153,8 @@ class _DrinkReminderState extends State<DrinkReminder>
                           ),
                         ),
                         Divider(color: Colors.white54, thickness: 1.sp),
-                        _buildListItem('Day Start', dayStart, () {
-                          // Time picker logic
-                        }),
-                        _buildListItem('Day End', '', () {
-                          // Set day end time
-                        }),
                         _buildListItem('Water Intake Timeline', '', () {
-                          // Navigate to timeline screen
+                          Navigator.pushNamed(context, '/waterintaketimeline');
                         }),
                       ],
                     ),
@@ -158,71 +162,50 @@ class _DrinkReminderState extends State<DrinkReminder>
                 ),
               ),
               const Spacer(),
-              Container(
-                height: screenHeight * 0.09,
-                margin: EdgeInsets.only(
-                  left: screenWidth * 0.05,
-                  right: screenWidth * 0.05,
-                  bottom: screenHeight * 0.01,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(90.r),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF3F3F3F), Color(0xFFFFFFFF)],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(1.w),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      left: screenHeight * 0.007.w,
-                      right: screenHeight * 0.006.w,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF2B2536),
-                      borderRadius: BorderRadius.circular(90.r),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildNavItem(
-                          Icons.home,
-                          'Home',
-                          title == 'Home',
-                          screenWidth,
-                          screenHeight,
-                        ),
-                        _buildNavItem(
-                          Icons.analytics_outlined,
-                          'Analysis',
-                          title == 'Analysis',
-                          screenWidth,
-                          screenHeight,
-                        ),
-                        _buildNavItem(
-                          Icons.lightbulb_outline,
-                          'Goals',
-                          title == 'Goals',
-                          screenWidth,
-                          screenHeight,
-                        ),
-                        _buildNavItem(
-                          Icons.settings,
-                          'Settings',
-                          title == 'Settings',
-                          screenWidth,
-                          screenHeight,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              _buildNavBar(screenHeight, screenWidth),
             ],
           ),
-          // ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCycleItem(String title, String value, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12.r),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.sp,
+                fontFamily: 'Urbanist-SemiBold',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
+              decoration: BoxDecoration(
+                color: Color(0xFFEAEAEA).withOpacity(0.25),
+                border: Border.all(color: Color(0xFFFFFFFF), width: 1.w),
+                borderRadius: BorderRadius.circular(30.r),
+              ),
+              child: Text(
+                value,
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 16.sp,
+                  fontFamily: 'Urbanist-SemiBold',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -235,19 +218,17 @@ class _DrinkReminderState extends State<DrinkReminder>
       decoration: BoxDecoration(
         color: Color(0x20FFFFFF),
         borderRadius: BorderRadius.circular(16.r),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Color(0x40000000),
-        //     offset: Offset(3, 3),
-        //     blurRadius: 6.r,
-        //   ),
-        // ],
       ),
       child: Column(children: children),
     );
   }
 
-  Widget _buildListItem(String title, String trailing, VoidCallback onTap) {
+  Widget _buildListItem(
+    String title,
+    String trailing,
+    VoidCallback onTap, {
+    bool showCapsule = false,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -264,23 +245,46 @@ class _DrinkReminderState extends State<DrinkReminder>
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Row(
-              children: [
-                if (trailing.isNotEmpty)
-                  Text(
-                    trailing,
-                    style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 16.sp,
-                      fontFamily: 'Urbanist-SemiBold',
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.2.sp,
-                    ),
+            if (showCapsule)
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(50.r),
+                ),
+                child: Text(
+                  trailing,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                    fontFamily: 'Urbanist-Medium',
                   ),
-                SizedBox(width: 8.w),
-                Icon(Icons.chevron_right, color: Colors.white, size: 20.sp),
-              ],
-            ),
+                ),
+              )
+            else
+              Row(
+                children: [
+                  if (trailing.isNotEmpty)
+                    Text(
+                      trailing,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontFamily: 'Urbanist-SemiBold',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  SizedBox(width: 8.w),
+                  IconButton(
+                    icon: Icon(
+                      Icons.chevron_right,
+                      color: Colors.white,
+                      size: 20.sp,
+                    ),
+                    onPressed: onTap,
+                  ),
+                ],
+              ),
           ],
         ),
       ),
@@ -310,12 +314,71 @@ class _DrinkReminderState extends State<DrinkReminder>
             value: value,
             onChanged: onChanged,
             activeColor: Color(0xFFFFFFFF),
-            activeTrackColor: const Color(0xFF6C00C3),
-            //inactiveThumbColor: const Color(0x90FFFFFF),
+            activeTrackColor: Color(0xFF6C00C3),
             inactiveTrackColor: Color(0xFFFFFFFF),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildNavBar(double screenHeight, double screenWidth) {
+    return Container(
+      height: screenHeight * 0.09,
+      margin: EdgeInsets.only(
+        left: screenWidth * 0.05,
+        right: screenWidth * 0.05,
+        bottom: screenHeight * 0.01,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(90.r),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF3F3F3F), Color(0xFFFFFFFF)],
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(1.w),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF2B2536),
+            borderRadius: BorderRadius.circular(90.r),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildNavItem(
+                Icons.home,
+                'Home',
+                title == 'Home',
+                screenWidth,
+                screenHeight,
+              ),
+              _buildNavItem(
+                Icons.analytics_outlined,
+                'Analysis',
+                title == 'Analysis',
+                screenWidth,
+                screenHeight,
+              ),
+              _buildNavItem(
+                Icons.lightbulb_outline,
+                'Goals',
+                title == 'Goals',
+                screenWidth,
+                screenHeight,
+              ),
+              _buildNavItem(
+                Icons.settings,
+                'Settings',
+                title == 'Settings',
+                screenWidth,
+                screenHeight,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -337,7 +400,6 @@ class _DrinkReminderState extends State<DrinkReminder>
           onTapUp: (_) => setState(() => scale = 1.0),
           onTapCancel: () => setState(() => scale = 1.0),
           onTap: () {
-            debugPrint('Tapped on: $label');
             _handleBottomNavigation(label);
           },
           child: AnimatedScale(
@@ -358,7 +420,6 @@ class _DrinkReminderState extends State<DrinkReminder>
                               end: Alignment.bottomCenter,
                             )
                             : null,
-                    color: isActive ? null : Colors.transparent,
                     borderRadius: BorderRadius.circular(48.r),
                     boxShadow: [
                       BoxShadow(
@@ -374,8 +435,6 @@ class _DrinkReminderState extends State<DrinkReminder>
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Container(
-                      width: screenWidth * 0.19,
-                      height: screenHeight * 0.055,
                       decoration: BoxDecoration(
                         gradient:
                             isActive
@@ -388,7 +447,6 @@ class _DrinkReminderState extends State<DrinkReminder>
                                   end: Alignment.bottomCenter,
                                 )
                                 : null,
-                        color: isActive ? null : Colors.transparent,
                         borderRadius: BorderRadius.circular(46),
                       ),
                       child: Column(
@@ -399,16 +457,12 @@ class _DrinkReminderState extends State<DrinkReminder>
                             width: screenWidth * 0.06,
                             height: screenWidth * 0.06,
                             color: Colors.white,
-                            errorBuilder: (context, error, stackTrace) {
-                              debugPrint(
-                                'Error loading image: $assetPath - $error',
-                              );
-                              return Icon(
-                                icon,
-                                size: screenWidth * 0.055,
-                                color: Colors.white,
-                              );
-                            },
+                            errorBuilder:
+                                (context, error, stackTrace) => Icon(
+                                  icon,
+                                  size: screenWidth * 0.055,
+                                  color: Colors.white,
+                                ),
                           ),
                           Text(
                             label,
@@ -431,9 +485,7 @@ class _DrinkReminderState extends State<DrinkReminder>
   }
 
   void _handleBottomNavigation(String label) {
-    setState(() {
-      title = label; // Update active tab
-    });
+    setState(() => title = label);
 
     switch (label) {
       case 'Home':
@@ -449,7 +501,6 @@ class _DrinkReminderState extends State<DrinkReminder>
         Navigator.pushNamed(context, '/preferences');
         break;
       default:
-        debugPrint('No route defined for $label');
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('$label screen coming soon!')));
