@@ -1,5 +1,7 @@
 //import 'dart:nativewrappers/_internal/vm/lib/isolate_patch.dart';
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -20,6 +22,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
   DateTime _currentStartDate = DateTime.now().subtract(const Duration(days: 7));
   bool IsSelected = false;
   int? tappedIndex; // null means no tooltip shown
+  Offset? tappedIndexOffset;
   int _getValueByIndex(int index) {
     const values = [100, 70, 90, 100, 85, 95, 75];
     return (index >= 0 && index < values.length) ? values[index] : 0;
@@ -244,25 +247,25 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
   }
 
   /*Widget _buildPeriodButton(String label, bool isSelected) {
-    return GestureDetector(
-      onTap: () => setState(() => selectedPeriod = label),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFB586BE) : Colors.transparent,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-            fontFamily: 'Urbanist-Medium',
-            fontSize: 14.sp,
-          ),
-        ),
-      ),
-    );
-  }*/
+ return GestureDetector(
+ onTap: () => setState(() => selectedPeriod = label),
+ child: Container(
+ padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+ decoration: BoxDecoration(
+ color: isSelected ? const Color(0xFFB586BE) : Colors.transparent,
+ borderRadius: BorderRadius.circular(30),
+ ),
+ child: Text(
+ label,
+ style: TextStyle(
+ color: isSelected ? Colors.white : Colors.black,
+ fontFamily: 'Urbanist-Medium',
+ fontSize: 14.sp,
+ ),
+ ),
+ ),
+ );
+ }*/
 
   BarChartGroupData _buildBarGroup(int x, double y, double screenWidth) {
     return BarChartGroupData(
@@ -420,90 +423,90 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
     );
   }
   /*Widget _buildNavItem(IconData icon, String label, bool isActive) {
-    final assetPath = 'assets/${label.toLowerCase()}.png';
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+ final assetPath = 'assets/${label.toLowerCase()}.png';
+ final screenWidth = MediaQuery.of(context).size.width;
+ final screenHeight = MediaQuery.of(context).size.height;
 
-    return InkWell(
-      onTap: () {
-        debugPrint('Tapped on: $label');
-        _handleBottomNavigation(label);
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: screenWidth * 0.2,
-            height: screenHeight * 0.06,
-            decoration: BoxDecoration(
-              gradient:
-                  isActive
-                      ? const LinearGradient(
-                        colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      )
-                      : null,
-              color: isActive ? null : Colors.transparent,
-              borderRadius: BorderRadius.circular(48.r),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(4, 4),
-                  color:
-                      isActive ? const Color(0x40000000) : Colors.transparent,
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(1.w),
-              child: Container(
-                width: screenWidth * 0.19,
-                height: screenHeight * 0.055,
-                decoration: BoxDecoration(
-                  gradient:
-                      isActive
-                          ? const LinearGradient(
-                            colors: [Color(0xFFB182BA), Color(0xFF2D1B31)],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          )
-                          : null,
-                  color: isActive ? null : Colors.transparent,
-                  borderRadius: BorderRadius.circular(46.r),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      assetPath,
-                      width: 24,
-                      height: 24,
-                      color: Colors.white,
-                      errorBuilder: (context, error, stackTrace) {
-                        debugPrint('Error loading image: $assetPath - $error');
-                        return Icon(icon, size: 22, color: Colors.white);
-                      },
-                    ),
-                    Text(
-                      label,
-                      style: TextStyle(
-                        color: const Color(0xFFFFFFFF),
-                        fontSize: 12.sp,
-                        fontFamily: 'Lexend-Regular',
-                        fontWeight:
-                            isActive ? FontWeight.w300 : FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }*/
+ return InkWell(
+ onTap: () {
+ debugPrint('Tapped on: $label');
+ _handleBottomNavigation(label);
+ },
+ child: Column(
+ mainAxisAlignment: MainAxisAlignment.center,
+ children: [
+ Container(
+ width: screenWidth * 0.2,
+ height: screenHeight * 0.06,
+ decoration: BoxDecoration(
+ gradient:
+ isActive
+ ? const LinearGradient(
+ colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
+ begin: Alignment.topCenter,
+ end: Alignment.bottomCenter,
+ )
+ : null,
+ color: isActive ? null : Colors.transparent,
+ borderRadius: BorderRadius.circular(48.r),
+ boxShadow: [
+ BoxShadow(
+ offset: const Offset(4, 4),
+ color:
+ isActive ? const Color(0x40000000) : Colors.transparent,
+ blurRadius: 4,
+ ),
+ ],
+ ),
+ child: Padding(
+ padding: EdgeInsets.all(1.w),
+ child: Container(
+ width: screenWidth * 0.19,
+ height: screenHeight * 0.055,
+ decoration: BoxDecoration(
+ gradient:
+ isActive
+ ? const LinearGradient(
+ colors: [Color(0xFFB182BA), Color(0xFF2D1B31)],
+ begin: Alignment.topCenter,
+ end: Alignment.bottomCenter,
+ )
+ : null,
+ color: isActive ? null : Colors.transparent,
+ borderRadius: BorderRadius.circular(46.r),
+ ),
+ child: Column(
+ mainAxisAlignment: MainAxisAlignment.center,
+ children: [
+ Image.asset(
+ assetPath,
+ width: 24,
+ height: 24,
+ color: Colors.white,
+ errorBuilder: (context, error, stackTrace) {
+ debugPrint('Error loading image: $assetPath - $error');
+ return Icon(icon, size: 22, color: Colors.white);
+ },
+ ),
+ Text(
+ label,
+ style: TextStyle(
+ color: const Color(0xFFFFFFFF),
+ fontSize: 12.sp,
+ fontFamily: 'Lexend-Regular',
+ fontWeight:
+ isActive ? FontWeight.w300 : FontWeight.normal,
+ ),
+ ),
+ ],
+ ),
+ ),
+ ),
+ ),
+ ],
+ ),
+ );
+ }*/
 
   void _handleBottomNavigation(String label) {
     setState(() {
@@ -625,134 +628,140 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
           ),
           SizedBox(height: screenHeight * 0.02),
 
-          // Circle indicator
-          Stack(alignment: Alignment.center, children: [            
-            ],
-          ),
-          SizedBox(height: screenHeight * 0.02),
-
           // Bar chart
           SizedBox(
-            height: screenHeight * 0.25, // Increased to make room for tooltip
+            height: screenHeight * 0.34, // Increased to make room for tooltip
             child: Stack(
-              alignment: Alignment.topCenter,
               children: [
-                /// Chart UI
-                BarChart(
-                  BarChartData(
-                    alignment: BarChartAlignment.spaceAround,
-                    maxY: 100,
-                    barTouchData: BarTouchData(
-                      enabled: true,
-                      touchTooltipData: BarTouchTooltipData(
-                        tooltipBgColor: Colors.transparent,
-                        tooltipPadding: EdgeInsets.zero,
-                        tooltipMargin: 8,
-                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                          // Return transparent item to suppress default tooltip
-                          return BarTooltipItem(
-                            '',
-                            TextStyle(color: Colors.transparent),
-                          );
-                        },
-                      ),
-                      touchCallback: (
-                        FlTouchEvent event,
-                        BarTouchResponse? response,
-                      ) {
-                        if (event.isInterestedForInteractions &&
-                            response != null &&
-                            response.spot != null) {
-                          setState(() {
-                            tappedIndex = response.spot!.touchedBarGroupIndex;
-                          });
-                        } else {
-                          setState(() {
-                            tappedIndex = null;
-                          });
-                        }
-                      },
-                    ),
-                    titlesData: FlTitlesData(
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 30,
-                          getTitlesWidget: (value, meta) {
-                            const days = [
-                              '16',
-                              '17',
-                              '18',
-                              '19',
-                              '20',
-                              '21',
-                              '22',
-                            ];
-                            return Padding(
-                              padding: EdgeInsets.only(top: 12.h),
-                              child:
-                                  (value >= 0 && value < days.length)
-                                      ? Text(
-                                        days[value.toInt()],
-                                        style: TextStyle(
-                                          color: Color(0xFFFFF8F8),
-                                          fontFamily: 'Urbanist-Medium',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: screenWidth * 0.030,
-                                        ),
-                                      )
-                                      : const Text(''),
-                            );
+                Positioned(
+                  bottom: 10,
+                  child: SizedBox(
+                    height: screenHeight * 0.25,
+                    width: screenWidth * .8,
+                    child: BarChart(
+                      BarChartData(
+                        alignment: BarChartAlignment.spaceAround,
+                        maxY: 100,
+                        barTouchData: BarTouchData(
+                          enabled: true,
+                          touchTooltipData: BarTouchTooltipData(
+                            tooltipBgColor: Colors.transparent,
+                            tooltipPadding: EdgeInsets.zero,
+                            tooltipMargin: 0,
+                            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                              // Return transparent item to suppress default tooltip
+                              return BarTooltipItem(
+                                '',
+                                TextStyle(color: Colors.transparent),
+                              );
+                            },
+                          ),
+                          touchCallback: (
+                            FlTouchEvent event,
+                            BarTouchResponse? response,
+                          ) {
+                            if (event.isInterestedForInteractions &&
+                                response != null &&
+                                response.spot != null) {
+                              setState(() {
+                                tappedIndex =
+                                    response.spot!.touchedBarGroupIndex;
+                                tappedIndexOffset = response.spot!.offset;
+
+                                print(
+                                  "Tapped data is X ${tappedIndexOffset?.dx} Y ${tappedIndexOffset?.dy}",
+                                );
+                              });
+                            } else {
+                              setState(() {
+                                tappedIndex = null;
+                                tappedIndexOffset = null;
+                              });
+                            }
                           },
                         ),
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 32,
-                          getTitlesWidget: (value, meta) {
-                            return (value % 20 == 0)
-                                ? Text(
-                                  '${value.toInt()}%',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFF8F8),
-                                    fontFamily: 'Urbanist-Medium',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: screenWidth * 0.030,
-                                  ),
-                                )
-                                : const Text('');
-                          },
+                        titlesData: FlTitlesData(
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 30,
+                              getTitlesWidget: (value, meta) {
+                                const days = [
+                                  '16',
+                                  '17',
+                                  '18',
+                                  '19',
+                                  '20',
+                                  '21',
+                                  '22',
+                                ];
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 10.h),
+                                  child:
+                                      (value >= 0 && value < days.length)
+                                          ? Text(
+                                            days[value.toInt()],
+                                            style: TextStyle(
+                                              color: Color(0xFFFFF8F8),
+                                              fontFamily: 'Urbanist-Medium',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: screenWidth * 0.030,
+                                            ),
+                                          )
+                                          : const Text(''),
+                                );
+                              },
+                            ),
+                          ),
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 32,
+                              getTitlesWidget: (value, meta) {
+                                return (value % 20 == 0)
+                                    ? Text(
+                                      '${value.toInt()}%',
+                                      style: TextStyle(
+                                        color: Color(0xFFFFF8F8),
+                                        fontFamily: 'Urbanist-Medium',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: screenWidth * 0.030,
+                                      ),
+                                    )
+                                    : const Text('');
+                              },
+                            ),
+                          ),
+                          topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          rightTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
                         ),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
+                        borderData: FlBorderData(show: false),
+                        gridData: FlGridData(show: false),
+                        barGroups: [
+                          _buildBarGroup(0, 100, screenWidth),
+                          _buildBarGroup(1, 70, screenWidth),
+                          _buildBarGroup(2, 90, screenWidth),
+                          _buildBarGroup(3, 100, screenWidth),
+                          _buildBarGroup(4, 85, screenWidth),
+                          _buildBarGroup(5, 95, screenWidth),
+                          _buildBarGroup(6, 75, screenWidth),
+                        ],
                       ),
                     ),
-                    borderData: FlBorderData(show: false),
-                    gridData: FlGridData(show: false),
-                    barGroups: [
-                      _buildBarGroup(0, 100, screenWidth),
-                      _buildBarGroup(1, 70, screenWidth),
-                      _buildBarGroup(2, 90, screenWidth),
-                      _buildBarGroup(3, 100, screenWidth),
-                      _buildBarGroup(4, 85, screenWidth),
-                      _buildBarGroup(5, 95, screenWidth),
-                      _buildBarGroup(6, 75, screenWidth),
-                    ],
                   ),
                 ),
 
-                /// Custom Tooltip Overlay
-                if (tappedIndex != null)
+                if (tappedIndex != null &&
+                    tappedIndexOffset != null &&
+                    tappedIndexOffset!.dx.isFinite &&
+                    tappedIndexOffset!.dy.isFinite)
                   Positioned(
-                    top: screenHeight * 0.01, // Slightly above the bars
-                    left:
-                        screenWidth * (0.12 + tappedIndex! * 0.13) -
-                        (screenWidth * 0.065), // Center tooltip above bar
+                    top: tappedIndexOffset!.dy,
+                    left: tappedIndexOffset!.dx + 7,
                     child: CustomTooltip(
                       percentage: _getValueByIndex(tappedIndex!),
                     ),
@@ -767,37 +776,37 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
   }
 
   /* Widget _chartIcon(
-    double screenWidth,
-    IconData icon,
-    bool isActive,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: screenWidth * 0.13,
-        height: screenWidth * 0.13 * 0.6,
-        decoration: BoxDecoration(
-          color: isActive ? const Color(0xFF8E00FF) : Colors.transparent,
-          borderRadius: BorderRadius.circular(screenWidth * 0.010),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Icon(
-            icon,
-            size: screenWidth * 0.06,
-            color: isActive ? Colors.white : const Color(0xFFBDBDBD),
-          ),
-        ),
-      ),
-    );
-  }*/
+ double screenWidth,
+ IconData icon,
+ bool isActive,
+ VoidCallback onTap,
+ ) {
+ return GestureDetector(
+ onTap: onTap,
+ child: Container(
+ width: screenWidth * 0.13,
+ height: screenWidth * 0.13 * 0.6,
+ decoration: BoxDecoration(
+ color: isActive ? const Color(0xFF8E00FF) : Colors.transparent,
+ borderRadius: BorderRadius.circular(screenWidth * 0.010),
+ boxShadow: [
+ BoxShadow(
+ color: Colors.black.withOpacity(0.08),
+ blurRadius: 8,
+ offset: const Offset(0, 2),
+ ),
+ ],
+ ),
+ child: Center(
+ child: Icon(
+ icon,
+ size: screenWidth * 0.06,
+ color: isActive ? Colors.white : const Color(0xFFBDBDBD),
+ ),
+ ),
+ ),
+ );
+ }*/
 
   Widget _chartIcon({
     required double screenWidth,
@@ -873,37 +882,10 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
           Row(
             children: [
               Container(
-                width: screenWidth * 0.25,
-                height: screenWidth * 0.25,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFF2196F3),
-                    width: screenWidth * 0.015,
-                  ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '100%',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: screenWidth * 0.05,
-                          fontFamily: 'Urbanist-Bold',
-                        ),
-                      ),
-                      Text(
-                        'Water Intake',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: screenWidth * 0.025,
-                          fontFamily: 'Urbanist-Medium',
-                        ),
-                      ),
-                    ],
-                  ),
+                child: WaterIntakeCircle(
+                  screenWidth: screenWidth,
+                  waterPercentage: 80,
+                  foodPercentage: 20,
                 ),
               ),
               SizedBox(width: screenWidth * 0.05),
@@ -918,7 +900,7 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
                   SizedBox(height: screenHeight * 0.01),
                   _buildLegendItem(
                     'Food (20%)',
-                    const Color(0xFFE91E63),
+                    const Color(0xFF81CC72),
                     screenWidth,
                   ),
                 ],
@@ -929,6 +911,105 @@ class _HomeAnalysisPageState extends State<HomeAnalysisPage> {
       ),
     );
   }
+}
+
+class WaterIntakeCircle extends StatelessWidget {
+  final double screenWidth;
+  final double waterPercentage; // e.g., 80
+  final double foodPercentage; // e.g., 20
+
+  const WaterIntakeCircle({
+    super.key,
+    required this.screenWidth,
+    required this.waterPercentage,
+    required this.foodPercentage,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: screenWidth * 0.25,
+      height: screenWidth * 0.25,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          CustomPaint(
+            size: Size.square(screenWidth * 0.25),
+            painter: _GradientRingPainter(
+              waterPercent: waterPercentage,
+              foodPercent: foodPercentage,
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${(waterPercentage + foodPercentage).toInt()}%',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: screenWidth * 0.05,
+                  fontFamily: 'Urbanist-Bold',
+                ),
+              ),
+              Text(
+                'Water Intake',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: screenWidth * 0.025,
+                  fontFamily: 'Urbanist-Medium',
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GradientRingPainter extends CustomPainter {
+  final double waterPercent;
+  final double foodPercent;
+
+  _GradientRingPainter({required this.waterPercent, required this.foodPercent});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final strokeWidth = size.width * 0.08;
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = (size.width - strokeWidth) / 2;
+    final rect = Rect.fromCircle(center: center, radius: radius);
+
+    final waterAngle = 2 * pi * (waterPercent / 100);
+    final foodAngle = 2 * pi * (foodPercent / 100);
+
+    final waterPaint =
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+            colors: const [Color(0xFF8EC6F9), Color(0xFF104B80)],
+          ).createShader(rect)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth
+          ..strokeCap = StrokeCap.round;
+
+    final foodPaint =
+        Paint()
+          ..color = const Color(0xFF81CC72)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth
+          ..strokeCap = StrokeCap.round;
+
+    // Draw water arc first
+    canvas.drawArc(rect, -pi / 2, waterAngle, false, waterPaint);
+
+    // Draw food arc next
+    canvas.drawArc(rect, -pi / 2 + waterAngle, foodAngle, false, foodPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class CustomTooltip extends StatelessWidget {
@@ -948,30 +1029,30 @@ class CustomTooltip extends StatelessWidget {
         //alignment: Alignment.center,
         children: [
           /*Image.asset(
-            'assets/purple_circle.png',
-            width: outerSize,
-            height: outerSize * 1.15,
-            fit: BoxFit.contain,
-          ),
-          Container(
-            width: innerSize,
-            height: innerSize,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Text(
-                '$percentage%',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.03,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontFamily: 'urbanist-Bold',
-                ),
-              ),
-            ),
-          ),*/
+ 'assets/purple_circle.png',
+ width: outerSize,
+ height: outerSize * 1.15,
+ fit: BoxFit.contain,
+ ),
+ Container(
+ width: innerSize,
+ height: innerSize,
+ decoration: const BoxDecoration(
+ color: Colors.white,
+ shape: BoxShape.circle,
+ ),
+ child: Center(
+ child: Text(
+ '$percentage%',
+ style: TextStyle(
+ fontSize: screenWidth * 0.03,
+ fontWeight: FontWeight.bold,
+ color: Colors.black,
+ fontFamily: 'urbanist-Bold',
+ ),
+ ),
+ ),
+ ),*/
           Image.asset(
             'assets/Union1.png',
             width: outerSize,

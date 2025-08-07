@@ -70,25 +70,34 @@ class _ProfileScreenPageState extends State<ProfileScreenPage> {
               SizedBox(height: screenHeight * 0.05),
 
               // First menu card
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(16.r),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(4, 6),
+                      blurRadius: 4.r,
+                      color: Color(0x40000000),
+                    ),
+                  ],
+                ),
                 child: Container(
+                  //margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
                   decoration: BoxDecoration(
-                    color: const Color(0x1AFFFFFF),
+                    color: Color(0x1AFFFFFF),
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Column(
                     children: [
-                      _buildMenuItem(Icons.person_outline, 'Personal Info'),
                       _buildMenuItem(
-                        Icons.notifications_none_outlined,
-                        'Drink Reminder',
+                        'assets/personalinfo.png',
+                        'Personal Info',
                       ),
-                      _buildMenuItem(
-                        Icons.water_drop_outlined,
-                        'Sipnudge Bottle',
-                      ),
-                      _buildMenuItem(Icons.settings_outlined, 'Preferences'),
+                      _buildMenuItem('assets/drink_rem.png', 'Drink Reminder'),
+                      _buildMenuItem('assets/bottle.png', 'Sipnudge Bottle'),
+                      _buildMenuItem('assets/performance.png', 'Preferences'),
                     ],
                   ),
                 ),
@@ -97,27 +106,45 @@ class _ProfileScreenPageState extends State<ProfileScreenPage> {
               SizedBox(height: screenHeight * 0.042),
 
               // Second menu card
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(16.r),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(4, 6),
+                      blurRadius: 4.r,
+                      color: Color(0x40000000),
+                    ),
+                  ],
+                ),
                 child: Container(
+                  //margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
                   decoration: BoxDecoration(
-                    color: const Color(0x1AFFFFFF),
+                    color: Color(0x1AFFFFFF),
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Column(
                     children: [
                       _buildMenuItem(
-                        Icons.bar_chart_outlined,
+                        'assets/data_analytics_icon.png',
                         'Data & Analytics',
                       ),
                       _buildMenuItem(
-                        Icons.security_outlined,
+                        'assets/acc_security.png',
                         'Account & Security',
                       ),
-                      _buildMenuItem(Icons.link_outlined, 'Linked Accounts'),
-                      _buildMenuItem(Icons.help_outline, 'Help & Support'),
                       _buildMenuItem(
-                        Icons.logout_outlined,
+                        'assets/link_account.png',
+                        'Linked Accounts',
+                      ),
+                      _buildMenuItem(
+                        'assets/help_support.png',
+                        'Help & Support',
+                      ),
+                      _buildMenuItem(
+                        'assets/logout.png',
                         'Logout',
                         isRed: true,
                       ),
@@ -258,38 +285,52 @@ class _ProfileScreenPageState extends State<ProfileScreenPage> {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title, {bool isRed = false}) {
+  Widget _buildMenuItem(String imagePath, String title, {bool isRed = false}) {
+    final isLogout = title == 'Logout';
+
     return InkWell(
       onTap: () {
         debugPrint('Tapped on: $title');
 
-        if (isRed) {
+        if (isLogout) {
           _showLogoutConfirmation();
         } else {
           _handleNavigation(title);
         }
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 22,
-              color: isRed ? Colors.redAccent : Colors.white,
-            ),
-            const SizedBox(width: 16),
-            Text(
-              title,
-              style: TextStyle(
-                color: isRed ? Colors.redAccent : Colors.white,
-                fontFamily: 'urbanist-Bold',
-                fontSize: 18.sp,
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        child: Container(
+          decoration: BoxDecoration(),
+          child: Row(
+            children: [
+              Image.asset(
+                imagePath,
+                width: 22.w,
+                height: 22.h,
+                color: isLogout ? const Color(0xFFF75555) : Colors.white,
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(
+                    Icons.error,
+                    color: Colors.redAccent,
+                    size: 22.sp,
+                  );
+                },
               ),
-            ),
-            const Spacer(),
-            Icon(Icons.chevron_right, color: Color(0xFFFFFFFF), size: 24.sp),
-          ],
+              SizedBox(width: 16.w),
+              Text(
+                title,
+                style: TextStyle(
+                  color: isLogout ? const Color(0xFFF75555) : Colors.white,
+                  fontFamily: 'urbanist-Bold',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18.sp,
+                ),
+              ),
+              const Spacer(),
+              Icon(Icons.chevron_right, color: Colors.white, size: 24.sp),
+            ],
+          ),
         ),
       ),
     );

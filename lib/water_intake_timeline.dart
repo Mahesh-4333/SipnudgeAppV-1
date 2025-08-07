@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,7 +65,12 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                      padding: EdgeInsets.only(
+                        left: 10.w,
+                        right: 20.w,
+                        top: 10.h,
+                      ),
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -156,7 +160,7 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 10.w,
-                          vertical: 12.h,
+                          vertical: 14.h,
                         ),
                         decoration: BoxDecoration(
                           color: const Color(0x20FFFFFF),
@@ -352,7 +356,6 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
                         ),
                       ),
                     ),
-
                     SizedBox(height: 30.h),
                     Container(
                       height: screenHeight * 0.09,
@@ -549,10 +552,10 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
         Navigator.pushNamed(context, '/analysis');
         break;
       case 'Goals':
-        Navigator.pushNamed(context, '/dailygoalpage');
+        Navigator.pushNamed(context, '/achievement');
         break;
       case 'Settings':
-        Navigator.pushNamed(context, '/preferences');
+        Navigator.pushNamed(context, '/profilescreen');
         break;
       default:
         debugPrint('No route defined for $label');
@@ -577,7 +580,7 @@ class ProgressCircle extends StatelessWidget {
       width: 120.w,
       height: 120.w,
       child: CustomPaint(
-        painter: GradientCirclePainter(percent: 2000 / 2400),
+        painter: GradientCirclePainter(percent: percent),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -614,7 +617,7 @@ class GradientCirclePainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final rect = Rect.fromCircle(center: center, radius: radius);
 
-    // Draw background circle
+    // Background circle
     final backgroundPaint =
         Paint()
           ..color = Color(0x10FFFFFF)
@@ -624,18 +627,13 @@ class GradientCirclePainter extends CustomPainter {
 
     canvas.drawCircle(center, radius, backgroundPaint);
 
-    // Progress gradient
+    // Updated 3-color gradient
     final gradient = SweepGradient(
       startAngle: 0,
       endAngle: 2 * pi,
-      transform: GradientRotation(-pi / 2),
-      colors: const [
-        Color(0xFFFFFFFF), // white
-        Color(0xFF9FDCFF), // light cyan
-        Color(0xFF3FBAFF),
-        Color(0xFF3FBAFF), // deep blue
-      ],
-      stops: [0.0, percent * 0.6, percent * 0.98, percent],
+      transform: GradientRotation(-pi / 1.8),
+      colors: const [Color(0xFFFFFFFF), Color(0xFF9FDCFF), Color(0xFF3FBAFF)],
+      stops: [0.0, percent * 0.6, percent],
     );
 
     final progressPaint =
