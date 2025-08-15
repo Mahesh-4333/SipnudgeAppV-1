@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/widgets/custom_bttom_sheet_rm.dart';
 
 class DrinkReminder extends StatefulWidget {
   const DrinkReminder({super.key});
@@ -38,6 +39,15 @@ class _DrinkReminderState extends State<DrinkReminder>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _showReminderMode(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => ReminderBottomSheet(context),
+    );
   }
 
   @override
@@ -98,7 +108,9 @@ class _DrinkReminderState extends State<DrinkReminder>
                         _buildToggleRow('Reminder', reminderEnabled, (val) {
                           setState(() => reminderEnabled = val);
                         }),
-                        _buildListItem('Reminder Mode', reminderMode, () {}),
+                        _buildListItem('Reminder Mode', reminderMode, () {
+                          _showReminderMode(context);
+                        }),
                       ],
                     ),
                     SizedBox(height: 16.h),

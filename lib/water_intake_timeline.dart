@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterapp1/cubit/water_intake_timeline_cubit.dart';
+import 'package:flutterapp1/widgets/nav_bar_items.dart';
 
 class WaterIntakeTimeline extends StatefulWidget {
   const WaterIntakeTimeline({super.key});
@@ -13,6 +14,7 @@ class WaterIntakeTimeline extends StatefulWidget {
 
 class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
   String title = "Home";
+  bool isSelected = false;
 
   Future<void> _selectDate(BuildContext context, HydrationState state) async {
     final selected = await showDatePicker(
@@ -278,10 +280,18 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
                                                 ),
                                               ),
                                               SizedBox(width: 4.w),
-                                              Icon(
-                                                Icons.edit,
-                                                size: 15.sp,
-                                                color: Color(0xFFFFFFFF),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  _showTimeEditBottomSheet(
+                                                    context,
+                                                    index,
+                                                  );
+                                                },
+                                                child: Icon(
+                                                  Icons.edit,
+                                                  size: 15.sp,
+                                                  color: Color(0xFFFFFFFF),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -382,34 +392,118 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              _buildNavItem(
-                                Icons.home,
-                                'Home',
-                                title == 'Home',
-                                screenWidth,
-                                screenHeight,
+                              // _buildNavItem(
+                              //   Icons.home,
+                              //   'Home',
+                              //   title == 'Home',
+                              //   screenWidth,
+                              //   screenHeight,
+                              // ),
+                              NavItemWidget(
+                                icon: Icons.home,
+                                label: 'Home',
+                                isActive: title == 'Home',
+                                onTab: () {
+                                  setState(() {
+                                    title = 'Home';
+                                    Navigator.pushNamed(context, '/homepage');
+                                  });
+                                },
+                                onTap: () {
+                                  setState(() {
+                                    title = 'Home';
+                                    Navigator.pushNamed(context, '/homepage');
+                                  });
+                                },
                               ),
-                              _buildNavItem(
-                                Icons.analytics_outlined,
-                                'Analysis',
-                                title == 'Analysis',
-                                screenWidth,
-                                screenHeight,
+
+                              NavItemWidget(
+                                icon: Icons.analytics_outlined,
+                                label: 'Analysis',
+                                isActive: title == 'Analysis',
+                                onTab: () {
+                                  setState(() {
+                                    title = 'Analysis';
+                                    Navigator.pushNamed(context, '/Analysis');
+                                  });
+                                },
+                                onTap: () {
+                                  setState(() {
+                                    title = 'Analysis';
+                                    Navigator.pushNamed(context, '/analysis');
+                                  });
+                                },
                               ),
-                              _buildNavItem(
-                                Icons.lightbulb_outline,
-                                'Goals',
-                                title == 'Goals',
-                                screenWidth,
-                                screenHeight,
+
+                              NavItemWidget(
+                                icon: Icons.lightbulb_outline,
+                                label: 'Goals',
+                                isActive: title == 'Goals',
+                                onTab: () {
+                                  setState(() {
+                                    title = 'Goals';
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/achievement',
+                                    );
+                                  });
+                                },
+                                onTap: () {
+                                  setState(() {
+                                    title = 'Goals';
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/achievement',
+                                    );
+                                  });
+                                },
                               ),
-                              _buildNavItem(
-                                Icons.settings,
-                                'Settings',
-                                title == 'Settings',
-                                screenWidth,
-                                screenHeight,
+
+                              NavItemWidget(
+                                icon: Icons.settings,
+                                label: 'Settings',
+                                isActive: title == 'Settings',
+                                onTab: () {
+                                  setState(() {
+                                    title = 'Settings';
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/profilrscreen',
+                                    );
+                                  });
+                                },
+                                onTap: () {
+                                  setState(() {
+                                    title = 'Settings';
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/profilescreen',
+                                    );
+                                  });
+                                },
                               ),
+
+                              // _buildNavItem(
+                              //   Icons.analytics_outlined,
+                              //   'Analysis',
+                              //   title == 'Analysis',
+                              //   screenWidth,
+                              //   screenHeight,
+                              // ),
+                              // _buildNavItem(
+                              //   Icons.lightbulb_outline,
+                              //   'Goals',
+                              //   title == 'Goals',
+                              //   screenWidth,
+                              //   screenHeight,
+                              // ),
+                              // _buildNavItem(
+                              //   Icons.settings,
+                              //   'Settings',
+                              //   title == 'Settings',
+                              //   screenWidth,
+                              //   screenHeight,
+                              // ),
                             ],
                           ),
                         ),
@@ -425,141 +519,338 @@ class _WaterIntakeTimelineState extends State<WaterIntakeTimeline> {
     );
   }
 
-  Widget _buildNavItem(
-    IconData icon,
-    String label,
-    bool isActive,
-    double screenWidth,
-    double screenHeight,
-  ) {
-    final assetPath = 'assets/${label.toLowerCase()}.png';
-    double scale = 1.0;
+  void _showTimeEditBottomSheet(BuildContext context, int index) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        String selectedTimeRange = "7:00-8:00 AM"; // default or from entry
 
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return GestureDetector(
-          onTapDown: (_) => setState(() => scale = 0.9),
-          onTapUp: (_) => setState(() => scale = 1.0),
-          onTapCancel: () => setState(() => scale = 1.0),
-          onTap: () {
-            debugPrint('Tapped on: $label');
-            _handleBottomNavigation(label);
-          },
-          child: AnimatedScale(
-            scale: scale,
-            duration: const Duration(milliseconds: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: screenWidth * 0.2,
-                  height: screenHeight * 0.06,
-                  decoration: BoxDecoration(
-                    gradient:
-                        isActive
-                            ? const LinearGradient(
-                              colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            )
-                            : null,
-                    color: isActive ? null : Colors.transparent,
-                    borderRadius: BorderRadius.circular(48.r),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: const Offset(4, 4),
-                        color:
-                            isActive
-                                ? const Color(0x40000000)
-                                : Colors.transparent,
-                        blurRadius: 4,
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Container(
+              //padding: EdgeInsets.all(30.w),
+              padding: EdgeInsets.only(
+                left: 25.w,
+                right: 30.w,
+                top: 15.h,
+                bottom: 30.h,
+              ),
+              margin: EdgeInsets.only(top: 100.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
+                gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFB586BE), Color(0xFF131313)],
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title + close icon
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Breakfast Time",
+                        style: TextStyle(
+                          fontFamily: 'Urbanist_SemiBold',
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white70,
+                          size: 22.sp,
+                        ),
                       ),
                     ],
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Container(
-                      width: screenWidth * 0.19,
-                      height: screenHeight * 0.055,
-                      decoration: BoxDecoration(
-                        gradient:
-                            isActive
-                                ? const LinearGradient(
-                                  colors: [
-                                    Color(0xFFB182BA),
-                                    Color(0xFF2D1B31),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                )
-                                : null,
-                        color: isActive ? null : Colors.transparent,
-                        borderRadius: BorderRadius.circular(46),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            assetPath,
-                            width: screenWidth * 0.06,
-                            height: screenWidth * 0.06,
-                            color: Colors.white,
-                            errorBuilder: (context, error, stackTrace) {
-                              debugPrint(
-                                'Error loading image: $assetPath - $error',
+                  SizedBox(height: 20.h),
+
+                  // Dropdown
+                  Text(
+                    "Time",
+                    style: TextStyle(
+                      fontFamily: 'Urbanist_SemiBold',
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFFFFFFF),
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    decoration: BoxDecoration(
+                      color: Color(0x10FFFFFF),
+                      borderRadius: BorderRadius.circular(50.r),
+                      border: Border.all(color: Color(0x40FFFFFF)),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        dropdownColor: Color(0xFF2B2B2B),
+                        isExpanded: true,
+                        value: selectedTimeRange,
+                        icon: Image.asset(
+                          'assets/drop_down_arrow.png', // your image path
+                          width: 15.w, // adjust size
+                          height: 15.h,
+                          //color: null, // or set color if you want to tint
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Urbanist_Medium',
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                        items:
+                            [
+                              "7:00-8:00 AM",
+                              "8:00-9:00 AM",
+                              "9:00-10:00 AM",
+                            ].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               );
-                              return Icon(
-                                icon,
-                                size: screenWidth * 0.055,
-                                color: Colors.white,
-                              );
-                            },
-                          ),
-                          Text(
-                            label,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: screenWidth * 0.03,
-                            ),
-                          ),
-                        ],
+                            }).toList(),
+                        onChanged: (newValue) {
+                          setState(() => selectedTimeRange = newValue!);
+                        },
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
+
+                  SizedBox(height: 30.h),
+
+                  // Buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            // backgroundColor: Colors.white,
+                            // foregroundColor: Colors.black,
+                            backgroundColor:
+                                isSelected
+                                    ? Color(0xFF2196F3)
+                                    : Color(0xFFFFFFFF),
+                            foregroundColor:
+                                isSelected ? Colors.black : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.r),
+                            ),
+                            minimumSize: Size(
+                              80.w,
+                              50.h,
+                            ), // width smaller, height taller
+                            padding: EdgeInsets.symmetric(
+                              vertical: 16.h,
+                            ), // optional for extra height
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontFamily: 'Urbanist-Bold',
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF369FFF),
+                              fontSize: 16.sp,
+                              letterSpacing: 0.2.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 20.w),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF2196F3),
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.r),
+                            ),
+                            minimumSize: Size(
+                              80.w,
+                              50.h,
+                            ), // narrower width, taller height
+                            padding: EdgeInsets.symmetric(
+                              vertical: 16.h,
+                            ), // optional extra height
+                          ),
+                          onPressed: () {
+                            // Save selected time range here
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "OK",
+                            style: TextStyle(
+                              fontFamily: 'Urbanist-Bold',
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 16.sp,
+                              letterSpacing: 0.2.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
   }
 
-  void _handleBottomNavigation(String label) {
-    setState(() {
-      title = label; // Update active tab
-    });
+  //   Widget _buildNavItem(
+  //     IconData icon,
+  //     String label,
+  //     bool isActive,
+  //     double screenWidth,
+  //     double screenHeight,
+  //   ) {
+  //     final assetPath = 'assets/${label.toLowerCase()}.png';
+  //     double scale = 1.0;
 
-    switch (label) {
-      case 'Home':
-        Navigator.pushNamed(context, '/homepage');
-        break;
-      case 'Analysis':
-        Navigator.pushNamed(context, '/analysis');
-        break;
-      case 'Goals':
-        Navigator.pushNamed(context, '/achievement');
-        break;
-      case 'Settings':
-        Navigator.pushNamed(context, '/profilescreen');
-        break;
-      default:
-        debugPrint('No route defined for $label');
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('$label screen coming soon!')));
-    }
-  }
+  //     return StatefulBuilder(
+  //       builder: (context, setState) {
+  //         return GestureDetector(
+  //           onTapDown: (_) => setState(() => scale = 0.9),
+  //           onTapUp: (_) => setState(() => scale = 1.0),
+  //           onTapCancel: () => setState(() => scale = 1.0),
+  //           onTap: () {
+  //             debugPrint('Tapped on: $label');
+  //             _handleBottomNavigation(label);
+  //           },
+  //           child: AnimatedScale(
+  //             scale: scale,
+  //             duration: const Duration(milliseconds: 10),
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 Container(
+  //                   width: screenWidth * 0.2,
+  //                   height: screenHeight * 0.06,
+  //                   decoration: BoxDecoration(
+  //                     gradient:
+  //                         isActive
+  //                             ? const LinearGradient(
+  //                               colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
+  //                               begin: Alignment.topCenter,
+  //                               end: Alignment.bottomCenter,
+  //                             )
+  //                             : null,
+  //                     color: isActive ? null : Colors.transparent,
+  //                     borderRadius: BorderRadius.circular(48.r),
+  //                     boxShadow: [
+  //                       BoxShadow(
+  //                         offset: const Offset(4, 4),
+  //                         color:
+  //                             isActive
+  //                                 ? const Color(0x40000000)
+  //                                 : Colors.transparent,
+  //                         blurRadius: 4,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.all(1.0),
+  //                     child: Container(
+  //                       width: screenWidth * 0.19,
+  //                       height: screenHeight * 0.055,
+  //                       decoration: BoxDecoration(
+  //                         gradient:
+  //                             isActive
+  //                                 ? const LinearGradient(
+  //                                   colors: [
+  //                                     Color(0xFFB182BA),
+  //                                     Color(0xFF2D1B31),
+  //                                   ],
+  //                                   begin: Alignment.topCenter,
+  //                                   end: Alignment.bottomCenter,
+  //                                 )
+  //                                 : null,
+  //                         color: isActive ? null : Colors.transparent,
+  //                         borderRadius: BorderRadius.circular(46),
+  //                       ),
+  //                       child: Column(
+  //                         mainAxisAlignment: MainAxisAlignment.center,
+  //                         children: [
+  //                           Image.asset(
+  //                             assetPath,
+  //                             width: screenWidth * 0.06,
+  //                             height: screenWidth * 0.06,
+  //                             color: Colors.white,
+  //                             errorBuilder: (context, error, stackTrace) {
+  //                               debugPrint(
+  //                                 'Error loading image: $assetPath - $error',
+  //                               );
+  //                               return Icon(
+  //                                 icon,
+  //                                 size: screenWidth * 0.055,
+  //                                 color: Colors.white,
+  //                               );
+  //                             },
+  //                           ),
+  //                           Text(
+  //                             label,
+  //                             style: TextStyle(
+  //                               color: Colors.white,
+  //                               fontSize: screenWidth * 0.03,
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       },
+  //     );
+  //   }
+
+  //   void _handleBottomNavigation(String label) {
+  //     setState(() {
+  //       title = label; // Update active tab
+  //     });
+
+  //     switch (label) {
+  //       case 'Home':
+  //         Navigator.pushNamed(context, '/homepage');
+  //         break;
+  //       case 'Analysis':
+  //         Navigator.pushNamed(context, '/analysis');
+  //         break;
+  //       case 'Goals':
+  //         Navigator.pushNamed(context, '/achievement');
+  //         break;
+  //       case 'Settings':
+  //         Navigator.pushNamed(context, '/profilescreen');
+  //         break;
+  //       default:
+  //         debugPrint('No route defined for $label');
+  //         ScaffoldMessenger.of(
+  //           context,
+  //         ).showSnackBar(SnackBar(content: Text('$label screen coming soon!')));
+  //     }
+  //   }
 }
 
 class ProgressCircle extends StatelessWidget {

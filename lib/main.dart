@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart' show ScreenUtilInit;
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterapp1/account&security.dart';
 import 'package:flutterapp1/achievement.dart';
 import 'package:flutterapp1/companymotto.dart';
 import 'package:flutterapp1/contactsupport.dart';
+import 'package:flutterapp1/cubit/reminder_cubit.dart';
+import 'package:flutterapp1/cubit/reminder_mode_cubit.dart';
+import 'package:flutterapp1/cubit/reminder_time_cubit.dart';
 import 'package:flutterapp1/cubit/water_intake_timeline_cubit.dart';
 import 'package:flutterapp1/dailygoalpage.dart';
 import 'package:flutterapp1/drink_reminder.dart';
@@ -19,8 +22,7 @@ import 'package:flutterapp1/loadingscreen.dart';
 import 'package:flutterapp1/otpscreen.dart';
 import 'package:flutterapp1/passwordupdatepage.dart';
 import 'package:flutterapp1/personalinfo.dart';
-import 'package:flutterapp1/personalinfoinprofile.dart'
-    show PersonalInfoInProfile;
+import 'package:flutterapp1/personalinfoinprofile.dart';
 import 'package:flutterapp1/preferences.dart';
 import 'package:flutterapp1/profilescreen.dart';
 import 'package:flutterapp1/setnewpasswordscreen.dart';
@@ -28,35 +30,33 @@ import 'package:flutterapp1/signin.dart';
 import 'package:flutterapp1/signin_signup.dart';
 import 'package:flutterapp1/signupblankpage.dart';
 import 'package:flutterapp1/water_intake_timeline.dart';
-//import 'package:flutterapp1/homepage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  //const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(
-        430,
-        932,
-      ), // Use your design's size (e.g. iPhone 14 Pro Max)
+      designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return BlocProvider<HydrationCubit>(
-          create: (Context) => HydrationCubit(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<HydrationCubit>(create: (context) => HydrationCubit()),
+            BlocProvider(create: (context) => ReminderCubit()),
+            BlocProvider(create: (context) => ReminderTimeCubit()),
+            BlocProvider(create: (context) => ReminderIntervalCubit()),
+          ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
-              //'/': (context) => const BadgeWithConcentricBackground(),
               '/': (context) => DrinkReminder(),
               '/companymotto': (context) => CompanyMottoPage(),
               '/signin_signupsage': (context) => SignIn_SignUpPage(),
