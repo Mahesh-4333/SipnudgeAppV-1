@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterapp1/cubit/reminder_mode_cubit.dart';
-import 'package:flutterapp1/cubit/reminder_mode_state.dart';
-import 'package:flutterapp1/cubit/reminder_time_cubit.dart';
+import 'package:flutterapp1/cubit/reminder time&mode/reminder_mode_cubit.dart';
+import 'package:flutterapp1/cubit/reminder time&mode/reminder_mode_state.dart';
+import 'package:flutterapp1/cubit/reminder time&mode/reminder_time_cubit.dart';
 import 'package:flutterapp1/widgets/custom_bottom_sheet_interval.dart';
 
 class ReminderBottomSheet extends StatelessWidget {

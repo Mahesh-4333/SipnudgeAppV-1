@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutterapp1/reminder_interval.dart';
 
-import '../cubit/reminder_cubit.dart';
-import '../cubit/reminder_state.dart';
+import '../cubit/reminder time&mode/reminder_cubit.dart';
+import '../cubit/reminder time&mode/reminder_state.dart';
 
 class ReminderBottomSheet extends StatelessWidget {
   const ReminderBottomSheet({super.key, required this.aiReminder, this.onSave});
@@ -78,7 +77,7 @@ class ReminderBottomSheet extends StatelessWidget {
                             onChanged: (v) => cubit.toggle(e.key, v),
                           ),
                         );
-                      }).toList(),
+                      }),
                     ],
                   ),
                 );
@@ -142,12 +141,12 @@ class _TimeRow extends StatelessWidget {
           Switch(
             value: value,
             onChanged: onChanged,
-            thumbColor: MaterialStateProperty.resolveWith<Color>(
+            thumbColor: WidgetStateProperty.resolveWith<Color>(
               (states) =>
                   Colors.white, // same thumb color for active & inactive
             ),
-            trackColor: MaterialStateProperty.resolveWith<Color>((states) {
-              if (states.contains(MaterialState.selected)) {
+            trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+              if (states.contains(WidgetState.selected)) {
                 return const Color(0xFF7A2CF8); // active track
               }
               return Color(0xFFE0E0E0); // inactive track

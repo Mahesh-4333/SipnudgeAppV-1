@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutterapp1/cubit/water_intake_timeline_cubit.dart';
+import 'package:flutterapp1/cubit/reminder time&mode/water_intake_timeline_cubit.dart';
 import 'package:flutterapp1/widgets/nav_bar_items.dart';
 
 class WaterIntakeTimeline extends StatefulWidget {
