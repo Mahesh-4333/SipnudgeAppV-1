@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 import 'package:flutterapp1/cubit/linkaccounts/link_accounts_cubit.dart';
 import 'package:flutterapp1/cubit/linkaccounts/link_accounts_state.dart';
 import 'package:flutterapp1/helpers/navigation_helper.dart';
@@ -16,11 +19,11 @@ class LinkAccountsPage extends StatelessWidget {
       create: (_) => LinkAccountsCubit(),
       child: Scaffold(
         body: Container(
-          width: 1.sw, // full screen width
-          height: 1.sh, // full screen height
+          width: AppDimensions.dim1.sw, // full screen width
+          height: AppDimensions.dim1.sh, // full screen height
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFB586BE), Color(0xFF131313)],
+              colors: [AppColors.gradientStart, AppColors.gradientEnd],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -34,9 +37,9 @@ class LinkAccountsPage extends StatelessWidget {
                     /// 🔹 Top user info
                     Padding(
                       padding: EdgeInsets.only(
-                        top: 40.h,
-                        left: 20.w,
-                        right: 20.w,
+                        top: AppDimensions.dim40.h,
+                        left: AppDimensions.dim20.w,
+                        right: AppDimensions.dim20.w,
                       ),
                       child: Row(
                         children: [
@@ -44,17 +47,23 @@ class LinkAccountsPage extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             icon: Icon(
                               Icons.arrow_back,
-                              color: Colors.black,
-                              size: 30.sp,
+                              color: AppColors.black,
+                              size: AppFontStyles.fontSize_30.sp,
                             ),
                           ),
                           SizedBox(width: 70.w),
                           Text(
                             'Link Accounts',
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24.sp,
-                              fontFamily: 'urbanist-Bold',
+                              color: AppColors.white,
+                              fontSize: AppFontStyles.fontSize_24.sp,
+                              fontFamily: AppFontStyles.urbanistFontFamily,
+                              fontVariations: [
+                                FontVariation(
+                                  'wght',
+                                  AppFontStyles.boldFontVariation.value,
+                                ),
+                              ],
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -62,7 +71,7 @@ class LinkAccountsPage extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 50.h),
+                    SizedBox(height: AppDimensions.dim50.h),
 
                     /// 🔹 Social Buttons
                     BlocBuilder<LinkAccountsCubit, LinkAccountsState>(
@@ -112,9 +121,9 @@ class LinkAccountsPage extends StatelessWidget {
 
                 /// 🔹 Custom Bottom Nav
                 Positioned(
-                  left: 6.w,
-                  right: 6.w,
-                  bottom: 6.h,
+                  left: AppDimensions.dim6.w,
+                  right: AppDimensions.dim6.w,
+                  bottom: AppDimensions.dim6.h,
                   child: BlocBuilder<LinkAccountsCubit, LinkAccountsState>(
                     builder: (context, state) {
                       return CustomBottomNavBar(

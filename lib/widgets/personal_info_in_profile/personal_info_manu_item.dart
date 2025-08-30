@@ -1,6 +1,9 @@
 // widgets/menu_item.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class MenuItem extends StatelessWidget {
   final String title;
@@ -21,28 +24,35 @@ class MenuItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDimensions.dim16,
+          vertical: AppDimensions.dim12,
+        ),
         child: Row(
           children: [
             Text(
               title,
               style: TextStyle(
-                color: isRed ? Colors.redAccent : Colors.white,
-                fontFamily: 'urbanist-Bold',
-                fontSize: 18.sp,
+                color: isRed ? AppColors.redAccent : AppColors.white,
+                fontFamily: AppFontStyles.urbanistFontFamily,
+                fontSize: AppFontStyles.fontSize_18.sp,
               ),
             ),
             const Spacer(),
             Text(
               info,
               style: TextStyle(
-                color: isRed ? Colors.redAccent : Colors.white,
-                fontFamily: 'urbanist-SemiBold',
-                fontSize: 16.sp,
+                color: isRed ? AppColors.redAccent : AppColors.white,
+                fontFamily: AppFontStyles.urbanistFontFamily,
+                fontSize: AppFontStyles.fontSize_16.sp,
               ),
             ),
-            const SizedBox(width: 15),
-            Icon(Icons.chevron_right, color: Colors.white, size: 24.sp),
+            SizedBox(width: AppDimensions.dim15.w),
+            Icon(
+              Icons.chevron_right,
+              color: AppColors.white,
+              size: AppFontStyles.fontSize_24.sp,
+            ),
           ],
         ),
       ),

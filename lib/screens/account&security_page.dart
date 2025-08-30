@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/account&security/account&security_cubit.dart';
 import 'package:flutterapp1/cubit/account&security/account&security_state.dart';
 import 'package:flutterapp1/helpers/navigation_helper.dart';
@@ -31,7 +35,7 @@ class _AccountAndSecurityView extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFB586BE), Color(0xFF131313)],
+            colors: [AppColors.gradientStart, AppColors.gradientEnd],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -41,22 +45,26 @@ class _AccountAndSecurityView extends StatelessWidget {
             children: [
               // Top Header
               Padding(
-                padding: EdgeInsets.only(top: 40.h, left: 20.w, right: 20.w),
+                padding: EdgeInsets.only(
+                  top: AppDimensions.dim40.h,
+                  left: AppDimensions.dim20.w,
+                  right: AppDimensions.dim20.w,
+                ),
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 40.w,
-                      height: 40.w,
+                      width: AppDimensions.dim40.w,
+                      height: AppDimensions.dim40.w,
                       child: IconButton(
                         onPressed: () => Navigator.pop(context),
                         icon: Icon(
                           Icons.arrow_back,
-                          color: Colors.black,
-                          size: 30.sp,
+                          color: AppColors.black,
+                          size: AppFontStyles.fontSize_30,
                         ),
                       ),
                     ),
-                    SizedBox(width: 50.w),
+                    SizedBox(width: AppDimensions.dim50.w),
                     const Text(
                       'Account & Security',
                       style: TextStyle(
@@ -81,7 +89,9 @@ class _AccountAndSecurityView extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: const Color(0x1AFFFFFF),
-                    borderRadius: BorderRadius.circular(16.r),
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.radius_16.r,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +108,7 @@ class _AccountAndSecurityView extends StatelessWidget {
                           );
                         },
                       ),
-                      SizedBox(height: 12.h),
+                      SizedBox(height: AppDimensions.dim12.h),
                       BlocBuilder<AccountSecurityCubit, AccountSecurityState>(
                         builder: (context, state) {
                           return ToggleTile(
@@ -116,22 +126,29 @@ class _AccountAndSecurityView extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 20.h),
+              SizedBox(height: AppDimensions.dim20.h),
 
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppDimensions.dim20.w,
+                    ),
                     child: Container(
                       decoration: BoxDecoration(
                         //color: Color(0xFFEA966F),
-                        borderRadius: BorderRadius.circular(100.r),
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radius_100.r,
+                        ),
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0x25000000).withOpacity(0.25),
-                            offset: Offset(4.w, 4.h),
-                            blurRadius: 4.r,
+                            color: AppColors.blackwithopacity25,
+                            offset: Offset(
+                              AppDimensions.radius_4.r,
+                              AppDimensions.radius_4.r,
+                            ),
+                            blurRadius: AppDimensions.radius_4.r,
                           ),
                         ],
                       ),
@@ -140,19 +157,28 @@ class _AccountAndSecurityView extends StatelessWidget {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           //backgroundColor: Colors.transparent,
-                          backgroundColor: const Color(0x22EA966F),
-                          padding: EdgeInsets.symmetric(vertical: 5.h),
+                          backgroundColor: AppColors.salmonwithopacity22,
+                          padding: EdgeInsets.symmetric(
+                            vertical: AppDimensions.dim5.h,
+                          ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100.r),
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.radius_100.r,
+                            ),
                           ),
                         ),
                         child: Text(
-                          'Delete Account',
+                          AppStrings.deleteaccount,
                           style: TextStyle(
-                            color: const Color(0xFFFC813A),
-                            fontSize: 20.sp,
-                            fontFamily: 'Urbanist-SemiBold',
-                            fontWeight: FontWeight.w600,
+                            fontSize: AppFontStyles.fontSize_20,
+                            fontVariations: [
+                              FontVariation(
+                                'wght',
+                                AppFontStyles.semiBoldFontVariation.value,
+                              ),
+                            ],
+                            color: AppColors.mangoorange,
+                            fontFamily: AppFontStyles.urbanistFontFamily,
                           ),
                         ),
                       ),
@@ -161,15 +187,20 @@ class _AccountAndSecurityView extends StatelessWidget {
 
                   ///SizedBox(height: 8.h),
                   Padding(
-                    padding: EdgeInsets.all(10.w),
+                    padding: EdgeInsets.all(AppDimensions.dim10.w),
                     child: Text(
-                      'Permanently remove your account and data. Proceed with caution.',
+                      AppStrings.accountremove,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFFFFFFFF),
-                        fontFamily: 'urbanist-medium',
+                        fontSize: AppFontStyles.fontSize_12,
+                        fontVariations: [
+                          FontVariation(
+                            'wght',
+                            AppFontStyles.regularFontVariation.value,
+                          ),
+                        ],
+                        color: AppColors.white,
+                        fontFamily: AppFontStyles.urbanistFontFamily,
                       ),
                     ),
                   ),
@@ -189,9 +220,9 @@ class _AccountAndSecurityView extends StatelessWidget {
               //   },
               // ),
               Positioned(
-                left: 6.w,
-                right: 6.w,
-                bottom: 6.h,
+                left: AppDimensions.dim6.w,
+                right: AppDimensions.dim6.w,
+                bottom: AppDimensions.dim6.w,
                 child: CustomBottomNavBar(
                   activeTab: 'Home',
                   onTabSelected: (label) {

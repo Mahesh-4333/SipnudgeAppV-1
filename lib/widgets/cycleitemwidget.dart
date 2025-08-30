@@ -1,6 +1,9 @@
 // lib/widgets/cycle_item.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class CycleItem extends StatelessWidget {
   final String title;
@@ -20,7 +23,10 @@ class CycleItem extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12.r),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimensions.dim10.w,
+          vertical: AppDimensions.dim10.h,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -28,25 +34,41 @@ class CycleItem extends StatelessWidget {
               title,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20.sp,
-                fontFamily: 'Urbanist-SemiBold',
-                fontWeight: FontWeight.w600,
+                fontSize: AppFontStyles.fontSize_20.sp,
+                fontFamily: AppFontStyles.urbanistFontFamily,
+                fontVariations: [
+                  FontVariation(
+                    'wght',
+                    AppFontStyles.fontWeightVariation600.value,
+                  ),
+                ],
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.dim10.w,
+                vertical: AppDimensions.dim3.h,
+              ),
               decoration: BoxDecoration(
-                color: const Color(0xFFEAEAEA).withOpacity(0.25),
-                border: Border.all(color: const Color(0xFFFFFFFF), width: 1.w),
-                borderRadius: BorderRadius.circular(30.r),
+                color: AppColors.greenwhite20.withOpacity(0.25),
+                border: Border.all(
+                  color: Colors.white,
+                  width: AppDimensions.dim1.w,
+                ),
+                borderRadius: BorderRadius.circular(AppDimensions.radius_30.r),
               ),
               child: Text(
                 value,
                 style: TextStyle(
-                  color: const Color(0xFFFFFFFF),
-                  fontSize: 16.sp,
-                  fontFamily: 'Urbanist-SemiBold',
-                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                  fontSize: AppFontStyles.fontSize_16.sp,
+                  fontFamily: AppFontStyles.urbanistFontFamily,
+                  fontVariations: [
+                    FontVariation(
+                      'wght',
+                      AppFontStyles.fontWeightVariation600.value,
+                    ),
+                  ],
                 ),
               ),
             ),

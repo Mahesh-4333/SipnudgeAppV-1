@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class ReminderCycleItem extends StatelessWidget {
   final String title;
@@ -17,35 +20,54 @@ class ReminderCycleItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(AppDimensions.radius_12.r),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimensions.dim10.w,
+          vertical: AppDimensions.dim10.h,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.sp,
-                fontFamily: 'Urbanist-SemiBold',
-                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+                fontSize: AppFontStyles.fontSize_20.sp,
+                fontFamily: AppFontStyles.urbanistFontFamily,
+                fontVariations: [
+                  FontVariation(
+                    'wght',
+                    AppFontStyles.semiBoldFontVariation.value,
+                  ),
+                ],
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.dim10.w,
+                vertical: AppDimensions.dim3.h,
+              ),
               decoration: BoxDecoration(
-                color: const Color(0xFFEAEAEA).withOpacity(0.25),
-                border: Border.all(color: Colors.white, width: 1.w),
-                borderRadius: BorderRadius.circular(30.r),
+                color: AppColors.greenwhite20,
+                border: Border.all(
+                  color: AppColors.white,
+                  width: AppDimensions.dim1.w,
+                ),
+                borderRadius: BorderRadius.circular(AppDimensions.radius_30.r),
               ),
               child: Text(
                 value,
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.sp,
-                  fontFamily: 'Urbanist-SemiBold',
-                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                  fontSize: AppFontStyles.fontSize_16.sp,
+                  fontFamily: AppFontStyles.urbanistFontFamily,
+                  fontVariations: [
+                    FontVariation(
+                      'wght',
+                      AppFontStyles.semiBoldFontVariation.value,
+                    ),
+                  ],
                 ),
               ),
             ),

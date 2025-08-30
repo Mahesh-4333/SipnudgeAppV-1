@@ -2,6 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/personal_info_in_profile/personal_info_cubit.dart';
 import 'package:flutterapp1/cubit/personal_info_in_profile/personal_info_state.dart';
 import 'package:flutterapp1/helpers/navigation_helper.dart';
@@ -31,7 +35,7 @@ class _PersonalInfoScreenInProfileState
           height: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFB586BE), Color(0xFF131313)],
+              colors: [AppColors.gradientStart, AppColors.gradientEnd],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -40,14 +44,14 @@ class _PersonalInfoScreenInProfileState
             child: Column(
               children: [
                 _buildHeader(context, size),
-                SizedBox(height: size.height * 0.05),
+                SizedBox(height: AppDimensions.dim50.h),
                 _buildInfoCard(),
                 const Spacer(),
                 //_buildBottomNav(size),
                 Positioned(
-                  left: 6.w,
-                  right: 6.w,
-                  bottom: 6.h,
+                  left: AppDimensions.dim6.w,
+                  right: AppDimensions.dim6.w,
+                  bottom: AppDimensions.dim6.h,
                   child: CustomBottomNavBar(
                     activeTab: 'Home',
                     onTabSelected: (label) {
@@ -66,24 +70,30 @@ class _PersonalInfoScreenInProfileState
   Widget _buildHeader(BuildContext context, Size size) {
     return Padding(
       padding: EdgeInsets.only(
-        top: size.height * 0.05,
-        left: size.width * 0.06,
-        right: size.width * 0.05,
+        top: AppDimensions.dim40.h,
+        left: AppDimensions.dim20.w,
+        right: AppDimensions.dim20.w,
       ),
       child: Row(
         children: [
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back, color: Colors.black, size: 30.sp),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: AppFontStyles.fontSize_30.sp,
+            ),
           ),
-          SizedBox(width: size.width * 0.19),
-          const Text(
-            'Personal Info',
+          SizedBox(width: AppDimensions.dim50.w),
+          Text(
+            AppStrings.personalInformation,
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontFamily: 'urbanist-Bold',
-              fontWeight: FontWeight.w700,
+              color: AppColors.white,
+              fontSize: AppFontStyles.fontSize_24.sp,
+              fontFamily: AppFontStyles.urbanistFontFamily,
+              fontVariations: [
+                FontVariation('wght', AppFontStyles.boldFontVariation.value),
+              ],
             ),
           ),
         ],
@@ -98,8 +108,8 @@ class _PersonalInfoScreenInProfileState
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0x1AFFFFFF),
-              borderRadius: BorderRadius.circular(16),
+              color: AppColors.white1A,
+              borderRadius: BorderRadius.circular(AppDimensions.radius_16.r),
               // boxShadow: [
               //   BoxShadow(
               //     offset: const Offset(0, 6),

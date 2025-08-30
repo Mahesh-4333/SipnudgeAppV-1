@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 import 'package:flutterapp1/helpers/navigation_helper.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -41,72 +44,76 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 80.w,
-                  height: 50.h,
+                  width: AppDimensions.dim80.w,
+                  height: AppDimensions.dim50.h,
                   decoration: BoxDecoration(
                     gradient:
                         isActive
                             ? const LinearGradient(
-                              colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
+                              colors: [AppColors.alabaster, AppColors.iridium],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             )
                             : null,
                     color: isActive ? null : Colors.transparent,
-                    borderRadius: BorderRadius.circular(48.r),
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.radius_48.r,
+                    ),
                     boxShadow: [
                       BoxShadow(
-                        offset: const Offset(4, 4),
+                        offset: Offset(4.r, 4.r),
                         color:
-                            isActive
-                                ? const Color(0x40000000)
-                                : Colors.transparent,
+                            isActive ? AppColors.black40 : Colors.transparent,
                         blurRadius: 4.r,
                       ),
                     ],
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(1.w),
+                    padding: EdgeInsets.all(AppDimensions.dim1.w),
                     child: Container(
-                      width: 75.w,
-                      height: 45.h,
+                      width: AppDimensions.dim75.w,
+                      height: AppDimensions.dim45.h,
                       decoration: BoxDecoration(
                         gradient:
                             isActive
                                 ? const LinearGradient(
                                   colors: [
-                                    Color(0xFFB182BA),
-                                    Color(0xFF2D1B31),
+                                    AppColors.navbarSelectedItemGradientStart,
+                                    AppColors.navbarSelectedItemGradientEnd,
+                                    // Color(0xFFB182BA),
+                                    // Color(0xFF2D1B31),
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                 )
                                 : null,
                         color: isActive ? null : Colors.transparent,
-                        borderRadius: BorderRadius.circular(46.r),
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radius_46.r,
+                        ),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
                             assetPath,
-                            width: 22.w,
-                            height: 22.w,
+                            width: AppDimensions.dim22.w,
+                            height: AppDimensions.dim22.h,
                             color: Colors.white,
                             errorBuilder: (context, error, stackTrace) {
                               return Icon(
                                 icon,
-                                size: 20.w,
-                                color: Colors.white,
+                                size: AppFontStyles.fontSize_20.w,
+                                color: AppColors.white,
                               );
                             },
                           ),
-                          SizedBox(height: 2.h),
+                          SizedBox(height: AppDimensions.dim2.h),
                           Text(
                             label,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10.sp,
+                              color: AppColors.white,
+                              fontSize: AppFontStyles.fontSize_10.sp,
                             ),
                           ),
                         ],
@@ -133,22 +140,26 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
     return Container(
       height: 75.h,
-      margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 4.h),
+      margin: EdgeInsets.only(
+        left: AppDimensions.dim20.w,
+        right: AppDimensions.dim20.w,
+        bottom: AppDimensions.dim4.h,
+      ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(90.r),
+        borderRadius: BorderRadius.circular(AppDimensions.radius_90.r),
         gradient: const LinearGradient(
-          colors: [Color(0xFF3F3F3F), Color(0xFFFFFFFF)],
+          colors: [AppColors.charcoalGrey, AppColors.white],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(1.w),
+        padding: EdgeInsets.all(AppDimensions.dim1.w),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          padding: EdgeInsets.symmetric(horizontal: AppDimensions.dim10.w),
           decoration: BoxDecoration(
-            color: const Color(0xFF2B2536),
-            borderRadius: BorderRadius.circular(90.r),
+            color: AppColors.bleachedCedar,
+            borderRadius: BorderRadius.circular(AppDimensions.radius_90.r),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

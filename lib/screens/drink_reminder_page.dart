@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/drinkreminder/drink_reminder_cubit.dart';
 import 'package:flutterapp1/cubit/drinkreminder/drink_reminder_state.dart';
 import 'package:flutterapp1/helpers/navigation_helper.dart';
@@ -25,9 +29,6 @@ class DrinkReminder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return BlocProvider(
       create: (_) => DrinkReminderCubit(),
       child: Scaffold(
@@ -36,7 +37,7 @@ class DrinkReminder extends StatelessWidget {
           height: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFB586BE), Color(0xFF131313)],
+              colors: [AppColors.gradientStart, AppColors.gradientEnd],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -48,9 +49,9 @@ class DrinkReminder extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        top: screenHeight * 0.06,
-                        left: screenWidth * 0.06,
-                        right: screenWidth * 0.06,
+                        top: AppDimensions.dim40.h,
+                        left: AppDimensions.dim20.w,
+                        right: AppDimensions.dim20.w,
                       ),
                       child: Row(
                         children: [
@@ -58,28 +59,35 @@ class DrinkReminder extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             icon: Icon(
                               Icons.arrow_back,
-                              color: Color(0xFF212121),
-                              size: 30.sp,
+                              color: AppColors.black,
+                              size: AppFontStyles.fontSize_30.sp,
                             ),
                           ),
-                          SizedBox(width: screenWidth * 0.15),
+                          SizedBox(width: AppDimensions.dim50.w),
                           Text(
                             'Drink Reminder',
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24.sp,
-                              fontFamily: 'urbanist-Bold',
-                              fontWeight: FontWeight.w700,
+                              color: AppColors.white,
+                              fontSize: AppFontStyles.fontSize_24.sp,
+                              fontFamily: AppFontStyles.urbanistFontFamily,
+                              fontVariations: [
+                                FontVariation(
+                                  'wght',
+                                  AppFontStyles.boldFontVariation.value,
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 24.h),
+                    SizedBox(height: AppDimensions.dim24.h),
 
                     /// Main Content
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.dim16.w,
+                      ),
                       child:
                           BlocBuilder<DrinkReminderCubit, DrinkReminderState>(
                             builder: (context, state) {
@@ -89,65 +97,78 @@ class DrinkReminder extends StatelessWidget {
                                   ReminderCard(
                                     children: [
                                       ReminderToggleRow(
-                                        title: 'Reminder',
+                                        title: AppStrings.reminder,
                                         value: state.reminderEnabled,
                                         onChanged: cubit.toggleReminder,
                                       ),
                                       ReminderListItem(
-                                        title: 'Reminder Mode',
+                                        title: AppStrings.reminderMode,
                                         trailing: state.reminderMode,
                                         onTap: () => _showReminderMode(context),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 16.h),
+                                  SizedBox(height: AppDimensions.dim16.h),
                                   ReminderCard(
                                     children: [
                                       ReminderCycleItem(
-                                        title: 'Smart Skip',
+                                        title: AppStrings.smartSkip,
                                         value:
                                             cubit.smartSkipOptions[state
                                                 .smartSkipIndex],
                                         onTap: cubit.cycleSmartSkip,
                                       ),
                                       ReminderCycleItem(
-                                        title: 'Alarm Repeat',
+                                        title: AppStrings.alarmRepeat,
                                         value:
                                             cubit.alarmRepeatOptions[state
                                                 .alarmRepeatIndex],
                                         onTap: cubit.cycleAlarmRepeat,
                                       ),
                                       ReminderToggleRow(
-                                        title: 'Stop When 100%',
+                                        title: AppStrings.stopWhen100,
                                         value: state.stopWhenFull,
                                         onChanged: cubit.toggleStopWhenFull,
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 16.h),
+                                  SizedBox(height: AppDimensions.dim16.h),
                                   ReminderCard(
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.only(bottom: 8.h),
+                                        padding: EdgeInsets.only(
+                                          bottom: AppDimensions.dim8.h,
+                                        ),
                                         child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            'Reminder Settings',
+                                            AppStrings.remindersetting,
                                             style: TextStyle(
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
-                                              fontFamily: 'Urbanist-Bold',
+                                              fontSize:
+                                                  AppFontStyles.fontSize_20.sp,
+                                              // fontWeight: FontWeight.w700,
+                                              color: AppColors.white,
+                                              fontFamily:
+                                                  AppFontStyles
+                                                      .urbanistFontFamily,
+                                              fontVariations: [
+                                                FontVariation(
+                                                  'wght',
+                                                  AppFontStyles
+                                                      .boldFontVariation
+                                                      .value,
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
                                       Divider(
-                                        color: Colors.white54,
-                                        thickness: 1.sp,
+                                        color: AppColors.white54,
+                                        thickness: AppFontStyles.fontSize_1.sp,
                                       ),
                                       ReminderListItem(
-                                        title: 'Water Intake Timeline',
+                                        title: AppStrings.waterintaketimeline,
                                         trailing: '',
                                         onTap:
                                             () => Navigator.pushNamed(
@@ -168,9 +189,9 @@ class DrinkReminder extends StatelessWidget {
 
                 /// 🔹 Custom Bottom Nav Bar (your provided replacement)
                 Positioned(
-                  left: 6.w,
-                  right: 6.w,
-                  bottom: 6.h,
+                  left: AppDimensions.dim6.w,
+                  right: AppDimensions.dim6.w,
+                  bottom: AppDimensions.dim6.h,
                   child: CustomBottomNavBar(
                     activeTab: 'Home',
                     onTabSelected: (label) {

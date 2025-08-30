@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/Preferences/preferences_cubit.dart';
 import 'package:flutterapp1/widgets/level_widgets/bottom_nav_bar.dart';
 import 'package:flutterapp1/widgets/preferences_widgets/menu_item_tile.dart';
@@ -21,7 +25,7 @@ class PreferencesPage extends StatelessWidget {
             body: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFFB586BE), Color(0xFF131313)],
+                  colors: [AppColors.gradientStart, AppColors.gradientEnd],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -32,9 +36,9 @@ class PreferencesPage extends StatelessWidget {
                     // ✅ Header
                     Padding(
                       padding: EdgeInsets.only(
-                        top: 40.h,
-                        left: 20.w,
-                        right: 20.w,
+                        top: AppDimensions.dim40.h,
+                        left: AppDimensions.dim20.w,
+                        right: AppDimensions.dim20.w,
                       ),
                       child: Row(
                         children: [
@@ -42,18 +46,23 @@ class PreferencesPage extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             icon: Icon(
                               Icons.arrow_back,
-                              color: Colors.black,
-                              size: 30.sp,
+                              color: AppColors.black,
+                              size: AppFontStyles.fontSize_30.sp,
                             ),
                           ),
-                          SizedBox(width: 100.w),
-                          const Text(
-                            'Preferences',
+                          SizedBox(width: AppDimensions.dim100.w),
+                          Text(
+                            AppStrings.preferences,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontFamily: 'urbanist-Bold',
-                              fontWeight: FontWeight.w700,
+                              color: AppColors.white,
+                              fontSize: AppFontStyles.fontSize_24.sp,
+                              fontFamily: AppFontStyles.urbanistFontFamily,
+                              fontVariations: [
+                                FontVariation(
+                                  'wght',
+                                  AppFontStyles.boldFontVariation.value,
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -64,11 +73,15 @@ class PreferencesPage extends StatelessWidget {
 
                     // ✅ Menu Group
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.dim20.w,
+                      ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: const Color(0x1AFFFFFF),
-                          borderRadius: BorderRadius.circular(16.r),
+                          color: AppColors.white1A,
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.dim16.r,
+                          ),
                           // boxShadow: [
                           //   BoxShadow(
                           //     color: Colors.black.withOpacity(0.25),
@@ -80,44 +93,57 @@ class PreferencesPage extends StatelessWidget {
                         child: Column(
                           children: [
                             MenuItemTile(
-                              title: 'Water Intake Goal',
+                              title: AppStrings.waterIntakeGoal,
                               info: '2,500 mL',
                             ),
-                            MenuItemTile(title: 'Cup Units', info: 'mL'),
-                            MenuItemTile(title: 'Weight Unit', info: 'kg'),
-                            MenuItemTile(title: 'Height Unit', info: 'cm'),
+                            MenuItemTile(
+                              title: AppStrings.cupUnits,
+                              info: 'mL',
+                            ),
+                            MenuItemTile(
+                              title: AppStrings.weightUnit,
+                              info: 'kg',
+                            ),
+                            MenuItemTile(
+                              title: AppStrings.heightUnit,
+                              info: 'cm',
+                            ),
                           ],
                         ),
                       ),
                     ),
 
-                    SizedBox(height: 25.h),
+                    SizedBox(height: AppDimensions.dim25.h),
 
                     // ✅ Toggles
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.dim20.w,
+                      ),
                       child: Container(
-                        padding: EdgeInsets.all(16.w),
+                        padding: EdgeInsets.all(AppDimensions.dim16.w),
                         decoration: BoxDecoration(
-                          color: const Color(0x1AFFFFFF),
-                          borderRadius: BorderRadius.circular(16.r),
+                          color: AppColors.white1A,
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.dim16.r,
+                          ),
                         ),
                         child: Column(
                           children: [
                             ToggleTile(
-                              title: 'Haptic Feedback',
+                              title: AppStrings.hapticFeedback,
                               value: state.hapticFeedback,
                               onChanged: cubit.toggleHapticFeedback,
                             ),
-                            SizedBox(height: 12.h),
+                            SizedBox(height: AppDimensions.dim12.h),
                             ToggleTile(
-                              title: 'Wake-up Time as Alarm',
+                              title: AppStrings.wakeUpTimeAsAlarm,
                               value: state.wakeUpAlarm,
                               onChanged: cubit.toggleWakeUpAlarm,
                             ),
-                            SizedBox(height: 12.h),
+                            SizedBox(height: AppDimensions.dim12.h),
                             ToggleTile(
-                              title: 'LED Feedback',
+                              title: AppStrings.ledFeedback,
                               value: state.ledFeedback,
                               onChanged: cubit.toggleLedFeedback,
                             ),
@@ -126,7 +152,7 @@ class PreferencesPage extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 20.h),
+                    SizedBox(height: AppDimensions.dim20.h),
 
                     // ✅ Restart Button
                     Padding(
@@ -138,20 +164,28 @@ class PreferencesPage extends StatelessWidget {
                             // Add cubit reset logic if needed
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFBD9A6),
+                            backgroundColor: AppColors.sunset,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.r),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.radius_16.r,
+                              ),
                             ),
                             padding: EdgeInsets.symmetric(
-                              vertical: 10.h,
+                              vertical: AppDimensions.dim10.h,
                             ), // ✅ taller button
                           ),
                           child: Text(
-                            'Restart All Tracking',
+                            AppStrings.restartalltracking,
                             style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.sp,
-                              fontFamily: 'Urbanist-SemiBold',
+                              color: AppColors.white,
+                              fontSize: AppFontStyles.fontSize_20.sp,
+                              fontFamily: AppFontStyles.urbanistFontFamily,
+                              fontVariations: [
+                                FontVariation(
+                                  'wght',
+                                  AppFontStyles.semiBoldFontVariation.value,
+                                ),
+                              ],
                             ),
                           ),
                         ),

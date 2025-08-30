@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 Widget buildSocialButton({
   required String iconPath,
@@ -10,10 +13,10 @@ Widget buildSocialButton({
 }) {
   return Container(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(1000.r),
+      borderRadius: BorderRadius.circular(AppDimensions.radius_100.r),
       boxShadow: [
         BoxShadow(
-          color: const Color(0x40000000),
+          color: AppColors.black40,
           offset: Offset(0, 4.h), // vertical offset responsive
           blurRadius: 6.r, // blur radius responsive
         ),
@@ -24,26 +27,34 @@ Widget buildSocialButton({
       style: ElevatedButton.styleFrom(
         elevation: 0,
         backgroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimensions.dim20.w,
+          vertical: AppDimensions.dim16.h,
+        ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(1000.r),
+          borderRadius: BorderRadius.circular(AppDimensions.radius_100.r),
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           /// Icon
-          Image.asset(iconPath, width: 35.w, height: 35.w, color: iconColor),
+          Image.asset(
+            iconPath,
+            width: AppDimensions.dim35.w,
+            height: AppDimensions.dim35.h,
+            color: iconColor,
+          ),
 
-          SizedBox(width: 46.w),
+          SizedBox(width: AppDimensions.dim46.w),
 
           /// Label
           Text(
             label,
             style: TextStyle(
-              color: const Color(0xFF212121),
-              fontFamily: 'Urbanist-Bold',
-              fontSize: 18.sp,
+              color: AppColors.raisinblack,
+              fontFamily: AppFontStyles.urbanistFontFamily,
+              fontSize: AppFontStyles.fontSize_18.sp,
             ),
           ),
 
@@ -53,9 +64,9 @@ Widget buildSocialButton({
           Text(
             label1,
             style: TextStyle(
-              color: const Color(0xFF212121),
-              fontFamily: 'Urbanist-Bold',
-              fontSize: 18.sp,
+              color: AppColors.raisinblack,
+              fontFamily: AppFontStyles.urbanistFontFamily,
+              fontSize: AppFontStyles.fontSize_18.sp,
             ),
           ),
         ],

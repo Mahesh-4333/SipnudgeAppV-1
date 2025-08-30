@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/profile_screen_in_setting/profile_cubit.dart';
 import 'package:flutterapp1/cubit/profile_screen_in_setting/profile_state.dart';
 import 'package:flutterapp1/helpers/navigation_helper.dart';
@@ -12,31 +16,31 @@ class ProfileScreenPage extends StatelessWidget {
 
   void _handleNavigation(BuildContext context, String title) {
     switch (title) {
-      case 'Personal Info':
+      case AppStrings.personalinfo:
         Navigator.pushNamed(context, '/personalinfoinprofile');
         break;
-      case 'Drink Reminder':
+      case AppStrings.drinkreminder:
         Navigator.pushNamed(context, '/drinkreminder');
         break;
-      case 'Sipnudge Bottle':
+      case AppStrings.sipnudgebottle:
         Navigator.pushNamed(context, '/sipnudge_bottle');
         break;
-      case 'Preferences':
+      case AppStrings.preferences:
         Navigator.pushNamed(context, '/preferences');
         break;
-      case 'Data & Analytics':
+      case AppStrings.dataAnalytics:
         Navigator.pushNamed(context, '/analytics');
         break;
-      case 'Account & Security':
+      case AppStrings.accountandsecurity:
         Navigator.pushNamed(context, '/account_security');
         break;
-      case 'Linked Accounts':
+      case AppStrings.linkaccounts:
         Navigator.pushNamed(context, '/linked_accounts');
         break;
-      case 'Help & Support':
+      case AppStrings.helpandsupport:
         Navigator.pushNamed(context, '/support');
         break;
-      case 'Logout':
+      case AppStrings.logout:
         _showLogoutConfirmation(context);
         break;
       default:
@@ -53,31 +57,36 @@ class ProfileScreenPage extends StatelessWidget {
           (_) => AlertDialog(
             backgroundColor: const Color(0xFF2A2A2A),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(AppDimensions.radius_16.r),
             ),
-            title: const Text("Logout", style: TextStyle(color: Colors.white)),
+            title: const Text(
+              AppStrings.logout,
+              style: TextStyle(color: AppColors.white),
+            ),
             content: const Text(
-              "Are you sure you want to logout?",
-              style: TextStyle(color: Colors.white70),
+              AppStrings.areYouSureYouWantToLogout,
+              style: TextStyle(color: AppColors.white70),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: const Text(
-                  "Cancel",
-                  style: TextStyle(color: Colors.white),
+                  AppStrings.cancel,
+                  style: TextStyle(color: AppColors.white),
                 ),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Logged out successfully")),
+                    const SnackBar(
+                      content: Text(AppStrings.loggedOutSuccessfully),
+                    ),
                   );
                 },
                 child: const Text(
-                  "Logout",
-                  style: TextStyle(color: Colors.redAccent),
+                  AppStrings.logout,
+                  style: TextStyle(color: AppColors.redAccent),
                 ),
               ),
             ],
@@ -89,10 +98,6 @@ class ProfileScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        final size = MediaQuery.of(context).size;
-        final screenWidth = size.width;
-        final screenHeight = size.height;
-
         return Scaffold(
           body: Container(
             width: double.infinity,
@@ -110,40 +115,47 @@ class ProfileScreenPage extends StatelessWidget {
                   // user info
                   Padding(
                     padding: EdgeInsets.only(
-                      top: screenHeight * 0.05,
-                      left: screenWidth * 0.06,
-                      right: screenWidth * 0.05,
+                      top: AppDimensions.dim40.h,
+                      left: AppDimensions.dim20.w,
+                      right: AppDimensions.dim20.w,
                     ),
                     child: Row(
                       children: [
                         CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
+                          radius: AppDimensions.dim20.r,
+                          backgroundColor: AppColors.white,
                           child: Image.asset('assets/person.png'),
                         ),
-                        const SizedBox(width: 12),
-                        const Text(
-                          'Newton Singh',
+                        SizedBox(width: AppDimensions.dim12.w),
+                        Text(
+                          AppStrings.newtonsingh,
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'museoModerno-Bold',
-                            fontWeight: FontWeight.w500,
+                            color: AppColors.white,
+                            fontSize: AppFontStyles.fontSize_18.sp,
+                            fontFamily: AppFontStyles.museoModernoFontFamily,
+                            fontVariations: [
+                              FontVariation(
+                                'wght',
+                                AppFontStyles.semiBoldFontVariation.value,
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.05),
+                  SizedBox(height: AppDimensions.dim50.h),
 
                   // first menu group
                   Container(
                     margin: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.06,
+                      horizontal: AppDimensions.dim24.w,
                     ),
                     decoration: BoxDecoration(
-                      color: Color(0x1AFFFFFF),
-                      borderRadius: BorderRadius.circular(16.r),
+                      color: AppColors.white1A,
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radius_16.r,
+                      ),
                     ),
                     child: Column(
                       children:
@@ -164,16 +176,18 @@ class ProfileScreenPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: screenHeight * 0.042),
+                  SizedBox(height: AppDimensions.dim34.h),
 
                   // second menu group
                   Container(
                     margin: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.06,
+                      horizontal: AppDimensions.dim24.w,
                     ),
                     decoration: BoxDecoration(
-                      color: Color(0x1AFFFFFF),
-                      borderRadius: BorderRadius.circular(16.r),
+                      color: AppColors.white1A,
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radius_16.r,
+                      ),
                     ),
                     child: Column(
                       children:

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_mode_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_mode_state.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_time_cubit.dart';
@@ -34,9 +38,11 @@ class ReminderBottomSheet extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFFB586BE), Color(0xFF131313)],
+              colors: [AppColors.gradientStart, AppColors.gradientEnd],
             ),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(AppDimensions.radius_30.r),
+            ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -46,44 +52,49 @@ class ReminderBottomSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Reminder Mode',
+                    AppStrings.reminderMode,
                     style: TextStyle(
-                      fontFamily: 'Urbanist-SemiBold',
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFFFFFFF),
+                      fontFamily: AppFontStyles.urbanistFontFamily,
+                      fontSize: AppFontStyles.fontSize_24.sp,
+                      fontVariations: [
+                        FontVariation(
+                          'wght',
+                          AppFontStyles.fontWeightVariation600.value,
+                        ),
+                      ],
+                      color: AppColors.white,
                     ),
                   ),
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Icon(
                       Icons.close,
-                      size: 22.sp,
-                      color: Color(0xFFFFFFFF),
+                      size: AppFontStyles.fontSize_22.sp,
+                      color: AppColors.white,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: AppDimensions.dim20.h),
 
               // AI-Driven Smart Reminder
               BlocBuilder<ReminderCubit, ReminderState>(
                 builder: (context, state) {
                   return _ReminderOptionCard(
-                    title: 'AI-Driven Smart Reminder',
-                    subtitle: '"Predictive Hydration"',
+                    title: AppStrings.aiDrivenSmartReminder,
+                    subtitle: AppStrings.predictiveHydration,
                     features: const [
-                      'Adapts to your schedule, weather, and activity',
-                      'Syncs with Google Calendar',
-                      'Smart snooze and personalized tips',
+                      AppStrings.adaptsToYourScheduleWeatherAndActivity,
+                      AppStrings.syncsWithGoogleCalender,
+                      AppStrings.smartSnoozeAndPersonalizedTips,
                     ],
                     isActive: state.aiReminder,
                     onToggle:
                         (value) => context
                             .read<ReminderCubit>()
                             .toggleAiReminder(value),
-                    activeColor: const Color(0xFFFFFFFF),
-                    activeTrackColor: const Color(0xFF6C00C3),
+                    activeColor: AppColors.white,
+                    activeTrackColor: AppColors.violetBlue,
                   );
                 },
               ),
@@ -93,18 +104,18 @@ class ReminderBottomSheet extends StatelessWidget {
               BlocBuilder<ReminderCubit, ReminderState>(
                 builder: (context, state) {
                   return _ReminderOptionCard(
-                    title: 'Steady Sip Reminder',
+                    title: AppStrings.steadySipReminder,
                     features: const [
-                      'Fixed intervals (e.g., every 2 hours)',
-                      'Simple hydration alerts',
+                      AppStrings.fixedIntervals,
+                      AppStrings.simpleHydrationAlerts,
                     ],
                     isActive: state.steadySipReminder,
                     onToggle:
                         (value) => context
                             .read<ReminderCubit>()
                             .toggleSteadySipReminder(value),
-                    activeColor: const Color(0xFFFFFFFF),
-                    activeTrackColor: const Color(0xFF6C00C3),
+                    activeColor: AppColors.white,
+                    activeTrackColor: AppColors.violetBlue,
                   );
                 },
               ),
@@ -138,16 +149,20 @@ class _ReminderOptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(AppDimensions.dim16.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(AppDimensions.radius_16.r),
         color:
             isActive
-                ? const Color(0xFF584861) // active background
-                : const Color(0x90735E7F), // inactive background
+                ? AppColors
+                    .mulledWine // active background
+                : AppColors.violapurple90, // inactive background
         border: Border.all(
-          color: const Color(0xFFB889D2),
-          width: isActive ? 2.w : 1.w, // active/inactive border width
+          color: AppColors.nextButtonColor,
+          width:
+              isActive
+                  ? AppDimensions.dim2.w
+                  : AppDimensions.dim1.w, // active/inactive border width
         ),
       ),
       child: Column(
@@ -163,10 +178,15 @@ class _ReminderOptionCard extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      fontFamily: 'Urbanist-SemiBold',
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFFFFFFFF),
+                      fontFamily: AppFontStyles.urbanistFontFamily,
+                      fontSize: AppFontStyles.fontSize_16.sp,
+                      fontVariations: [
+                        FontVariation(
+                          'wght',
+                          AppFontStyles.fontWeightVariation600.value,
+                        ),
+                      ],
+                      color: AppColors.white,
                       letterSpacing: 0.2,
                     ),
                   ),
@@ -174,10 +194,15 @@ class _ReminderOptionCard extends StatelessWidget {
                     Text(
                       subtitle!,
                       style: TextStyle(
-                        fontFamily: 'Urbanist-Medium',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xFFFFFFFF),
+                        fontFamily: AppFontStyles.urbanistFontFamily,
+                        fontSize: AppFontStyles.fontSize_14.sp,
+                        fontVariations: [
+                          FontVariation(
+                            'wght',
+                            AppFontStyles.fontWeightVariation600.value,
+                          ),
+                        ],
+                        color: AppColors.white,
                         letterSpacing: 0.2,
                       ),
                     ),
@@ -192,8 +217,8 @@ class _ReminderOptionCard extends StatelessWidget {
             ],
           ),
 
-          Divider(color: const Color(0x46FFFFFF), thickness: 1.5),
-          SizedBox(height: 12.h),
+          Divider(color: AppColors.white46, thickness: 1.5),
+          SizedBox(height: AppDimensions.dim12.h),
 
           // Features
           Column(
@@ -202,23 +227,32 @@ class _ReminderOptionCard extends StatelessWidget {
                 features
                     .map(
                       (f) => Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6.h),
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.dim6.h,
+                        ),
                         child: Row(
                           children: [
                             Icon(
                               Icons.check,
-                              color: Colors.white70,
-                              size: 16.sp,
+                              color: AppColors.white70,
+                              size: AppFontStyles.fontSize_16.sp,
                             ),
-                            SizedBox(width: 9.w),
+                            SizedBox(width: AppDimensions.dim9.w),
                             Expanded(
                               child: Text(
                                 f,
                                 style: TextStyle(
-                                  fontFamily: 'Urbanist-Medium',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xFFFFFFFF),
+                                  fontFamily: AppFontStyles.urbanistFontFamily,
+                                  fontSize: AppFontStyles.fontSize_14.sp,
+                                  fontVariations: [
+                                    FontVariation(
+                                      'wght',
+                                      AppFontStyles
+                                          .fontWeightVariation600
+                                          .value,
+                                    ),
+                                  ],
+                                  color: AppColors.white,
                                   letterSpacing: 0.2,
                                 ),
                               ),

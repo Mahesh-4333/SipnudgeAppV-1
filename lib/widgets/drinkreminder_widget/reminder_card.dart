@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
 
 class ReminderCard extends StatelessWidget {
   final List<Widget> children;
@@ -9,10 +11,13 @@ class ReminderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppDimensions.dim16.w,
+        vertical: AppDimensions.dim10.h,
+      ),
       decoration: BoxDecoration(
-        color: const Color(0x20FFFFFF),
-        borderRadius: BorderRadius.circular(16.r),
+        color: AppColors.white20,
+        borderRadius: BorderRadius.circular(AppDimensions.radius_16.r),
       ),
       child: Column(children: children),
     );

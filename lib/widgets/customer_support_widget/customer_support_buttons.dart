@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class SupportButton extends StatelessWidget {
   final String iconPath;
@@ -19,12 +22,12 @@ class SupportButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(1000.r),
+        borderRadius: BorderRadius.circular(AppDimensions.radius_100.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0x40000000),
-            offset: Offset(4.r, 4.r),
-            blurRadius: 4.r,
+            color: AppColors.black.withOpacity(0.25),
+            offset: Offset(AppDimensions.radius_4.r, AppDimensions.radius_4.r),
+            blurRadius: AppDimensions.radius_4.r,
           ),
         ],
       ),
@@ -32,8 +35,11 @@ class SupportButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+          backgroundColor: AppColors.white,
+          padding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.dim10,
+            vertical: AppDimensions.dim14,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(1000.r),
           ),
@@ -45,14 +51,24 @@ class SupportButton extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: const Color(0xFF212121),
-                fontFamily: 'Urbanist-Bold',
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
+                color: AppColors.raisinblack,
+                fontSize: AppFontStyles.fontSize_18,
+                fontFamily: AppFontStyles.urbanistFontFamily,
+                fontVariations: [
+                  FontVariation(
+                    'wght',
+                    AppFontStyles.fontWeightVariation600.value,
+                  ),
+                ],
+                // fontWeight: FontWeight.w700,
               ),
             ),
             const Spacer(),
-            Icon(Icons.chevron_right, color: Colors.black, size: 24.sp),
+            Icon(
+              Icons.chevron_right,
+              color: AppColors.black,
+              size: AppFontStyles.fontSize_24,
+            ),
           ],
         ),
       ),

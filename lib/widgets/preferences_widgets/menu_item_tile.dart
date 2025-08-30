@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class MenuItemTile extends StatelessWidget {
   final String title;
@@ -12,28 +15,35 @@ class MenuItemTile extends StatelessWidget {
     return InkWell(
       onTap: () => debugPrint("Tapped $title"),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimensions.dim16.w,
+          vertical: AppDimensions.dim12.h,
+        ),
         child: Row(
           children: [
             Text(
               title,
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.sp,
-                fontFamily: 'urbanist-Bold',
+                color: AppColors.white,
+                fontSize: AppFontStyles.fontSize_18.sp,
+                fontFamily: AppFontStyles.urbanistFontFamily,
               ),
             ),
             const Spacer(),
             Text(
               info,
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
-                fontFamily: 'urbanist-SemiBold',
+                color: AppColors.white,
+                fontSize: AppFontStyles.fontSize_16.sp,
+                fontFamily: AppFontStyles.urbanistFontFamily,
               ),
             ),
-            SizedBox(width: 15.w),
-            Icon(Icons.chevron_right, color: Colors.white, size: 24.sp),
+            SizedBox(width: AppDimensions.dim15.w),
+            Icon(
+              Icons.chevron_right,
+              color: AppColors.white,
+              size: AppFontStyles.fontSize_24.sp,
+            ),
           ],
         ),
       ),

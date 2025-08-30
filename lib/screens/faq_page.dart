@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/FaQ/faq_cubit.dart';
 import 'package:flutterapp1/cubit/FaQ/faq_state.dart';
 import 'package:flutterapp1/widgets/FaQ_Widgets/faq_widgets.dart'
@@ -18,7 +19,10 @@ class FAQPage extends StatelessWidget {
           final cubit = context.read<FaqCubit>();
 
           return Scaffold(
-            appBar: AppBar(title: const Text("FAQ"), centerTitle: true),
+            appBar: AppBar(
+              title: const Text(AppStrings.faq),
+              centerTitle: true,
+            ),
             body: Column(
               children: [
                 /// Search Bar

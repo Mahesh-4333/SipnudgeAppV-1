@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
 
 class NavItemWidget extends StatefulWidget {
   final IconData icon;
@@ -104,7 +105,7 @@ class _NavItemWidgetState extends State<NavItemWidget> {
                       Text(
                         widget.label,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: screenWidth * 0.03,
                         ),
                       ),

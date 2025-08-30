@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
 
 class ConcentricCirclesAnimation extends StatefulWidget {
   final Widget child;
@@ -63,8 +64,10 @@ class ConcentricCirclePainter extends CustomPainter {
       final radius = (offset / circleCount) * maxRadius;
       final color =
           Color.lerp(
-            const Color(0xFFF4D44E),
-            const Color(0xFF746080),
+            AppColors.sandstorm,
+            AppColors.violapurple,
+            // const Color(0xFFF4D44E),
+            // const Color(0xFF746080),
             offset / circleCount,
           )!;
       paint.color = color.withOpacity(1 - (offset / circleCount));

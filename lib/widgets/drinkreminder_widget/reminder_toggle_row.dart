@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class ReminderToggleRow extends StatelessWidget {
   final String title;
@@ -16,7 +19,7 @@ class ReminderToggleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.h),
+      padding: EdgeInsets.symmetric(vertical: AppDimensions.dim8.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,17 +27,22 @@ class ReminderToggleRow extends StatelessWidget {
             title,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20.sp,
-              fontFamily: 'Urbanist-SemiBold',
-              fontWeight: FontWeight.w600,
+              fontSize: AppFontStyles.fontSize_20.sp,
+              fontFamily: AppFontStyles.urbanistFontFamily,
+              fontVariations: [
+                FontVariation(
+                  'wght',
+                  AppFontStyles.semiBoldFontVariation.value,
+                ),
+              ],
             ),
           ),
           Switch(
             value: value,
             onChanged: onChanged,
-            activeColor: Colors.white,
-            activeTrackColor: const Color(0xFF6C00C3),
-            inactiveTrackColor: Colors.white,
+            activeColor: AppColors.white,
+            activeTrackColor: AppColors.violetBlue,
+            inactiveTrackColor: AppColors.white,
           ),
         ],
       ),

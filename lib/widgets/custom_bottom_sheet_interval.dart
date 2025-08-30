@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_time_interval_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_time_interval_state.dart';
 import 'package:flutterapp1/widgets/reminder_timeinterval_bottom_sheet.dart';
@@ -60,24 +64,37 @@ class IntervalBottomSheet extends StatelessWidget {
   Widget _buildHeader(BuildContext context) {
     return Padding(
       //padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      padding: EdgeInsets.only(left: 20.w, top: 20.h),
+      padding: EdgeInsets.only(
+        left: AppDimensions.dim20.w,
+        top: AppDimensions.dim20.h,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Reminder Time',
+            AppStrings.reminderTime,
             style: TextStyle(
-              fontFamily: 'Urbanist-SemiBold',
-              fontWeight: FontWeight.w600,
-              color: Color(0xFFFFFFFF),
-              fontSize: 24.sp,
+              fontFamily: AppFontStyles.urbanistFontFamily,
+              fontVariations: [
+                FontVariation(
+                  'wght',
+                  AppFontStyles.fontWeightVariation600.value,
+                ),
+              ],
+
+              color: AppColors.white,
+              fontSize: AppFontStyles.fontSize_24.sp,
             ),
           ),
           IconButton(
             onPressed: () {
               Navigator.pop(context); // Now context is available here
             },
-            icon: Icon(Icons.close, color: Color(0xFFFFFFFF), size: 22.sp),
+            icon: Icon(
+              Icons.close,
+              color: AppColors.white,
+              size: AppFontStyles.fontSize_22.sp,
+            ),
           ),
         ],
       ),
@@ -87,7 +104,11 @@ class IntervalBottomSheet extends StatelessWidget {
   Widget _buildContent(BuildContext context) {
     return Padding(
       //padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      padding: EdgeInsets.only(left: 20.w, top: 20.h, bottom: 5.h),
+      padding: EdgeInsets.only(
+        left: AppDimensions.dim20.w,
+        top: AppDimensions.dim20.h,
+        bottom: AppDimensions.dim5.h,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -95,10 +116,16 @@ class IntervalBottomSheet extends StatelessWidget {
           Text(
             'Select Sip Interval',
             style: TextStyle(
-              fontFamily: 'Urbanist-SemiBold',
-              fontWeight: FontWeight.w600,
-              color: Color(0xFFFFFFFF),
-              fontSize: 20.sp, // responsive font size
+              fontFamily: AppFontStyles.urbanistFontFamily,
+              fontVariations: [
+                FontVariation(
+                  'wght',
+                  AppFontStyles.fontWeightVariation600.value,
+                ),
+              ],
+
+              color: AppColors.white,
+              fontSize: AppFontStyles.fontSize_20.sp, // responsive font size
             ),
           ),
 
@@ -120,36 +147,50 @@ class IntervalBottomSheet extends StatelessWidget {
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: 6.h,
-                        horizontal: 6.w,
+                        vertical: AppDimensions.dim6.h,
+                        horizontal: AppDimensions.dim6.w,
                       ),
                       decoration: BoxDecoration(
-                        color: Color(0x22EAEAEA),
+                        color: AppColors.greenwhite20.withOpacity(22),
                         // gradient: LinearGradient(
                         //   begin: Alignment.topCenter,
                         //   end: Alignment.bottomCenter,
                         //   colors: [Color(0xFFB586BE), Color(0xFF131313)],
                         // ),
-                        border: Border.all(color: Colors.white, width: 1.w),
-                        borderRadius: BorderRadius.circular(100.r),
+                        border: Border.all(
+                          color: AppColors.white,
+                          width: AppDimensions.dim1.w,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radius_100.r,
+                        ),
                       ),
                       child: Text(
                         interval,
                         style: TextStyle(
-                          fontFamily: 'Urbanist-SemiBold',
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 16.sp, // responsive font size
+                          fontFamily: AppFontStyles.urbanistFontFamily,
+                          fontVariations: [
+                            FontVariation(
+                              'wght',
+                              AppFontStyles.fontWeightVariation600.value,
+                            ),
+                          ],
+                          color: AppColors.white,
+                          fontSize:
+                              AppFontStyles
+                                  .fontSize_16
+                                  .sp, // responsive font size
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 10.w), // responsive gap
+                  SizedBox(width: AppDimensions.dim10.w), // responsive gap
                   IconButton(
                     icon: Icon(
                       Icons.arrow_forward_ios,
-                      color: Colors.white,
-                      size: 18.sp, // responsive icon size
+                      color: AppColors.white,
+                      size:
+                          AppFontStyles.fontSize_18.sp, // responsive icon size
                     ),
                     onPressed: () {
                       showModalBottomSheet(

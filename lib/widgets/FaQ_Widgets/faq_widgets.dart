@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 
 /// Search Bar
 class SearchBarWidget extends StatelessWidget {
@@ -14,14 +18,16 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(AppDimensions.dim8),
       child: TextField(
         controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
-          hintText: "Search questions...",
+          hintText: AppStrings.searchquestions,
           prefixIcon: const Icon(Icons.search),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radius_12.r),
+          ),
         ),
       ),
     );
@@ -44,12 +50,12 @@ class CategoryChipsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: AppDimensions.dim50.h,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.symmetric(horizontal: AppDimensions.dim8.w),
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 6),
+        separatorBuilder: (_, __) => SizedBox(width: AppDimensions.dim6.w),
         itemBuilder: (context, index) {
           final category = categories[index];
           final isSelected = category == selectedCategory;
@@ -81,25 +87,29 @@ class FaqListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(AppDimensions.dim8),
       itemCount: faqs.length,
       itemBuilder: (context, index) {
         final faq = faqs[index];
         final isExpanded = isExpandedList[index];
 
         return Card(
-          margin: const EdgeInsets.symmetric(vertical: 6),
+          margin: EdgeInsets.symmetric(vertical: AppDimensions.dim6.h),
           child: ExpansionTile(
             title: Text(
-              faq['question']!,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              faq[AppStrings.question]!,
+              style: TextStyle(
+                fontVariations: [
+                  FontVariation('wght', AppFontStyles.boldFontVariation.value),
+                ],
+              ),
             ),
             initiallyExpanded: isExpanded,
             onExpansionChanged: (_) => onToggleExpansion(index),
             children: [
               Padding(
-                padding: const EdgeInsets.all(12),
-                child: Text(faq['answer']!),
+                padding: const EdgeInsets.all(AppDimensions.dim12),
+                child: Text(faq[AppStrings.answer]!),
               ),
             ],
           ),
@@ -122,14 +132,17 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tabs = ["Home", "FAQ", "Settings"];
+    final tabs = [AppStrings.home, AppStrings.faq, AppStrings.setting];
 
     return BottomNavigationBar(
       currentIndex: tabs.indexOf(activeTab),
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.help), label: "FAQ"),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: AppStrings.home),
+        BottomNavigationBarItem(icon: Icon(Icons.help), label: AppStrings.faq),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: AppStrings.setting,
+        ),
       ],
       onTap: (index) => onTabSelected(tabs[index]),
     );

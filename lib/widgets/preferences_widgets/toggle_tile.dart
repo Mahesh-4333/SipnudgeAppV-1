@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class ToggleTile extends StatelessWidget {
   final String title;
@@ -21,17 +23,17 @@ class ToggleTile extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.sp,
-            fontFamily: 'urbanist-Bold',
+            color: AppColors.white,
+            fontSize: AppFontStyles.fontSize_18.sp,
+            fontFamily: AppFontStyles.urbanistFontFamily,
           ),
         ),
         Switch(
           value: value,
           onChanged: onChanged,
           activeColor: Colors.white,
-          activeTrackColor: const Color(0xFF7927BB),
-          inactiveThumbColor: const Color(0x90FFFFFF),
+          activeTrackColor: AppColors.purpleHeart,
+          inactiveThumbColor: AppColors.whitewithopacity90,
           inactiveTrackColor: Colors.transparent,
         ),
       ],

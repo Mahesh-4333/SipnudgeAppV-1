@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class ReminderListItem extends StatelessWidget {
   final String title;
@@ -20,7 +23,7 @@ class ReminderListItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.h),
+        padding: EdgeInsets.symmetric(vertical: AppDimensions.dim8.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -28,24 +31,34 @@ class ReminderListItem extends StatelessWidget {
               title,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20.sp,
-                fontFamily: 'Urbanist-SemiBold',
-                fontWeight: FontWeight.w600,
+                fontSize: AppFontStyles.fontSize_20.sp,
+                fontFamily: AppFontStyles.urbanistFontFamily,
+                fontVariations: [
+                  FontVariation(
+                    'wght',
+                    AppFontStyles.semiBoldFontVariation.value,
+                  ),
+                ],
               ),
             ),
             if (showCapsule)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.dim12.w,
+                  vertical: AppDimensions.dim4.h,
+                ),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(50.r),
+                  border: Border.all(color: AppColors.white),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radius_50.r,
+                  ),
                 ),
                 child: Text(
                   trailing,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.sp,
-                    fontFamily: 'Urbanist-Medium',
+                    color: AppColors.white,
+                    fontSize: AppFontStyles.fontSize_14.sp,
+                    fontFamily: AppFontStyles.urbanistFontFamily,
                   ),
                 ),
               )
@@ -56,14 +69,23 @@ class ReminderListItem extends StatelessWidget {
                     Text(
                       trailing,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontFamily: 'Urbanist-SemiBold',
-                        fontWeight: FontWeight.w600,
+                        color: AppColors.white,
+                        fontSize: AppFontStyles.fontSize_16.sp,
+                        fontFamily: AppFontStyles.urbanistFontFamily,
+                        fontVariations: [
+                          FontVariation(
+                            'wght',
+                            AppFontStyles.semiBoldFontVariation.value,
+                          ),
+                        ],
                       ),
                     ),
-                  SizedBox(width: 8.w),
-                  Icon(Icons.chevron_right, color: Colors.white, size: 20.sp),
+                  SizedBox(width: AppDimensions.dim8.w),
+                  Icon(
+                    Icons.chevron_right,
+                    color: AppColors.white,
+                    size: AppFontStyles.fontSize_20.sp,
+                  ),
                 ],
               ),
           ],
