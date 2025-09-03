@@ -83,4 +83,7 @@ class AppColors {
   static const mulledWine = Color(0xFF584861);
   static const violapurple90 = Color(0x90735E7F);
   static const white46 = Color(0x46FFFFFF);
+  static const lovelyPurple = Color(0xFF7A2CF8);
+  static const lavenderPinocchio = Color(0xFFE0E0E0);
+  static const white60 = Color(0x60FFFFFF);
 }

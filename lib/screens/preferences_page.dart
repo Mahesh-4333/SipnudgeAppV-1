@@ -157,8 +157,26 @@ class PreferencesPage extends StatelessWidget {
                     // ✅ Restart Button
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: SizedBox(
-                        width: double.infinity, // ✅ makes button full width
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(
+                                0.25,
+                              ), // Shadow color
+                              //spreadRadius: 1,
+                              blurRadius: AppDimensions.radius_4.r,
+                              offset: Offset(
+                                AppDimensions.radius_4.r,
+                                AppDimensions.radius_4.r,
+                              ), // Shadow position
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.radius_16.r,
+                          ),
+                        ),
                         child: ElevatedButton(
                           onPressed: () {
                             // Add cubit reset logic if needed
@@ -172,12 +190,13 @@ class PreferencesPage extends StatelessWidget {
                             ),
                             padding: EdgeInsets.symmetric(
                               vertical: AppDimensions.dim10.h,
-                            ), // ✅ taller button
+                            ),
+                            elevation: 0, // Set to 0 to avoid default shadow
                           ),
                           child: Text(
                             AppStrings.restartalltracking,
                             style: TextStyle(
-                              color: AppColors.white,
+                              color: AppColors.raisinblack,
                               fontSize: AppFontStyles.fontSize_20.sp,
                               fontFamily: AppFontStyles.urbanistFontFamily,
                               fontVariations: [

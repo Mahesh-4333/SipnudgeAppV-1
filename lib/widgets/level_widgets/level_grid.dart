@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class LevelGridItem extends StatelessWidget {
   final int level;
@@ -28,7 +31,7 @@ class LevelGridItem extends StatelessWidget {
               width: 190.w,
               height: 100.h,
               child: Padding(
-                padding: EdgeInsets.only(left: 12.w),
+                padding: EdgeInsets.only(left: AppDimensions.dim12.w),
                 child: Center(
                   child: Image.asset(
                     isUnlocked ? 'assets/img$level.png' : 'assets/lockimg.png',
@@ -45,23 +48,36 @@ class LevelGridItem extends StatelessWidget {
                   Text(
                     'Level $level',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'urbanist-bold',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14.sp,
+                      color: AppColors.white,
+                      fontFamily: AppFontStyles.urbanistFontFamily,
+                      fontVariations: [
+                        FontVariation(
+                          'wdgt',
+                          AppFontStyles.boldFontVariation.value,
+                        ),
+                      ],
+                      letterSpacing: 0.2.sp,
+                      // fontWeight: FontWeight.w700,
+                      fontSize: AppFontStyles.fontSize_14.sp,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: AppDimensions.dim4.h),
                   Text(
                     level == currentLevel
                         ? 'Current level'
                         : 'Weekly Intake: 15.4L',
                     style: TextStyle(
-                      color: Colors.white70,
-                      fontFamily: 'urbanist-regular',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12.sp,
+                      color: Colors.white60,
+                      fontFamily: AppFontStyles.urbanistFontFamily,
+                      fontVariations: [
+                        FontVariation(
+                          'wdgt',
+                          AppFontStyles.regularFontVariation.value,
+                        ),
+                      ],
+                      //fontWeight: FontWeight.w500,
+                      fontSize: AppFontStyles.fontSize_12.sp,
                     ),
                     textAlign: TextAlign.center,
                   ),

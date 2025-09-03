@@ -13,7 +13,6 @@ import 'package:flutterapp1/cubit/reminder time&mode/reminder_mode_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_time_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/water_intake_timeline_cubit.dart';
 import 'package:flutterapp1/dailygoalpage.dart';
-import 'package:flutterapp1/drink_reminder.dart';
 import 'package:flutterapp1/forgotpassword.dart';
 import 'package:flutterapp1/forgotpwdotppage.dart';
 import 'package:flutterapp1/homeanalysis.dart';
@@ -72,7 +71,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
-              '/': (context) => DrinkReminder(),
+              '/': (context) => PreferencesPage(),
               '/companymotto': (context) => CompanyMottoPage(),
               '/signin_signupsage': (context) => SignIn_SignUpPage(),
               '/signupblankpage': (context) => SignUpBlankPage(),

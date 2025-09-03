@@ -42,6 +42,8 @@ class AppFontStyles {
   static double fontSize_32 = 32.sp;
   static double fontSize_36 = 36.sp;
   static double fontSize_72 = 72.sp;
+  static double fontSize_74 = 74.sp;
+  static double fontSize_80 = 80.sp;
 
   static double fontSize_AppBar = fontSize_20;
   static double textFieldInputSize = fontSize_18;
@@ -72,8 +74,6 @@ class AppFontStyles {
     fontWeightVariationKey,
     fontWeightExtraBoldValue,
   );
-
-  static var fontSize_74;
 
   static double getLineHeight(double fontSize, double lineHeightPercent) {
     return lineHeightPercent / 100;

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 
 import '../cubit/reminder time&mode/reminder_cubit.dart';
 import '../cubit/reminder time&mode/reminder_state.dart';
@@ -13,7 +17,7 @@ class ReminderBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = Radius.circular(30.r);
+    final radius = Radius.circular(AppDimensions.radius_30.r);
 
     return FractionallySizedBox(
       heightFactor: 0.8, // 80% of screen height
@@ -24,7 +28,7 @@ class ReminderBottomSheet extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFFB586BE), Color(0xFF131313)],
+              colors: [AppColors.gradientStart, AppColors.gradientEnd],
             ),
           ),
           child: SafeArea(
@@ -35,7 +39,11 @@ class ReminderBottomSheet extends StatelessWidget {
                 final entries = cubit.state.slots.entries.toList();
 
                 return SingleChildScrollView(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  padding: EdgeInsets.only(
+                    left: AppDimensions.dim20.w,
+                    right: AppDimensions.dim20.w,
+                    top: AppDimensions.dim20.h,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -44,12 +52,17 @@ class ReminderBottomSheet extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              'Reminder Time',
+                              AppStrings.reminderTime,
                               style: TextStyle(
-                                fontFamily: 'Urbanist-SemiBold',
-                                color: Colors.white,
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w600,
+                                fontFamily: AppFontStyles.urbanistFontFamily,
+                                color: AppColors.white,
+                                fontSize: AppFontStyles.fontSize_24.sp,
+                                fontVariations: [
+                                  FontVariation(
+                                    'wght',
+                                    AppFontStyles.fontWeightVariation600.value,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -57,20 +70,22 @@ class ReminderBottomSheet extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             icon: Icon(
                               Icons.close,
-                              color: Colors.white,
-                              size: 22.sp,
+                              color: AppColors.white,
+                              size: AppFontStyles.fontSize_22.sp,
                             ),
                           ),
                         ],
                       ),
 
-                      SizedBox(height: 19.h),
+                      SizedBox(height: AppDimensions.dim19.h),
 
                       /// Time slots
                       ...entries.map((e) {
                         final enabled = e.value;
                         return Padding(
-                          padding: EdgeInsets.only(bottom: 12.h),
+                          padding: EdgeInsets.only(
+                            bottom: AppDimensions.dim12.h,
+                          ),
                           child: _TimeRow(
                             timeLabel: _formatAmPm(e.key),
                             value: enabled,
@@ -113,15 +128,21 @@ class _TimeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppDimensions.dim18.w,
+        vertical: AppDimensions.dim12.h,
+      ),
       decoration: BoxDecoration(
-        color: const Color(0xFF735E7F),
-        borderRadius: BorderRadius.circular(50.r),
-        border: Border.all(color: const Color(0xFF9982A6), width: 1.w),
+        color: AppColors.bottomSheetGradientStart,
+        borderRadius: BorderRadius.circular(AppDimensions.radius_50.r),
+        border: Border.all(
+          color: AppColors.unSelectedPurpleToggle,
+          width: AppDimensions.dim1.w,
+        ),
         boxShadow: [
           BoxShadow(
             offset: Offset(3.r, 4.r),
-            color: Color(0x40000000),
+            color: AppColors.black40,
             blurRadius: 4.r,
           ),
         ],
@@ -131,10 +152,15 @@ class _TimeRow extends StatelessWidget {
           Text(
             timeLabel,
             style: TextStyle(
-              fontFamily: 'Urbanist-SemiBold',
-              color: Colors.white,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
+              fontFamily: AppFontStyles.urbanistFontFamily,
+              color: AppColors.white,
+              fontSize: AppFontStyles.fontSize_20.sp,
+              fontVariations: [
+                FontVariation(
+                  'wdgt',
+                  AppFontStyles.fontWeightVariation600.value,
+                ),
+              ],
             ),
           ),
           const Spacer(),
@@ -143,13 +169,13 @@ class _TimeRow extends StatelessWidget {
             onChanged: onChanged,
             thumbColor: WidgetStateProperty.resolveWith<Color>(
               (states) =>
-                  Colors.white, // same thumb color for active & inactive
+                  AppColors.white, // same thumb color for active & inactive
             ),
             trackColor: WidgetStateProperty.resolveWith<Color>((states) {
               if (states.contains(WidgetState.selected)) {
-                return const Color(0xFF7A2CF8); // active track
+                return AppColors.lovelyPurple; // active track
               }
-              return Color(0xFFE0E0E0); // inactive track
+              return AppColors.lavenderPinocchio; // inactive track
             }),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterapp1/constants/app_colors.dart';
+import 'package:flutterapp1/constants/app_dimensions.dart';
+import 'package:flutterapp1/constants/app_font_styles.dart';
 
 class NavItemWidget extends StatefulWidget {
   final IconData icon;
@@ -27,8 +29,8 @@ class _NavItemWidgetState extends State<NavItemWidget> {
   @override
   Widget build(BuildContext context) {
     final assetPath = 'assets/${widget.label.toLowerCase()}.png';
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    // final screenWidth = MediaQuery.of(context).size.width;
+    // final screenHeight = MediaQuery.of(context).size.height;
 
     return GestureDetector(
       onTapDown: (_) => setState(() => scale = 0.9),
@@ -42,63 +44,75 @@ class _NavItemWidgetState extends State<NavItemWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: screenWidth * 0.2,
-              height: screenHeight * 0.06,
+              width: AppDimensions.dim86.w,
+              height: AppDimensions.dim59.h,
+              // width: screenWidth * 0.2,
+              // height: screenHeight * 0.06,
               decoration: BoxDecoration(
                 gradient:
                     widget.isActive
                         ? const LinearGradient(
-                          colors: [Color(0xFFFAFAFA), Color(0xFF3E3E3E)],
+                          colors: [AppColors.alabaster, AppColors.iridium],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         )
                         : null,
                 color: widget.isActive ? null : Colors.transparent,
-                borderRadius: BorderRadius.circular(48.r),
+                borderRadius: BorderRadius.circular(AppDimensions.dim48.r),
                 boxShadow: [
                   BoxShadow(
                     offset: const Offset(4, 4),
                     color:
                         widget.isActive
-                            ? const Color(0x40000000)
+                            ? AppColors.black40
                             : Colors.transparent,
                     blurRadius: 4,
                   ),
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(1.0),
+                padding: const EdgeInsets.all(AppDimensions.dim1),
                 child: Container(
-                  width: screenWidth * 0.19,
-                  height: screenHeight * 0.055,
+                  width: AppDimensions.dim82.w,
+                  height: AppDimensions.dim51.h,
+                  // width: screenWidth * 0.19,
+                  // height: screenHeight * 0.055,
                   decoration: BoxDecoration(
                     gradient:
                         widget.isActive
                             ? const LinearGradient(
-                              colors: [Color(0xFFB182BA), Color(0xFF2D1B31)],
+                              colors: [
+                                AppColors.navbarSelectedItemGradientStart,
+                                AppColors.navbarSelectedItemGradientEnd,
+                              ],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             )
                             : null,
                     color: widget.isActive ? null : Colors.transparent,
-                    borderRadius: BorderRadius.circular(46),
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.radius_46.r,
+                    ),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
                         assetPath,
-                        width: screenWidth * 0.06,
-                        height: screenWidth * 0.06,
-                        color: Colors.white,
+                        width: AppDimensions.dim26.w,
+                        height: AppDimensions.dim26.h,
+                        // width: screenWidth * 0.06,
+                        // height: screenWidth * 0.06,
+                        color: AppColors.white,
                         errorBuilder: (context, error, stackTrace) {
                           debugPrint(
                             'Error loading image: $assetPath - $error',
                           );
                           return Icon(
                             widget.icon,
-                            size: screenWidth * 0.055,
-                            color: Colors.white,
+                            size: AppFontStyles.fontSize_24.sp,
+                            // size: screenWidth * 0.055,
+                            color: AppColors.white,
                           );
                         },
                       ),
@@ -106,7 +120,8 @@ class _NavItemWidgetState extends State<NavItemWidget> {
                         widget.label,
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: screenWidth * 0.03,
+                          fontSize: AppFontStyles.fontSize_13.sp,
+                          // fontSize: screenWidth * 0.03,
                         ),
                       ),
                     ],

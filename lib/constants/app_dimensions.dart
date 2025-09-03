@@ -10,6 +10,7 @@ class AppDimensions {
   static const double radius_100 = 100;
   static const double radius_15 = 15;
   static const double radius_20 = 20;
+  static const double radius_30 = 30;
   static const double radius_40 = 40;
   static const double radius_50 = 50;
   static const double radius_25 = 25;
@@ -461,7 +462,6 @@ class AppDimensions {
   static const double radius_16 = 16;
   static const double radius_18 = 18;
   static const double radius_24 = 24;
-  static const double radius_30 = 30;
   static const double radius_35 = 35;
   static const double radius_60 = 60;
   static const double radius_80 = 80;
@@ -472,4 +472,10 @@ class AppDimensions {
   static const double radius_200 = 200;
   static const double radius_250 = 250;
   static const double radius_300 = 300;
+
+  static const double radius_90 = 90;
+
+  static const double radius_46 = 46;
+
+  static const double radius_48 = 48;
 }

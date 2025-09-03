@@ -61,7 +61,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(4.r, 4.r),
+                        offset: Offset(
+                          AppDimensions.radius_4.r,
+                          AppDimensions.radius_4.r,
+                        ),
                         color:
                             isActive ? AppColors.black40 : Colors.transparent,
                         blurRadius: 4.r,
@@ -139,7 +142,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     ];
 
     return Container(
-      height: 75.h,
+      height: AppDimensions.dim75.h,
       margin: EdgeInsets.only(
         left: AppDimensions.dim20.w,
         right: AppDimensions.dim20.w,

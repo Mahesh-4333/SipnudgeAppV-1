@@ -109,12 +109,12 @@ class BadgeWithConcentricBackground extends StatelessWidget {
                                             '$currentLevel',
                                             style: TextStyle(
                                               fontSize:
-                                                  AppFontStyles.fontSize_74.sp,
+                                                  AppFontStyles.fontSize_80.sp,
                                               fontVariations: [
                                                 FontVariation(
                                                   'wght',
                                                   AppFontStyles
-                                                      .extraBoldFontVariation
+                                                      .boldFontVariation
                                                       .value,
                                                 ),
                                               ],
@@ -170,7 +170,7 @@ class BadgeWithConcentricBackground extends StatelessWidget {
                                         ),
                                       ],
                                       color: AppColors.whitewithopactiy50,
-                                      fontSize: 14.sp,
+                                      fontSize: AppFontStyles.fontSize_14.sp,
                                     ),
                                   ),
                                 ],
