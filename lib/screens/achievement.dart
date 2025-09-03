@@ -121,7 +121,7 @@ class BadgeWithConcentricBackground extends StatelessWidget {
                                               //fontWeight: FontWeight.w900,
                                               fontFamily:
                                                   AppFontStyles.poppinsFamily,
-                                              color: AppColors.white,
+                                              //color: AppColors.white,
                                             ),
                                           ),
                                         ),

@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
-              '/': (context) => PreferencesPage(),
+              '/': (context) => BadgeWithConcentricBackground(),
               '/companymotto': (context) => CompanyMottoPage(),
               '/signin_signupsage': (context) => SignIn_SignUpPage(),
               '/signupblankpage': (context) => SignUpBlankPage(),

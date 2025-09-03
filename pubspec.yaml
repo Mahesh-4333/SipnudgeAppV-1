@@ -137,6 +137,20 @@ flutter:
     - family: Lexend-Regular
       fonts:
         - asset: fonts/Lexend-Regular.ttf
+
+    #fonts:
+    - family: MuseoModerno
+      fonts:
+        - asset: fonts/MuseoModerno-VariableFont_wght.ttf
+    - family: Urbanist
+      fonts:
+        - asset: fonts/Urbanist-VariableFont_wght.ttf
+    - family: Lexend
+      fonts:
+        - asset: fonts/Lexend-VariableFont_wght.ttf
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-SemiBold.ttf
         
   #         weight: 700
   #
