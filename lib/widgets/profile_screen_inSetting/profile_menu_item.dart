@@ -53,7 +53,7 @@ class ProfileMenuItemWidget extends StatelessWidget {
                 fontVariations: [
                   FontVariation(
                     'wght',
-                    AppFontStyles.semiBoldFontVariation.value,
+                    AppFontStyles.boldFontVariation.value,
                   ),
                 ],
                 fontSize: AppFontStyles.fontSize_18.sp,

@@ -36,7 +36,7 @@ class ReminderListItem extends StatelessWidget {
                 fontVariations: [
                   FontVariation(
                     'wght',
-                    AppFontStyles.semiBoldFontVariation.value,
+                    AppFontStyles.boldFontVariation.value,
                   ),
                 ],
               ),
@@ -59,6 +59,12 @@ class ReminderListItem extends StatelessWidget {
                     color: AppColors.white,
                     fontSize: AppFontStyles.fontSize_14.sp,
                     fontFamily: AppFontStyles.urbanistFontFamily,
+                    fontVariations: [
+                      FontVariation(
+                        'wght',
+                        AppFontStyles.semiBoldFontVariation.value,
+                      ),
+                    ],
                   ),
                 ),
               )

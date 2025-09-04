@@ -27,6 +27,12 @@ class MenuItemTile extends StatelessWidget {
                 color: AppColors.white,
                 fontSize: AppFontStyles.fontSize_18.sp,
                 fontFamily: AppFontStyles.urbanistFontFamily,
+                fontVariations: [
+                FontVariation(
+                  'wght',
+                  AppFontStyles.boldFontVariation.value,
+                ),
+              ],
               ),
             ),
             const Spacer(),
@@ -36,6 +42,12 @@ class MenuItemTile extends StatelessWidget {
                 color: AppColors.white,
                 fontSize: AppFontStyles.fontSize_16.sp,
                 fontFamily: AppFontStyles.urbanistFontFamily,
+                fontVariations: [
+                FontVariation(
+                  'wght',
+                  AppFontStyles.boldFontVariation.value,
+                ),
+              ],
               ),
             ),
             SizedBox(width: AppDimensions.dim15.w),

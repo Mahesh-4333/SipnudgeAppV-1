@@ -38,7 +38,7 @@ class ReminderCycleItem extends StatelessWidget {
                 fontVariations: [
                   FontVariation(
                     'wght',
-                    AppFontStyles.semiBoldFontVariation.value,
+                    AppFontStyles.boldFontVariation.value,
                   ),
                 ],
               ),
@@ -59,7 +59,7 @@ class ReminderCycleItem extends StatelessWidget {
               child: Text(
                 value,
                 style: TextStyle(
-                  color: AppColors.white,
+                  color: AppColors.black,
                   fontSize: AppFontStyles.fontSize_16.sp,
                   fontFamily: AppFontStyles.urbanistFontFamily,
                   fontVariations: [

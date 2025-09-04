@@ -157,7 +157,7 @@ class _AccountAndSecurityView extends StatelessWidget {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           //backgroundColor: Colors.transparent,
-                          backgroundColor: AppColors.salmonwithopacity22,
+                          backgroundColor: AppColors.lightTerraCotta.withOpacity(0.10),
                           padding: EdgeInsets.symmetric(
                             vertical: AppDimensions.dim5.h,
                           ),

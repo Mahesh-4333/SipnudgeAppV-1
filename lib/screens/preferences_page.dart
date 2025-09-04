@@ -202,7 +202,7 @@ class PreferencesPage extends StatelessWidget {
                               fontVariations: [
                                 FontVariation(
                                   'wght',
-                                  AppFontStyles.semiBoldFontVariation.value,
+                                  AppFontStyles.boldFontVariation.value,
                                 ),
                               ],
                             ),

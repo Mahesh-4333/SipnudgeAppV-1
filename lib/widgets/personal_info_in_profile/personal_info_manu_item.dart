@@ -36,6 +36,11 @@ class MenuItem extends StatelessWidget {
                 color: isRed ? AppColors.redAccent : AppColors.white,
                 fontFamily: AppFontStyles.urbanistFontFamily,
                 fontSize: AppFontStyles.fontSize_18.sp,
+                fontVariations: [
+                  FontVariation(
+                    'wght', 
+                    AppFontStyles.boldFontVariation.value),
+                ]
               ),
             ),
             const Spacer(),
@@ -45,6 +50,11 @@ class MenuItem extends StatelessWidget {
                 color: isRed ? AppColors.redAccent : AppColors.white,
                 fontFamily: AppFontStyles.urbanistFontFamily,
                 fontSize: AppFontStyles.fontSize_16.sp,
+                fontVariations: [
+                  FontVariation(
+                    'wght', 
+                    AppFontStyles.boldFontVariation.value),
+                ]
               ),
             ),
             SizedBox(width: AppDimensions.dim15.w),

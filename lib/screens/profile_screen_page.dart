@@ -156,6 +156,15 @@ class ProfileScreenPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         AppDimensions.radius_16.r,
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withOpacity(0.05),
+                          blurRadius: AppDimensions.dim2.r,
+                          offset: Offset(
+                           AppDimensions.dim3.r, 
+                            AppDimensions.dim5.r),
+                        ),
+                      ]
                     ),
                     child: Column(
                       children:
@@ -188,6 +197,15 @@ class ProfileScreenPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         AppDimensions.radius_16.r,
                       ),
+                       boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withOpacity(0.05),
+                          blurRadius: AppDimensions.dim2.r,
+                          offset: Offset(
+                           AppDimensions.dim3.r, 
+                            AppDimensions.dim5.r),
+                        ),
+                      ]
                     ),
                     child: Column(
                       children:

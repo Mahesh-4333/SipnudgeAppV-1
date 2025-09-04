@@ -32,7 +32,7 @@ class ReminderToggleRow extends StatelessWidget {
               fontVariations: [
                 FontVariation(
                   'wght',
-                  AppFontStyles.semiBoldFontVariation.value,
+                  AppFontStyles.boldFontVariation.value,
                 ),
               ],
             ),

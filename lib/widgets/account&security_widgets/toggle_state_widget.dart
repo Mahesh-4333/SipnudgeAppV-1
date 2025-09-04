@@ -27,6 +27,12 @@ class ToggleTile extends StatelessWidget {
             color: AppColors.white,
             fontSize: AppFontStyles.fontSize_18,
             fontFamily: AppFontStyles.urbanistFontFamily,
+            fontVariations: [
+                FontVariation(
+                  'wght',
+                  AppFontStyles.boldFontVariation.value,
+                ),
+              ],
           ),
         ),
         Switch(
