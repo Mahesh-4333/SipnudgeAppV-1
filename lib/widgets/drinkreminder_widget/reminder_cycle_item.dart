@@ -35,39 +35,36 @@ class ReminderCycleItem extends StatelessWidget {
                 color: AppColors.white,
                 fontSize: AppFontStyles.fontSize_20.sp,
                 fontFamily: AppFontStyles.urbanistFontFamily,
-                fontVariations: [
-                  FontVariation(
-                    'wght',
-                    AppFontStyles.boldFontVariation.value,
-                  ),
-                ],
+                fontVariations: [AppFontStyles.fontWeightVariation600],
               ),
             ),
             Container(
+              width:
+                  AppDimensions
+                      .dim87
+                      .w, // Choose a width that fits your longest expected text
               padding: EdgeInsets.symmetric(
                 horizontal: AppDimensions.dim10.w,
                 vertical: AppDimensions.dim3.h,
               ),
               decoration: BoxDecoration(
-                color: AppColors.greenwhite20,
+                color: AppColors.greenwhite20.withOpacity(0.22),
                 border: Border.all(
                   color: AppColors.white,
                   width: AppDimensions.dim1.w,
                 ),
                 borderRadius: BorderRadius.circular(AppDimensions.radius_30.r),
               ),
-              child: Text(
-                value,
-                style: TextStyle(
-                  color: AppColors.black,
-                  fontSize: AppFontStyles.fontSize_16.sp,
-                  fontFamily: AppFontStyles.urbanistFontFamily,
-                  fontVariations: [
-                    FontVariation(
-                      'wght',
-                      AppFontStyles.semiBoldFontVariation.value,
-                    ),
-                  ],
+              child: Center(
+                child: Text(
+                  value,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: AppFontStyles.fontSize_16.sp,
+                    fontFamily: AppFontStyles.urbanistFontFamily,
+                    fontVariations: [AppFontStyles.fontWeightVariation600],
+                  ),
                 ),
               ),
             ),

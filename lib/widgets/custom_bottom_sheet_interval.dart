@@ -19,9 +19,7 @@ class IntervalBottomSheet extends StatelessWidget {
     return BlocProvider(
       create: (_) => TimeIntervalCubit(),
       child: GestureDetector(
-        onTap: () {
-          // Prevent closing on tapping anywhere inside the sheet
-        },
+        onTap: () {}, // Prevent tap from closing sheet
         child: Material(
           color: Colors.transparent,
           child: Container(
@@ -29,14 +27,8 @@ class IntervalBottomSheet extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                padding: EdgeInsets.only(
-                  left: 20.w,
-                  right: 20.w,
-                  bottom: 30.h,
-                  top: 10.h,
-                ),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Color(0xFFB586BE), Color(0xFF131313)],
@@ -46,12 +38,25 @@ class IntervalBottomSheet extends StatelessWidget {
                     topRight: Radius.circular(30.r),
                   ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildHeader(context), // Pass context here
-                    _buildContent(context),
-                  ],
+                child: SingleChildScrollView(
+                  child: SafeArea(
+                    top: false,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 20.w,
+                        right: 20.w,
+                        bottom: MediaQuery.of(context).viewInsets.bottom + 30.h,
+                        top: 10.h,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildHeader(context),
+                          _buildContent(context),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -63,7 +68,6 @@ class IntervalBottomSheet extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Padding(
-      //padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       padding: EdgeInsets.only(
         left: AppDimensions.dim20.w,
         top: AppDimensions.dim20.h,
@@ -81,14 +85,13 @@ class IntervalBottomSheet extends StatelessWidget {
                   AppFontStyles.fontWeightVariation600.value,
                 ),
               ],
-
               color: AppColors.white,
               fontSize: AppFontStyles.fontSize_24.sp,
             ),
           ),
           IconButton(
             onPressed: () {
-              Navigator.pop(context); // Now context is available here
+              Navigator.pop(context);
             },
             icon: Icon(
               Icons.close,
@@ -103,7 +106,6 @@ class IntervalBottomSheet extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     return Padding(
-      //padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       padding: EdgeInsets.only(
         left: AppDimensions.dim20.w,
         top: AppDimensions.dim20.h,
@@ -123,9 +125,8 @@ class IntervalBottomSheet extends StatelessWidget {
                   AppFontStyles.fontWeightVariation600.value,
                 ),
               ],
-
               color: AppColors.white,
-              fontSize: AppFontStyles.fontSize_20.sp, // responsive font size
+              fontSize: AppFontStyles.fontSize_20.sp,
             ),
           ),
 
@@ -133,10 +134,10 @@ class IntervalBottomSheet extends StatelessWidget {
           BlocBuilder<TimeIntervalCubit, TimeIntervalState>(
             builder: (context, state) {
               String interval = '';
-              if (state is TimeIntervalUpdated) {
-                interval = state.interval;
-              } else if (state is TimeIntervalInitial) {
-                interval = state.interval;
+              if (state is TimeIntervalInitial) {
+                interval = (state as TimeIntervalInitial).interval;
+              } else if (state is TimeIntervalUpdated) {
+                interval = (state as TimeIntervalUpdated).interval;
               }
 
               return Row(
@@ -146,17 +147,11 @@ class IntervalBottomSheet extends StatelessWidget {
                       context.read<TimeIntervalCubit>().updateInterval();
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: AppDimensions.dim6.h,
-                        horizontal: AppDimensions.dim6.w,
-                      ),
+                      width: AppDimensions.dim90.w,
+                      height: AppDimensions.dim35.h,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: AppColors.greenwhite20.withOpacity(22),
-                        // gradient: LinearGradient(
-                        //   begin: Alignment.topCenter,
-                        //   end: Alignment.bottomCenter,
-                        //   colors: [Color(0xFFB586BE), Color(0xFF131313)],
-                        // ),
+                        color: AppColors.greenwhite20.withOpacity(0.22),
                         border: Border.all(
                           color: AppColors.white,
                           width: AppDimensions.dim1.w,
@@ -167,6 +162,8 @@ class IntervalBottomSheet extends StatelessWidget {
                       ),
                       child: Text(
                         interval,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: AppFontStyles.urbanistFontFamily,
                           fontVariations: [
@@ -176,21 +173,18 @@ class IntervalBottomSheet extends StatelessWidget {
                             ),
                           ],
                           color: AppColors.white,
-                          fontSize:
-                              AppFontStyles
-                                  .fontSize_16
-                                  .sp, // responsive font size
+                          fontSize: AppFontStyles.fontSize_16.sp,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: AppDimensions.dim10.w), // responsive gap
+
+                  SizedBox(width: AppDimensions.dim10.w),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_forward_ios,
                       color: AppColors.white,
-                      size:
-                          AppFontStyles.fontSize_18.sp, // responsive icon size
+                      size: AppFontStyles.fontSize_18.sp,
                     ),
                     onPressed: () {
                       showModalBottomSheet(
@@ -199,16 +193,10 @@ class IntervalBottomSheet extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         builder:
                             (_) => BlocProvider.value(
-                              value:
-                                  context
-                                      .read<
-                                        ReminderIntervalCubit
-                                      >(), // reuse existing cubit
+                              value: context.read<ReminderIntervalCubit>(),
                               child: ReminderBottomSheet(
-                                aiReminder:
-                                    true, // pass true/false depending on your logic
+                                aiReminder: true,
                                 onSave: (selectedTimes) {
-                                  // Handle the selected reminder times here
                                   debugPrint("Selected times: $selectedTimes");
                                 },
                               ),

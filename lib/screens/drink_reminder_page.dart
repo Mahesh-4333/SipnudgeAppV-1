@@ -13,7 +13,7 @@ import 'package:flutterapp1/widgets/drinkreminder_widget/reminder_cycle_item.dar
 import 'package:flutterapp1/widgets/drinkreminder_widget/reminder_list_item.dart';
 import 'package:flutterapp1/widgets/drinkreminder_widget/reminder_toggle_row.dart';
 import 'package:flutterapp1/widgets/level_widgets/bottom_nav_bar.dart';
-import 'package:flutterapp1/widgets/custom_bttom_sheet_rm.dart';
+import 'package:flutterapp1/screens/custom_bttom_sheet_rm.dart';
 
 class DrinkReminder extends StatelessWidget {
   const DrinkReminder({super.key});
@@ -23,7 +23,7 @@ class DrinkReminder extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => ReminderBottomSheet(context),
+      builder: (_) => ReminderBottomSheet(),
     );
   }
 
@@ -59,11 +59,11 @@ class DrinkReminder extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             icon: Icon(
                               Icons.arrow_back,
-                              color: AppColors.black,
+                              color: AppColors.raisinblack,
                               size: AppFontStyles.fontSize_30.sp,
                             ),
                           ),
-                          SizedBox(width: AppDimensions.dim50.w),
+                          SizedBox(width: AppDimensions.dim55.w),
                           Text(
                             'Drink Reminder',
                             style: TextStyle(
@@ -86,7 +86,7 @@ class DrinkReminder extends StatelessWidget {
                     /// Main Content
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: AppDimensions.dim16.w,
+                        horizontal: AppDimensions.dim28.w,
                       ),
                       child:
                           BlocBuilder<DrinkReminderCubit, DrinkReminderState>(
@@ -105,6 +105,7 @@ class DrinkReminder extends StatelessWidget {
                                         title: AppStrings.reminderMode,
                                         trailing: state.reminderMode,
                                         onTap: () => _showReminderMode(context),
+                                        iconPathArrow: ("assets/arrow.png"),
                                       ),
                                     ],
                                   ),
@@ -136,9 +137,13 @@ class DrinkReminder extends StatelessWidget {
                                   ReminderCard(
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.only(
-                                          bottom: AppDimensions.dim8.h,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: AppDimensions.dim10.w,
+                                          vertical: AppDimensions.dim10.h,
                                         ),
+                                        // padding: EdgeInsets.only(
+                                        //   bottom: AppDimensions.dim8.h,
+                                        // ),
                                         child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
@@ -152,12 +157,7 @@ class DrinkReminder extends StatelessWidget {
                                                   AppFontStyles
                                                       .urbanistFontFamily,
                                               fontVariations: [
-                                                FontVariation(
-                                                  'wght',
-                                                  AppFontStyles
-                                                      .boldFontVariation
-                                                      .value,
-                                                ),
+                                                AppFontStyles.boldFontVariation,
                                               ],
                                             ),
                                           ),
@@ -175,6 +175,7 @@ class DrinkReminder extends StatelessWidget {
                                               context,
                                               '/waterintaketimeline',
                                             ),
+                                        iconPathArrow: ("assets/arrow.png"),
                                       ),
                                     ],
                                   ),

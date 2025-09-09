@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 //import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterapp1/constants/app_colors.dart';
 import 'package:flutterapp1/constants/app_font_styles.dart';
@@ -25,24 +26,32 @@ class ToggleTile extends StatelessWidget {
           style: TextStyle(
             //color: const Color(0xFFFFFFFF),
             color: AppColors.white,
-            fontSize: AppFontStyles.fontSize_18,
+            fontSize: AppFontStyles.fontSize_20.sp,
             fontFamily: AppFontStyles.urbanistFontFamily,
             fontVariations: [
-                FontVariation(
-                  'wght',
-                  AppFontStyles.boldFontVariation.value,
-                ),
-              ],
+              FontVariation('wght', AppFontStyles.fontWeightVariation600.value),
+            ],
           ),
         ),
-        Switch(
-          value: value,
-          onChanged: onChanged,
-          activeColor: AppColors.white,
-          activeTrackColor: AppColors.gradientStart,
-          inactiveThumbColor: AppColors.white,
-          inactiveTrackColor: AppColors.whitewithopacity90,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        SwitchTheme(
+          data: SwitchThemeData(
+            thumbColor: WidgetStateProperty.all(AppColors.white),
+            trackColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return AppColors.violetBlue;
+              }
+              return AppColors.tuna;
+            }),
+            trackOutlineColor: WidgetStateProperty.all(
+              Colors.white,
+            ), // 👈 White border
+            trackOutlineWidth: WidgetStateProperty.all(
+              1.5,
+            ), // 👈 Border thickness
+            splashRadius: 0,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          child: Switch(value: value, onChanged: onChanged),
         ),
       ],
     );

@@ -1,33 +1,37 @@
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
 
-class FaqState {
+class FaqState extends Equatable {
   final String selectedCategory;
-  final Map<String, List<Map<String, String>>> faqData;
   final Map<String, List<bool>> isExpandedMap;
-  final TextEditingController searchController;
-  final String activeTab;
+  final String searchQuery;
+  final List<String> filteredFAQs;
 
-  FaqState({
-    required this.selectedCategory,
-    required this.faqData,
-    required this.isExpandedMap,
-    required this.searchController,
-    required this.activeTab,
+  const FaqState({
+    this.selectedCategory = 'General',
+    this.isExpandedMap = const {},
+    this.searchQuery = '',
+    this.filteredFAQs = const [],
   });
 
   FaqState copyWith({
     String? selectedCategory,
-    Map<String, List<Map<String, String>>>? faqData,
     Map<String, List<bool>>? isExpandedMap,
-    TextEditingController? searchController,
-    String? activeTab,
+    String? searchQuery,
+    List<String>? filteredFAQs,
   }) {
     return FaqState(
       selectedCategory: selectedCategory ?? this.selectedCategory,
-      faqData: faqData ?? this.faqData,
       isExpandedMap: isExpandedMap ?? this.isExpandedMap,
-      searchController: searchController ?? this.searchController,
-      activeTab: activeTab ?? this.activeTab,
+      searchQuery: searchQuery ?? this.searchQuery,
+      filteredFAQs: filteredFAQs ?? this.filteredFAQs,
     );
   }
+
+  @override
+  List<Object?> get props => [
+    selectedCategory,
+    isExpandedMap,
+    searchQuery,
+    filteredFAQs,
+  ];
 }

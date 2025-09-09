@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterapp1/about_us.dart';
 import 'package:flutterapp1/companymotto.dart';
+import 'package:flutterapp1/cubit/FaQ/faq_cubit.dart';
 import 'package:flutterapp1/cubit/account&security/account&security_cubit.dart';
+import 'package:flutterapp1/cubit/data&aanlytics/data&analytics_cubit.dart';
 import 'package:flutterapp1/cubit/help&support/help&support_cubil.dart';
 import 'package:flutterapp1/cubit/level/level_cubit.dart';
 import 'package:flutterapp1/cubit/linkaccounts/link_accounts_cubit.dart';
@@ -13,6 +15,7 @@ import 'package:flutterapp1/cubit/reminder time&mode/reminder_mode_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_time_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/water_intake_timeline_cubit.dart';
 import 'package:flutterapp1/dailygoalpage.dart';
+import 'package:flutterapp1/faq.dart';
 import 'package:flutterapp1/forgotpassword.dart';
 import 'package:flutterapp1/forgotpwdotppage.dart';
 import 'package:flutterapp1/homeanalysis.dart';
@@ -26,6 +29,7 @@ import 'package:flutterapp1/privacy_policy.dart';
 import 'package:flutterapp1/screens/account&security_page.dart';
 import 'package:flutterapp1/screens/achievement.dart';
 import 'package:flutterapp1/screens/customer_support_page.dart';
+import 'package:flutterapp1/screens/dataAndAnalyticsPage.dart';
 import 'package:flutterapp1/screens/drink_reminder_page.dart';
 import 'package:flutterapp1/screens/faq_page.dart';
 import 'package:flutterapp1/screens/help&support_page.dart';
@@ -66,12 +70,15 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => LinkAccountsCubit()),
             BlocProvider(create: (context) => AccountSecurityCubit()),
             BlocProvider(create: (context) => HelpAndSupportCubit()),
+            BlocProvider(create: (context) => FaqCubit()),
+            BlocProvider(create: (context) => ReminderCubit()),
+            BlocProvider(create: (context) => DataAndanalyticsCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             routes: {
-              '/': (context) => BadgeWithConcentricBackground(),
+              '/': (context) => ProfileScreenPage(),
               '/companymotto': (context) => CompanyMottoPage(),
               '/signin_signupsage': (context) => SignIn_SignUpPage(),
               '/signupblankpage': (context) => SignUpBlankPage(),
@@ -98,10 +105,11 @@ class MyApp extends StatelessWidget {
               '/analysis': (context) => HomeAnalysisPage(),
               '/achievement': (context) => BadgeWithConcentricBackground(),
               '/waterintaketimeline': (context) => WaterIntakeTimeline(),
-              '/faq': (context) => FAQPage(),
+              '/faq': (context) => FAQ_Page(),
               '/privacypolicy': (context) => PrivacyPolicy(),
               '/termsofservices': (context) => TermsOfServices(),
               '/aboutus': (context) => AboutUs(),
+              '/data&analytics': (context) => DataAndAnalyticsPage(),
             },
           ),
         );

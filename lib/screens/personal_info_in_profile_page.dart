@@ -105,31 +105,37 @@ class _PersonalInfoScreenInProfileState
     return BlocBuilder<PersonalInfoCubit, PersonalInfoState>(
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: AppDimensions.dim20.w),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.white1A,
               borderRadius: BorderRadius.circular(AppDimensions.radius_16.r),
-              // boxShadow: [
-              //   BoxShadow(
-              //     offset: const Offset(0, 6),
-              //     blurRadius: 12,
-              //     spreadRadius: 2,
-              //     color: Colors.black.withOpacity(0.25),
-              //   ),
-              // ],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.10), // shadow color only
+                  blurRadius: 2.r,
+                  spreadRadius: 3.r,
+                  offset: Offset(3.5.r, 3.5.r), // even shadow
+                ),
+              ],
             ),
-            child: Column(
-              children:
-                  state.personalInfo.entries
-                      .map(
-                        (e) => MenuItem(
-                          title: e.key,
-                          info: e.value,
-                          onTap: () => _handleNavigation(context, e.key),
-                        ),
-                      )
-                      .toList(),
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.white1A,
+                borderRadius: BorderRadius.circular(AppDimensions.radius_16.r),
+              ),
+              child: Column(
+                children:
+                    state.personalInfo.entries
+                        .map(
+                          (e) => MenuItem(
+                            title: e.key,
+                            info: e.value,
+                            iconPathArrow: ("assets/arrow.png"),
+                            onTap: () => _handleNavigation(context, e.key),
+                          ),
+                        )
+                        .toList(),
+              ),
             ),
           ),
         );

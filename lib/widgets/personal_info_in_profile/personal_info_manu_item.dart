@@ -8,6 +8,7 @@ import 'package:flutterapp1/constants/app_font_styles.dart';
 class MenuItem extends StatelessWidget {
   final String title;
   final String info;
+  final String iconPathArrow;
   final VoidCallback? onTap;
   final bool isRed;
 
@@ -15,6 +16,7 @@ class MenuItem extends StatelessWidget {
     super.key,
     required this.title,
     required this.info,
+    required this.iconPathArrow,
     this.onTap,
     this.isRed = false,
   });
@@ -35,12 +37,8 @@ class MenuItem extends StatelessWidget {
               style: TextStyle(
                 color: isRed ? AppColors.redAccent : AppColors.white,
                 fontFamily: AppFontStyles.urbanistFontFamily,
-                fontSize: AppFontStyles.fontSize_18.sp,
-                fontVariations: [
-                  FontVariation(
-                    'wght', 
-                    AppFontStyles.boldFontVariation.value),
-                ]
+                fontSize: AppFontStyles.fontSize_20.sp,
+                fontVariations: [AppFontStyles.fontWeightVariation600],
               ),
             ),
             const Spacer(),
@@ -50,19 +48,17 @@ class MenuItem extends StatelessWidget {
                 color: isRed ? AppColors.redAccent : AppColors.white,
                 fontFamily: AppFontStyles.urbanistFontFamily,
                 fontSize: AppFontStyles.fontSize_16.sp,
-                fontVariations: [
-                  FontVariation(
-                    'wght', 
-                    AppFontStyles.boldFontVariation.value),
-                ]
+                fontVariations: [AppFontStyles.fontWeightVariation600],
               ),
             ),
-            SizedBox(width: AppDimensions.dim15.w),
-            Icon(
-              Icons.chevron_right,
+            SizedBox(width: AppDimensions.dim20.w),
+            Image.asset(
+              iconPathArrow,
+              width: AppDimensions.dim9.w,
+              height: AppDimensions.dim16.h,
               color: AppColors.white,
-              size: AppFontStyles.fontSize_24.sp,
             ),
+            SizedBox(width: AppDimensions.dim8.w),
           ],
         ),
       ),

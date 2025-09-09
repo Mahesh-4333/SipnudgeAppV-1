@@ -95,24 +95,42 @@ class _HelpAndSupportView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(
                       AppDimensions.radius_16,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(
+                          0.10,
+                        ), // shadow color only
+                        blurRadius: 2.r,
+                        spreadRadius: 3.r,
+                        offset: Offset(3.5.r, 3.5.r), // even shadow
+                      ),
+                    ],
                   ),
                   child: Column(
                     children: const [
-                      HelpMenuItem(title: AppStrings.faq, route: "/faq"),
+                      HelpMenuItem(
+                        title: AppStrings.faq,
+                        iconPathArrow: ("assets/arrow.png"),
+                        route: "/faq",
+                      ),
                       HelpMenuItem(
                         title: AppStrings.contactsupport,
+                        iconPathArrow: ("assets/arrow.png"),
                         route: "/contact_support",
                       ),
                       HelpMenuItem(
                         title: AppStrings.privacyPolicy,
+                        iconPathArrow: ("assets/arrow.png"),
                         route: "/privacypolicy",
                       ),
                       HelpMenuItem(
                         title: AppStrings.termsAndConditions,
+                        iconPathArrow: ("assets/arrow.png"),
                         route: "/termsofservices",
                       ),
                       HelpMenuItem(
                         title: AppStrings.aboutus,
+                        iconPathArrow: ("assets/arrow.png"),
                         route: "/aboutus",
                       ),
                     ],

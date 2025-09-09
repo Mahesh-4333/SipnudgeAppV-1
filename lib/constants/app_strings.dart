@@ -201,4 +201,9 @@ class AppStrings {
   static const steadySipReminder = "Steady Sip Reminder";
   static const fixedIntervals = "Fixed intervals (e.g., every 2 hours)";
   static const simpleHydrationAlerts = "Simple hydration alerts";
+  static const biomatricsID = "Biomatrics ID";
+  static const faceID = "Face ID";
+  static const downloadMyData = "Download My Data";
+  static const requestaCopyOfYourDataYourInformationYourControl =
+      "Request a copy of your data. Your information, your control.";
 }

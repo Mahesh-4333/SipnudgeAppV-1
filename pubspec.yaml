@@ -88,55 +88,55 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: MuseoModerno-Bold
-      fonts:
-        - asset: fonts/MuseoModerno-Bold.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-    - family: MuseoModerno-Regular
-      fonts:
-        - asset: fonts/MuseoModerno-Regular.ttf
+  #   - family: MuseoModerno-Bold
+  #     fonts:
+  #       - asset: fonts/MuseoModerno-Bold.ttf
+  # #       - asset: fonts/Schyler-Italic.ttf
+  # #         style: italic
+  #   - family: MuseoModerno-Regular
+  #     fonts:
+  #       - asset: fonts/MuseoModerno-Regular.ttf
 
-    - family: MuseoModerno-Medium
-      fonts:
-        - asset: fonts/MuseoModerno-Medium.ttf
+  #   - family: MuseoModerno-Medium
+  #     fonts:
+  #       - asset: fonts/MuseoModerno-Medium.ttf
 
-    - family: Poppins-SemiBold
-      fonts:
-        - asset: fonts/Poppins-SemiBold.ttf 
+  #   - family: Poppins-SemiBold
+  #     fonts:
+  #       - asset: fonts/Poppins-SemiBold.ttf 
 
-    - family: Poppins-Bold
-      fonts:
-        - asset: fonts/Poppins-Bold.ttf 
+  #   - family: Poppins-Bold
+  #     fonts:
+  #       - asset: fonts/Poppins-Bold.ttf 
 
 
-    - family: MuseoModerno-SemiBold
-      fonts:
-        - asset: fonts/MuseoModerno-SemiBold.ttf
+  #   - family: MuseoModerno-SemiBold
+  #     fonts:
+  #       - asset: fonts/MuseoModerno-SemiBold.ttf
 
-    - family: Urbanist-Bold
-      fonts:
-        - asset: fonts/Urbanist-Bold.ttf
+  #   - family: Urbanist-Bold
+  #     fonts:
+  #       - asset: fonts/Urbanist-Bold.ttf
 
-    - family: Urbanist-Regular
-      fonts:
-        - asset: fonts/Urbanist-Regular.ttf
+  #   - family: Urbanist-Regular
+  #     fonts:
+  #       - asset: fonts/Urbanist-Regular.ttf
 
-    - family: Urbanist-SemiBold
-      fonts:
-        - asset: fonts/Urbanist-SemiBold.ttf
+  #   - family: Urbanist-SemiBold
+  #     fonts:
+  #       - asset: fonts/Urbanist-SemiBold.ttf
 
-    - family: Urbanist-Medium
-      fonts:
-        - asset: fonts/Urbanist-Medium.ttf
+  #   - family: Urbanist-Medium
+  #     fonts:
+  #       - asset: fonts/Urbanist-Medium.ttf
         
-    - family: Urbanist-ExtraBold
-      fonts:
-        - asset: fonts/Urbanist-ExtraBold.ttf
+  #   - family: Urbanist-ExtraBold
+  #     fonts:
+  #       - asset: fonts/Urbanist-ExtraBold.ttf
 
-    - family: Lexend-Regular
-      fonts:
-        - asset: fonts/Lexend-Regular.ttf
+  #   - family: Lexend-Regular
+  #     fonts:
+  #       - asset: fonts/Lexend-Regular.ttf
 
     #fonts:
     - family: MuseoModerno
@@ -152,7 +152,7 @@ flutter:
       fonts:
         - asset: fonts/Poppins-SemiBold.ttf
         
-  #         weight: 700
+  #         
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

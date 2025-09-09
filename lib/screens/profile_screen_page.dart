@@ -29,16 +29,16 @@ class ProfileScreenPage extends StatelessWidget {
         Navigator.pushNamed(context, '/preferences');
         break;
       case AppStrings.dataAnalytics:
-        Navigator.pushNamed(context, '/analytics');
-        break;
-      case AppStrings.accountandsecurity:
-        Navigator.pushNamed(context, '/account_security');
+        Navigator.pushNamed(context, '/data&analytics');
         break;
       case AppStrings.linkaccounts:
         Navigator.pushNamed(context, '/linked_accounts');
         break;
       case AppStrings.helpandsupport:
         Navigator.pushNamed(context, '/support');
+        break;
+      case AppStrings.accountandsecurity:
+        Navigator.pushNamed(context, '/account_security');
         break;
       case AppStrings.logout:
         _showLogoutConfirmation(context);
@@ -104,7 +104,7 @@ class ProfileScreenPage extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFFB586BE), Color(0xFF131313)],
+                colors: [AppColors.gradientStart, AppColors.gradientEnd],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -115,18 +115,44 @@ class ProfileScreenPage extends StatelessWidget {
                   // user info
                   Padding(
                     padding: EdgeInsets.only(
-                      top: AppDimensions.dim40.h,
-                      left: AppDimensions.dim20.w,
-                      right: AppDimensions.dim20.w,
+                      top: AppDimensions.dim50.h,
+                      left: AppDimensions.dim25.w,
+                      right: AppDimensions.dim25.w,
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          radius: AppDimensions.dim20.r,
-                          backgroundColor: AppColors.white,
-                          child: Image.asset('assets/person.png'),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(
+                                  0x001f436d,
+                                ).withOpacity(0.40), // Shadow color
+                                blurRadius:
+                                    AppDimensions
+                                        .radius_6
+                                        .r, // Softness of the shadow
+                                offset: Offset(
+                                  0,
+                                  AppDimensions.radius_4.r,
+                                ), // Vertical drop
+                              ),
+                            ],
+                          ),
+                          child: CircleAvatar(
+                            radius: AppDimensions.dim30.r,
+                            backgroundColor: Colors.transparent,
+                            child: Image.asset(
+                              'assets/person.png',
+                              width: AppDimensions.dim70.w,
+                              height: AppDimensions.dim70.h,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                         ),
-                        SizedBox(width: AppDimensions.dim12.w),
+
+                        SizedBox(width: AppDimensions.dim16.w),
                         Text(
                           AppStrings.newtonsingh,
                           style: TextStyle(
@@ -144,85 +170,112 @@ class ProfileScreenPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: AppDimensions.dim50.h),
+                  SizedBox(height: AppDimensions.dim30.h),
 
                   // first menu group
-                  Container(
-                    margin: EdgeInsets.symmetric(
+                  Padding(
+                    padding: EdgeInsets.symmetric(
                       horizontal: AppDimensions.dim24.w,
                     ),
-                    decoration: BoxDecoration(
-                      color: AppColors.white1A,
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radius_16.r,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.05),
-                          blurRadius: AppDimensions.dim2.r,
-                          offset: Offset(
-                           AppDimensions.dim3.r, 
-                            AppDimensions.dim5.r),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radius_16.r,
                         ),
-                      ]
-                    ),
-                    child: Column(
-                      children:
-                          state.menuItems
-                              .map(
-                                (item) => ProfileMenuItemWidget(
-                                  iconPath: item.iconPath,
-                                  title: item.title,
-                                  isRed: item.isRed,
-                                  onTap:
-                                      () => _handleNavigation(
-                                        context,
-                                        item.title,
-                                      ),
-                                ),
-                              )
-                              .toList(),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(
+                              0.10,
+                            ), // shadow color only
+                            blurRadius: 2.r,
+                            spreadRadius: 3.r,
+                            offset: Offset(3.5.r, 3.5.r), // even shadow
+                          ),
+                        ],
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color:
+                              AppColors
+                                  .white1A, // actual white container without shadow
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.radius_16.r,
+                          ),
+                        ),
+                        child: Column(
+                          children:
+                              state.menuItems
+                                  .map(
+                                    (item) => ProfileMenuItemWidget(
+                                      iconPath: item.iconPath,
+                                      title: item.title,
+                                      isRed: item.isRed,
+                                      iconPathArrow: ("assets/arrow.png"),
+                                      onTap:
+                                          () => _handleNavigation(
+                                            context,
+                                            item.title,
+                                          ),
+                                    ),
+                                  )
+                                  .toList(),
+                        ),
+                      ),
                     ),
                   ),
 
+                  //),
                   SizedBox(height: AppDimensions.dim34.h),
 
                   // second menu group
-                  Container(
-                    margin: EdgeInsets.symmetric(
+                  Padding(
+                    padding: EdgeInsets.symmetric(
                       horizontal: AppDimensions.dim24.w,
                     ),
-                    decoration: BoxDecoration(
-                      color: AppColors.white1A,
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radius_16.r,
-                      ),
-                       boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.05),
-                          blurRadius: AppDimensions.dim2.r,
-                          offset: Offset(
-                           AppDimensions.dim3.r, 
-                            AppDimensions.dim5.r),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radius_16.r,
                         ),
-                      ]
-                    ),
-                    child: Column(
-                      children:
-                          state.secondaryMenuItems
-                              .map(
-                                (item) => ProfileMenuItemWidget(
-                                  iconPath: item.iconPath,
-                                  title: item.title,
-                                  isRed: item.isRed,
-                                  onTap:
-                                      () => _handleNavigation(
-                                        context,
-                                        item.title,
-                                      ),
-                                ),
-                              )
-                              .toList(),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(
+                              0.10,
+                            ), // shadow color only
+                            blurRadius: 2.r,
+                            spreadRadius: 3.r,
+                            offset: Offset(3.5.r, 3.5.r), // even shadow
+                          ),
+                        ],
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color:
+                              AppColors
+                                  .white1A, // actual white container without shadow
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.radius_16.r,
+                          ),
+                        ),
+                        child: Column(
+                          children:
+                              state.secondaryMenuItems
+                                  .map(
+                                    (item) => ProfileMenuItemWidget(
+                                      iconPath: item.iconPath,
+                                      title: item.title,
+                                      isRed: item.isRed,
+                                      iconPathArrow: ("assets/arrow.png"),
+                                      onTap:
+                                          () => _handleNavigation(
+                                            context,
+                                            item.title,
+                                          ),
+                                    ),
+                                  )
+                                  .toList(),
+                        ),
+                      ),
                     ),
                   ),
 

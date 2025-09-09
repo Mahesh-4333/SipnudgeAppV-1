@@ -7,6 +7,7 @@ import 'package:flutterapp1/constants/app_font_styles.dart';
 class SupportButton extends StatelessWidget {
   final String iconPath;
   final String label;
+  final String iconpatharrow;
   final VoidCallback onPressed;
   final Color? iconColor;
 
@@ -14,6 +15,7 @@ class SupportButton extends StatelessWidget {
     super.key,
     required this.iconPath,
     required this.label,
+    required this.iconpatharrow,
     required this.onPressed,
     this.iconColor,
   });
@@ -21,6 +23,7 @@ class SupportButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: AppDimensions.dim60.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppDimensions.radius_100.r),
         boxShadow: [
@@ -46,8 +49,9 @@ class SupportButton extends StatelessWidget {
         ),
         child: Row(
           children: [
+            SizedBox(width: 12.w),
             Image.asset(iconPath, width: 24.w, height: 24.w, color: iconColor),
-            SizedBox(width: 16.w),
+            SizedBox(width: 18.w),
             Text(
               label,
               style: TextStyle(
@@ -64,11 +68,14 @@ class SupportButton extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Icon(
-              Icons.chevron_right,
+            Image.asset(
+              iconpatharrow,
               color: AppColors.black,
-              size: AppFontStyles.fontSize_24,
+              width: AppDimensions.dim9.w,
+              height: AppDimensions.dim16.h,
+              //size: AppFontStyles.fontSize_24,
             ),
+            SizedBox(width: AppDimensions.dim12.w),
           ],
         ),
       ),

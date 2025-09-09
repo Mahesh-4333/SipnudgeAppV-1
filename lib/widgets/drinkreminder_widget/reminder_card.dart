@@ -18,6 +18,14 @@ class ReminderCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white20,
         borderRadius: BorderRadius.circular(AppDimensions.radius_16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.10), // shadow color only
+            blurRadius: 2.r,
+            spreadRadius: 3.r,
+            offset: Offset(3.5.r, 3.5.r), // even shadow
+          ),
+        ],
       ),
       child: Column(children: children),
     );

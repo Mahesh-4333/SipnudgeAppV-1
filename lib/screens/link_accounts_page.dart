@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterapp1/constants/app_colors.dart';
 import 'package:flutterapp1/constants/app_dimensions.dart';
 import 'package:flutterapp1/constants/app_font_styles.dart';
+import 'package:flutterapp1/constants/app_strings.dart';
 import 'package:flutterapp1/cubit/linkaccounts/link_accounts_cubit.dart';
 import 'package:flutterapp1/cubit/linkaccounts/link_accounts_state.dart';
 import 'package:flutterapp1/helpers/navigation_helper.dart';
@@ -53,7 +54,7 @@ class LinkAccountsPage extends StatelessWidget {
                           ),
                           SizedBox(width: 70.w),
                           Text(
-                            'Link Accounts',
+                            AppStrings.linkaccounts,
                             style: TextStyle(
                               color: AppColors.white,
                               fontSize: AppFontStyles.fontSize_24.sp,

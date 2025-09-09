@@ -74,41 +74,62 @@ class PreferencesPage extends StatelessWidget {
                     // ✅ Menu Group
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: AppDimensions.dim20.w,
+                        horizontal: AppDimensions.dim28.w,
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColors.white1A,
                           borderRadius: BorderRadius.circular(
                             AppDimensions.dim16.r,
                           ),
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.black.withOpacity(0.25),
-                          //     offset: const Offset(4, 4),
-                          //     blurRadius: 8.r,
-                          //   ),
-                          // ],
-                        ),
-                        child: Column(
-                          children: [
-                            MenuItemTile(
-                              title: AppStrings.waterIntakeGoal,
-                              info: '2,500 mL',
-                            ),
-                            MenuItemTile(
-                              title: AppStrings.cupUnits,
-                              info: 'mL',
-                            ),
-                            MenuItemTile(
-                              title: AppStrings.weightUnit,
-                              info: 'kg',
-                            ),
-                            MenuItemTile(
-                              title: AppStrings.heightUnit,
-                              info: 'cm',
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(
+                                0.10,
+                              ), // shadow color only
+                              blurRadius: 2.r,
+                              spreadRadius: 3.r,
+                              offset: Offset(3.5.r, 3.5.r), // even shadow
                             ),
                           ],
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.white1A,
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.dim16.r,
+                            ),
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.black.withOpacity(0.25),
+                            //     offset: const Offset(4, 4),
+                            //     blurRadius: 8.r,
+                            //   ),
+                            // ],
+                          ),
+                          child: Column(
+                            children: [
+                              MenuItemTile(
+                                title: AppStrings.waterIntakeGoal,
+                                info: '2,500 mL',
+                                iconpatharrow: ("assets/arrow.png"),
+                              ),
+                              MenuItemTile(
+                                title: AppStrings.cupUnits,
+                                info: 'mL',
+                                iconpatharrow: ("assets/arrow.png"),
+                              ),
+                              MenuItemTile(
+                                title: AppStrings.weightUnit,
+                                info: 'kg',
+                                iconpatharrow: ("assets/arrow.png"),
+                              ),
+                              MenuItemTile(
+                                title: AppStrings.heightUnit,
+                                info: 'cm',
+                                iconpatharrow: ("assets/arrow.png"),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -118,36 +139,53 @@ class PreferencesPage extends StatelessWidget {
                     // ✅ Toggles
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: AppDimensions.dim20.w,
+                        horizontal: AppDimensions.dim28.w,
                       ),
                       child: Container(
-                        padding: EdgeInsets.all(AppDimensions.dim16.w),
                         decoration: BoxDecoration(
-                          color: AppColors.white1A,
                           borderRadius: BorderRadius.circular(
                             AppDimensions.dim16.r,
                           ),
-                        ),
-                        child: Column(
-                          children: [
-                            ToggleTile(
-                              title: AppStrings.hapticFeedback,
-                              value: state.hapticFeedback,
-                              onChanged: cubit.toggleHapticFeedback,
-                            ),
-                            SizedBox(height: AppDimensions.dim12.h),
-                            ToggleTile(
-                              title: AppStrings.wakeUpTimeAsAlarm,
-                              value: state.wakeUpAlarm,
-                              onChanged: cubit.toggleWakeUpAlarm,
-                            ),
-                            SizedBox(height: AppDimensions.dim12.h),
-                            ToggleTile(
-                              title: AppStrings.ledFeedback,
-                              value: state.ledFeedback,
-                              onChanged: cubit.toggleLedFeedback,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(
+                                0.10,
+                              ), // shadow color only
+                              blurRadius: 2.r,
+                              spreadRadius: 3.r,
+                              offset: Offset(3.5.r, 3.5.r), // even shadow
                             ),
                           ],
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(AppDimensions.dim16.w),
+                          decoration: BoxDecoration(
+                            color: AppColors.white1A,
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.dim16.r,
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              ToggleTile(
+                                title: AppStrings.hapticFeedback,
+                                value: state.hapticFeedback,
+                                onChanged: cubit.toggleHapticFeedback,
+                              ),
+                              SizedBox(height: AppDimensions.dim12.h),
+                              ToggleTile(
+                                title: AppStrings.wakeUpTimeAsAlarm,
+                                value: state.wakeUpAlarm,
+                                onChanged: cubit.toggleWakeUpAlarm,
+                              ),
+                              SizedBox(height: AppDimensions.dim12.h),
+                              ToggleTile(
+                                title: AppStrings.ledFeedback,
+                                value: state.ledFeedback,
+                                onChanged: cubit.toggleLedFeedback,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -156,7 +194,7 @@ class PreferencesPage extends StatelessWidget {
 
                     // ✅ Restart Button
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      padding: EdgeInsets.symmetric(horizontal: 28.w),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -174,7 +212,7 @@ class PreferencesPage extends StatelessWidget {
                             ),
                           ],
                           borderRadius: BorderRadius.circular(
-                            AppDimensions.radius_16.r,
+                            AppDimensions.radius_50.r,
                           ),
                         ),
                         child: ElevatedButton(
@@ -182,10 +220,10 @@ class PreferencesPage extends StatelessWidget {
                             // Add cubit reset logic if needed
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.sunset,
+                            backgroundColor: AppColors.peachOrange,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                AppDimensions.radius_16.r,
+                                AppDimensions.radius_50.r,
                               ),
                             ),
                             padding: EdgeInsets.symmetric(

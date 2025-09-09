@@ -24,23 +24,30 @@ class ToggleTile extends StatelessWidget {
           title,
           style: TextStyle(
             color: AppColors.white,
-            fontSize: AppFontStyles.fontSize_18.sp,
+            fontSize: AppFontStyles.fontSize_20.sp,
             fontFamily: AppFontStyles.urbanistFontFamily,
-            fontVariations: [
-                FontVariation(
-                  'wght',
-                  AppFontStyles.boldFontVariation.value,
-                ),
-              ],
+            fontVariations: [AppFontStyles.fontWeightVariation600],
           ),
         ),
-        Switch(
-          value: value,
-          onChanged: onChanged,
-          activeColor: Colors.white,
-          activeTrackColor: AppColors.purpleHeart,
-          inactiveThumbColor: AppColors.whitewithopacity90,
-          inactiveTrackColor: Colors.transparent,
+        SwitchTheme(
+          data: SwitchThemeData(
+            thumbColor: WidgetStateProperty.all(AppColors.white),
+            trackColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return AppColors.violetBlue;
+              }
+              return AppColors.tuna;
+            }),
+            trackOutlineColor: WidgetStateProperty.all(
+              Colors.white,
+            ), // 👈 White border
+            trackOutlineWidth: WidgetStateProperty.all(
+              1.5,
+            ), // 👈 Border thickness
+            splashRadius: 0,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          child: Switch(value: value, onChanged: onChanged),
         ),
       ],
     );

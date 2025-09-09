@@ -9,6 +9,7 @@ class ProfileMenuItemWidget extends StatelessWidget {
   final String iconPath;
   final String title;
   final bool isRed;
+  final String iconPathArrow;
   final VoidCallback onTap;
 
   const ProfileMenuItemWidget({
@@ -16,6 +17,7 @@ class ProfileMenuItemWidget extends StatelessWidget {
     required this.iconPath,
     required this.title,
     this.isRed = false,
+    required this.iconPathArrow,
     required this.onTap,
   });
 
@@ -34,8 +36,9 @@ class ProfileMenuItemWidget extends StatelessWidget {
           children: [
             Image.asset(
               iconPath,
-              width: 22.w,
-              height: 22.h,
+              width: AppDimensions.dim24.w,
+              height: AppDimensions.dim24.h,
+              fit: BoxFit.contain,
               color: isLogout ? AppColors.redAccent : AppColors.white,
               errorBuilder:
                   (_, __, ___) => Icon(
@@ -44,27 +47,26 @@ class ProfileMenuItemWidget extends StatelessWidget {
                     size: AppFontStyles.fontSize_22.sp,
                   ),
             ),
-            SizedBox(width: 16.w),
+            SizedBox(width: AppDimensions.dim16.w),
             Text(
               title,
               style: TextStyle(
                 color: isRed ? AppColors.redAccent : AppColors.white,
                 fontFamily: AppFontStyles.urbanistFontFamily,
                 fontVariations: [
-                  FontVariation(
-                    'wght',
-                    AppFontStyles.boldFontVariation.value,
-                  ),
+                  FontVariation('wght', AppFontStyles.boldFontVariation.value),
                 ],
                 fontSize: AppFontStyles.fontSize_18.sp,
               ),
             ),
             const Spacer(),
-            Icon(
-              Icons.chevron_right,
-              color: AppColors.white,
-              size: AppFontStyles.fontSize_24.sp,
-            ),
+            if (!isRed)
+              Image.asset(
+                iconPathArrow,
+                width: AppDimensions.dim9.w,
+                height: AppDimensions.dim16.h,
+                color: AppColors.white,
+              ),
           ],
         ),
       ),

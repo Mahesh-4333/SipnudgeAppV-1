@@ -65,33 +65,48 @@ class _AccountAndSecurityView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: AppDimensions.dim50.w),
-                    const Text(
-                      'Account & Security',
+                    Text(
+                      AppStrings.accountandsecurity,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontFamily: 'urbanist-Bold',
-                        fontWeight: FontWeight.w700,
+                        color: AppColors.white,
+                        fontSize: AppFontStyles.fontSize_24.sp,
+                        fontFamily: AppFontStyles.urbanistFontFamily,
+                        fontVariations: [AppFontStyles.boldFontVariation],
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 50.h),
+              SizedBox(height: AppDimensions.dim50.h),
 
               // Toggle Container
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.dim20.w,
+                ),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    vertical: 16.h,
-                    horizontal: 20.w,
+                    vertical: AppDimensions.dim16.h,
+                    horizontal: AppDimensions.dim20.w,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0x1AFFFFFF),
+                    color: AppColors.white1A,
                     borderRadius: BorderRadius.circular(
                       AppDimensions.radius_16.r,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.black.withOpacity(
+                          0.10,
+                        ), // shadow color only
+                        blurRadius: AppDimensions.radius_2.r,
+                        spreadRadius: AppDimensions.radius_3.r,
+                        offset: Offset(
+                          AppDimensions.radius_3.r,
+                          AppDimensions.radius_3.r,
+                        ), // even shadow
+                      ),
+                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +114,7 @@ class _AccountAndSecurityView extends StatelessWidget {
                       BlocBuilder<AccountSecurityCubit, AccountSecurityState>(
                         builder: (context, state) {
                           return ToggleTile(
-                            title: 'Biomatrics ID',
+                            title: AppStrings.biomatricsID,
                             value: state.biometricsEnabled,
                             onChanged:
                                 (val) => context
@@ -112,7 +127,7 @@ class _AccountAndSecurityView extends StatelessWidget {
                       BlocBuilder<AccountSecurityCubit, AccountSecurityState>(
                         builder: (context, state) {
                           return ToggleTile(
-                            title: 'Face ID',
+                            title: AppStrings.faceID,
                             value: state.faceIdEnabled,
                             onChanged:
                                 (val) => context
@@ -133,7 +148,7 @@ class _AccountAndSecurityView extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: AppDimensions.dim20.w,
+                      horizontal: AppDimensions.dim120.w,
                     ),
                     child: Container(
                       decoration: BoxDecoration(
@@ -143,10 +158,10 @@ class _AccountAndSecurityView extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.blackwithopacity25,
+                            color: AppColors.black.withOpacity(0.25),
                             offset: Offset(
-                              AppDimensions.radius_4.r,
-                              AppDimensions.radius_4.r,
+                              AppDimensions.radius_3.r,
+                              AppDimensions.radius_3.r,
                             ),
                             blurRadius: AppDimensions.radius_4.r,
                           ),
@@ -157,7 +172,9 @@ class _AccountAndSecurityView extends StatelessWidget {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           //backgroundColor: Colors.transparent,
-                          backgroundColor: AppColors.lightTerraCotta.withOpacity(0.10),
+                          backgroundColor: AppColors.firebrick.withOpacity(
+                            0.42,
+                          ),
                           padding: EdgeInsets.symmetric(
                             vertical: AppDimensions.dim5.h,
                           ),
@@ -172,12 +189,9 @@ class _AccountAndSecurityView extends StatelessWidget {
                           style: TextStyle(
                             fontSize: AppFontStyles.fontSize_20,
                             fontVariations: [
-                              FontVariation(
-                                'wght',
-                                AppFontStyles.semiBoldFontVariation.value,
-                              ),
+                              AppFontStyles.semiBoldFontVariation,
                             ],
-                            color: AppColors.mangoorange,
+                            color: AppColors.lightSalmon,
                             fontFamily: AppFontStyles.urbanistFontFamily,
                           ),
                         ),
@@ -192,13 +206,8 @@ class _AccountAndSecurityView extends StatelessWidget {
                       AppStrings.accountremove,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: AppFontStyles.fontSize_12,
-                        fontVariations: [
-                          FontVariation(
-                            'wght',
-                            AppFontStyles.regularFontVariation.value,
-                          ),
-                        ],
+                        fontSize: AppFontStyles.fontSize_12.sp,
+                        fontVariations: [AppFontStyles.regularFontVariation],
                         color: AppColors.white,
                         fontFamily: AppFontStyles.urbanistFontFamily,
                       ),
@@ -207,18 +216,7 @@ class _AccountAndSecurityView extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              // Bottom Spacing
-              // BlocBuilder<AccountSecurityCubit, AccountSecurityState>(
-              //   builder: (context, state) {
-              //     return CustomBottomNavBar(
-              //       activeTab: 'Home',
-              //       onTabSelected: (label) {
-              //         context.read<AccountSecurityCubit>().updateTab(label);
-              //         NavigationHelper.navigate(context, label);
-              //       },
-              //     );
-              //   },
-              // ),
+
               Positioned(
                 left: AppDimensions.dim6.w,
                 right: AppDimensions.dim6.w,

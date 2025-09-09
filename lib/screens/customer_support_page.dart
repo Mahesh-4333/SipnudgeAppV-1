@@ -80,24 +80,28 @@ class CustomerSupportPage extends StatelessWidget {
                       SupportButton(
                         iconPath: 'assets/customersupporticon.png',
                         label: 'Customer Support',
+                        iconpatharrow: ("assets/arrow.png"),
                         onPressed: () {},
                       ),
                       SizedBox(height: AppDimensions.dim20.h),
                       SupportButton(
                         iconPath: 'assets/websiteicon.png',
                         label: 'Website',
+                        iconpatharrow: ("assets/arrow.png"),
                         onPressed: () {},
                       ),
                       SizedBox(height: AppDimensions.dim20.h),
                       SupportButton(
                         iconPath: 'assets/whatsappicon.png',
                         label: 'WhatsApp',
+                        iconpatharrow: ("assets/arrow.png"),
                         onPressed: () {},
                       ),
                       SizedBox(height: AppDimensions.dim20.h),
                       SupportButton(
                         iconPath: 'assets/instaicon.png',
                         label: 'Instagram',
+                        iconpatharrow: ("assets/arrow.png"),
                         onPressed: () {},
                       ),
                     ],

@@ -7,12 +7,14 @@ import 'package:flutterapp1/constants/app_font_styles.dart';
 class HelpMenuItem extends StatelessWidget {
   final String title;
   final String route;
+  final String iconPathArrow;
   final bool isRed;
 
   const HelpMenuItem({
     super.key,
     required this.title,
     required this.route,
+    required this.iconPathArrow,
     this.isRed = false,
   });
 
@@ -30,17 +32,20 @@ class HelpMenuItem extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: isRed ? AppColors.redAccent : AppColors.white,
+                color: AppColors.white,
+                fontSize: AppFontStyles.fontSize_20.sp,
                 fontFamily: AppFontStyles.urbanistFontFamily,
-                fontSize: AppFontStyles.fontSize_18.sp,
+                fontVariations: [AppFontStyles.fontWeightVariation600],
               ),
             ),
             const Spacer(),
-            Icon(
-              Icons.chevron_right,
+            Image.asset(
+              iconPathArrow,
               color: AppColors.white,
-              size: AppFontStyles.fontSize_24.sp,
+              width: AppDimensions.dim9.w,
+              height: AppDimensions.dim16.h,
             ),
+            SizedBox(width: AppDimensions.dim8.w),
           ],
         ),
       ),

@@ -8,6 +8,7 @@ class ReminderListItem extends StatelessWidget {
   final String title;
   final String trailing;
   final VoidCallback onTap;
+  final String iconPathArrow;
   final bool showCapsule;
 
   const ReminderListItem({
@@ -15,6 +16,7 @@ class ReminderListItem extends StatelessWidget {
     required this.title,
     required this.trailing,
     required this.onTap,
+    required this.iconPathArrow,
     this.showCapsule = false,
   });
 
@@ -23,7 +25,11 @@ class ReminderListItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: AppDimensions.dim8.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimensions.dim10.w,
+          vertical: AppDimensions.dim10.h,
+        ),
+        //padding: EdgeInsets.symmetric(vertical: AppDimensions.dim8.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -36,7 +42,7 @@ class ReminderListItem extends StatelessWidget {
                 fontVariations: [
                   FontVariation(
                     'wght',
-                    AppFontStyles.boldFontVariation.value,
+                    AppFontStyles.fontWeightVariation600.value,
                   ),
                 ],
               ),
@@ -59,12 +65,7 @@ class ReminderListItem extends StatelessWidget {
                     color: AppColors.white,
                     fontSize: AppFontStyles.fontSize_14.sp,
                     fontFamily: AppFontStyles.urbanistFontFamily,
-                    fontVariations: [
-                      FontVariation(
-                        'wght',
-                        AppFontStyles.semiBoldFontVariation.value,
-                      ),
-                    ],
+                    fontVariations: [AppFontStyles.fontWeightVariation600],
                   ),
                 ),
               )
@@ -78,19 +79,15 @@ class ReminderListItem extends StatelessWidget {
                         color: AppColors.white,
                         fontSize: AppFontStyles.fontSize_16.sp,
                         fontFamily: AppFontStyles.urbanistFontFamily,
-                        fontVariations: [
-                          FontVariation(
-                            'wght',
-                            AppFontStyles.semiBoldFontVariation.value,
-                          ),
-                        ],
+                        fontVariations: [AppFontStyles.fontWeightVariation600],
                       ),
                     ),
-                  SizedBox(width: AppDimensions.dim8.w),
-                  Icon(
-                    Icons.chevron_right,
+                  SizedBox(width: AppDimensions.dim10.w),
+                  Image.asset(
+                    iconPathArrow,
+                    width: AppDimensions.dim9.w,
+                    height: AppDimensions.dim16.h,
                     color: AppColors.white,
-                    size: AppFontStyles.fontSize_20.sp,
                   ),
                 ],
               ),

@@ -30,16 +30,16 @@ class ProfileCubit extends Cubit<ProfileState> {
               title: "Data & Analytics",
             ),
             ProfileMenuItem(
-              iconPath: "assets/acc_security.png",
-              title: "Account & Security",
-            ),
-            ProfileMenuItem(
               iconPath: "assets/link_account.png",
               title: "Linked Accounts",
             ),
             ProfileMenuItem(
               iconPath: "assets/help_support.png",
               title: "Help & Support",
+            ),
+            ProfileMenuItem(
+              iconPath: "assets/acc_security.png",
+              title: "Account & Security",
             ),
             ProfileMenuItem(
               iconPath: "assets/logout.png",

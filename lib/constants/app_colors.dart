@@ -54,6 +54,7 @@ class AppColors {
   static const whitewithopacity90 = Color(0x90FFFFFF);
   static const raisinblack = Color(0xFF212121);
   static const mangoorange = Color(0xFFFC813A);
+  static const lightSalmon = Color(0xFFFFA876);
   static const salmonwithopacity22 = Color(0x22EA966F);
   static const blackwithopacity25 = Color(0x25000000);
   static const whitewithopactiy12 = Color(0x12FFFFFF);
@@ -87,4 +88,12 @@ class AppColors {
   static const lavenderPinocchio = Color(0xFFE0E0E0);
   static const white60 = Color(0x60FFFFFF);
   static const lightTerraCotta = Color(0xFFEA966F);
+  static const tuna = Color(0xFF35383F);
+  static const gray400 = Color(0xFFBDBDBD);
+  static const lightBlue400 = Color(0xFF369FFF);
+  static const peachOrange = Color(0xFFFFD089);
+  static const lavender = Color(0xFFC581EB);
+  static const darkLavender = Color(0xFF7F7187);
+  static const firebrick = Color(0xFF821919);
+  static const firebrick42 = Color(0x42821919);
 }
