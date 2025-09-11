@@ -14,9 +14,14 @@ import 'package:flutterapp1/widgets/level_widgets/level_grid.dart';
 
 import '../levelreached.dart'; // for showLevelUpDialog
 
-class BadgeWithConcentricBackground extends StatelessWidget {
-  const BadgeWithConcentricBackground({super.key});
+class Achievement extends StatefulWidget {
+  const Achievement({super.key});
 
+  @override
+  State<Achievement> createState() => _AchievementState();
+}
+
+class _AchievementState extends State<Achievement> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LevelCubit, LevelState>(
@@ -53,7 +58,7 @@ class BadgeWithConcentricBackground extends StatelessWidget {
                                 onPressed: () => Navigator.pop(context),
                                 icon: Icon(
                                   Icons.arrow_back,
-                                  color: Colors.black,
+                                  color: AppColors.raisinblack,
                                   size: 30.sp,
                                 ),
                               ),
@@ -133,7 +138,7 @@ class BadgeWithConcentricBackground extends StatelessWidget {
                             ),
                             // Congrats text
                             Positioned(
-                              top: AppDimensions.dim338.h,
+                              top: AppDimensions.dim358.h,
                               left: AppDimensions.dim20.w,
                               right: AppDimensions.dim20.w,
                               child: Column(
@@ -147,10 +152,7 @@ class BadgeWithConcentricBackground extends StatelessWidget {
                                           AppFontStyles.urbanistFontFamily,
                                       fontSize: AppFontStyles.fontSize_20.sp,
                                       fontVariations: [
-                                        FontVariation(
-                                          'wght',
-                                          AppFontStyles.boldFontVariation.value,
-                                        ),
+                                          AppFontStyles.boldFontVariation,
                                       ],
                                     ),
                                   ),
@@ -162,12 +164,8 @@ class BadgeWithConcentricBackground extends StatelessWidget {
                                       fontFamily:
                                           AppFontStyles.urbanistFontFamily,
                                       fontVariations: [
-                                        FontVariation(
-                                          'wght',
                                           AppFontStyles
                                               .semiBoldFontVariation
-                                              .value,
-                                        ),
                                       ],
                                       color: AppColors.whitewithopactiy50,
                                       fontSize: AppFontStyles.fontSize_14.sp,

@@ -76,111 +76,127 @@ class _FAQPageView extends StatelessWidget {
                                 state.isExpandedMap[state.selectedCategory]!;
 
                             return Column(
-                              children: List.generate(categoryFaqs.length, (
-                                index,
-                              ) {
+                              children: List.generate(categoryFaqs.length,
+                                  (index) {
                                 final question =
                                     categoryFaqs[index]['question']!;
-                                final answer = categoryFaqs[index]['answer']!;
+                                final answer =
+                                    categoryFaqs[index]['answer']!;
                                 final isExpanded = expandedMap[index];
 
                                 return Column(
                                   children: [
-                                    Container(
-                                      width: AppDimensions.dim380.w,
-                                      padding: EdgeInsets.all(
-                                        AppDimensions.dim20.w,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            AppColors.bottomSheetGradientStart,
-                                        borderRadius: BorderRadius.circular(
-                                          AppDimensions.radius_16.r,
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppColors.black.withOpacity(
-                                              0.25,
-                                            ),
-                                            blurRadius:
+                                    /// Whole Container Tappable
+                                    GestureDetector(
+                                      onTap: () =>
+                                          cubit.toggleExpansion(index),
+                                      child: Container(
+                                        width: AppDimensions.dim380.w,
+                                        padding: EdgeInsets.all(
+                                            AppDimensions.dim20.w),
+                                        decoration: BoxDecoration(
+                                          color: AppColors
+                                              .bottomSheetGradientStart,
+                                          borderRadius:
+                                              BorderRadius.circular(
+                                                  AppDimensions.radius_16.r),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppColors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius:
+                                                  AppDimensions.radius_4.r,
+                                              offset: Offset(
                                                 AppDimensions.radius_4.r,
-                                            offset: Offset(
-                                              AppDimensions.radius_4.r,
-                                              AppDimensions.radius_4.r,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  question,
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        AppFontStyles
-                                                            .urbanistFontFamily,
-                                                    fontVariations: [
-                                                      AppFontStyles
-                                                          .fontWeightVariation600,
-                                                    ],
-                                                    fontSize:
-                                                        AppFontStyles
-                                                            .fontSize_18
-                                                            .sp,
-                                                    color: AppColors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                              GestureDetector(
-                                                onTap:
-                                                    () => cubit.toggleExpansion(
-                                                      index,
-                                                    ),
-                                                child: Icon(
-                                                  isExpanded
-                                                      ? Icons.expand_less
-                                                      : Icons.expand_more,
-                                                  color: AppColors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: AppDimensions.dim10.h,
-                                          ),
-                                          if (isExpanded) ...[
-                                            const Divider(
-                                              color: AppColors.white,
-                                            ),
-                                            SizedBox(
-                                              height: AppDimensions.dim10.h,
-                                            ),
-                                            Text(
-                                              answer,
-                                              style: TextStyle(
-                                                fontFamily:
-                                                    AppFontStyles
-                                                        .urbanistFontFamily,
-                                                fontVariations: [
-                                                  AppFontStyles
-                                                      .semiBoldFontVariation,
-                                                ],
-                                                fontSize:
-                                                    AppFontStyles
-                                                        .fontSize_16
-                                                        .sp,
-                                                color: AppColors.white,
-                                                letterSpacing: 0.2.sp,
-                                                height: 1.5,
+                                                AppDimensions.radius_4.r,
                                               ),
                                             ),
                                           ],
-                                        ],
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    question,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          AppFontStyles
+                                                              .urbanistFontFamily,
+                                                      fontVariations: [
+                                                        AppFontStyles
+                                                            .fontWeightVariation600,
+                                                      ],
+                                                      fontSize:
+                                                          AppFontStyles
+                                                              .fontSize_18.sp,
+                                                      color: AppColors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Image.asset(
+                                                  isExpanded
+                                                      ? 'assets/expand_less.png'
+                                                      : 'assets/expand_more.png',
+                                                  width:
+                                                      AppDimensions.dim16.w,
+                                                  height:
+                                                      AppDimensions.dim16.h,
+                                                ),
+                                                SizedBox(
+                                                    width: AppDimensions
+                                                        .dim8.w),
+                                              ],
+                                            ),
+                                            /// Animated Expand/Collapse
+                                            AnimatedSize(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              curve: Curves.easeInOut,
+                                              child: isExpanded
+                                                  ? Column(
+                                                      children: [
+                                                        SizedBox(
+                                                            height:
+                                                                AppDimensions
+                                                                    .dim10.h),
+                                                        const Divider(
+                                                            color: AppColors
+                                                                .white),
+                                                        SizedBox(
+                                                            height:
+                                                                AppDimensions
+                                                                    .dim10.h),
+                                                        Text(
+                                                          answer,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                AppFontStyles
+                                                                    .urbanistFontFamily,
+                                                            fontVariations: [
+                                                              AppFontStyles
+                                                                  .semiBoldFontVariation,
+                                                            ],
+                                                            fontSize:
+                                                                AppFontStyles
+                                                                    .fontSize_16
+                                                                    .sp,
+                                                            color: AppColors
+                                                                .white,
+                                                            letterSpacing:
+                                                                0.2.sp,
+                                                            height: 1.5,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : const SizedBox.shrink(),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     SizedBox(height: AppDimensions.dim20.h),
@@ -217,6 +233,7 @@ class _FAQPageView extends StatelessWidget {
     );
   }
 
+  /// ----------------- Header -----------------
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
@@ -253,6 +270,7 @@ class _FAQPageView extends StatelessWidget {
     );
   }
 
+  /// ----------------- Search Box -----------------
   Widget _buildSearchBox(FaqCubit cubit) {
     final controller = TextEditingController();
 
@@ -301,13 +319,12 @@ class _FAQPageView extends StatelessWidget {
                       letterSpacing: 0.2.sp,
                     ),
                     border: InputBorder.none,
-                    suffixIcon:
-                        state.searchQuery.isNotEmpty
-                            ? IconButton(
-                              icon: const Icon(Icons.clear, color: Colors.grey),
-                              onPressed: () => cubit.filterSearch(''),
-                            )
-                            : null,
+                    suffixIcon: state.searchQuery.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear, color: Colors.grey),
+                            onPressed: () => cubit.filterSearch(''),
+                          )
+                        : null,
                   ),
                 ),
               ),
@@ -318,6 +335,7 @@ class _FAQPageView extends StatelessWidget {
     );
   }
 
+  /// ----------------- Category Selector -----------------
   Widget _buildCategorySelector(BuildContext context) {
     final cubit = context.read<FaqCubit>();
 
@@ -330,53 +348,44 @@ class _FAQPageView extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children:
-                  categories.map((label) {
-                    final bool isSelected = state.selectedCategory == label;
-                    return Padding(
-                      padding: EdgeInsets.only(right: AppDimensions.dim12.w),
-                      child: GestureDetector(
-                        onTap: () => cubit.selectCategory(label),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: AppDimensions.dim28.w,
-                            vertical: AppDimensions.dim12.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color:
-                                isSelected
-                                    ? AppColors.lightBlue400
-                                    : Colors.transparent,
-                            borderRadius: BorderRadius.circular(
-                              AppDimensions.radius_30.r,
-                            ),
-                            border:
-                                isSelected
-                                    ? Border.all(
-                                      color: AppColors.white,
-                                      width: AppDimensions.dim1.w,
-                                    )
-                                    : Border.all(
-                                      color: AppColors.white,
-                                      width: AppDimensions.dim1.w,
-                                    ),
-                          ),
-                          child: Text(
-                            label,
-                            style: TextStyle(
-                              fontSize: AppFontStyles.fontSize_16.sp,
-                              color: AppColors.white,
-                              fontFamily: AppFontStyles.urbanistFontFamily,
-                              fontVariations: [
-                                AppFontStyles.fontWeightVariation600,
-                              ],
-                              letterSpacing: 0.2.sp,
-                            ),
-                          ),
+              children: categories.map((label) {
+                final bool isSelected = state.selectedCategory == label;
+                return Padding(
+                  padding: EdgeInsets.only(right: AppDimensions.dim12.w),
+                  child: GestureDetector(
+                    onTap: () => cubit.selectCategory(label),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.dim28.w,
+                        vertical: AppDimensions.dim12.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? AppColors.lightBlue400
+                            : Colors.transparent,
+                        borderRadius:
+                            BorderRadius.circular(AppDimensions.radius_30.r),
+                        border: Border.all(
+                          color: AppColors.white,
+                          width: AppDimensions.dim1.w,
                         ),
                       ),
-                    );
-                  }).toList(),
+                      child: Text(
+                        label,
+                        style: TextStyle(
+                          fontSize: AppFontStyles.fontSize_16.sp,
+                          color: AppColors.white,
+                          fontFamily: AppFontStyles.urbanistFontFamily,
+                          fontVariations: [
+                            AppFontStyles.fontWeightVariation600,
+                          ],
+                          letterSpacing: 0.2.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );

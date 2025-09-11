@@ -15,7 +15,7 @@ import 'package:flutterapp1/cubit/reminder time&mode/reminder_mode_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/reminder_time_cubit.dart';
 import 'package:flutterapp1/cubit/reminder time&mode/water_intake_timeline_cubit.dart';
 import 'package:flutterapp1/dailygoalpage.dart';
-import 'package:flutterapp1/faq.dart';
+// import 'package:flutterapp1/faq.dart';
 import 'package:flutterapp1/forgotpassword.dart';
 import 'package:flutterapp1/forgotpwdotppage.dart';
 import 'package:flutterapp1/homeanalysis.dart';
@@ -28,6 +28,7 @@ import 'package:flutterapp1/personalinfo.dart';
 import 'package:flutterapp1/privacy_policy.dart';
 import 'package:flutterapp1/screens/account&security_page.dart';
 import 'package:flutterapp1/screens/achievement.dart';
+// import 'package:flutterapp1/screens/achievement.dart';
 import 'package:flutterapp1/screens/customer_support_page.dart';
 import 'package:flutterapp1/screens/dataAndAnalyticsPage.dart';
 import 'package:flutterapp1/screens/drink_reminder_page.dart';
@@ -103,7 +104,7 @@ class MyApp extends StatelessWidget {
               '/contact_support': (context) => CustomerSupportPage(),
               '/account_security': (context) => AccountAndSecurityPage(),
               '/analysis': (context) => HomeAnalysisPage(),
-              '/achievement': (context) => BadgeWithConcentricBackground(),
+              '/achievement': (context) => Achievement(),
               '/waterintaketimeline': (context) => WaterIntakeTimeline(),
               '/faq': (context) => FAQ_Page(),
               '/privacypolicy': (context) => PrivacyPolicy(),
